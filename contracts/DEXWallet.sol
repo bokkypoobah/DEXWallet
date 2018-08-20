@@ -50,7 +50,10 @@ contract DEXWallet is Owned {
 }
 
 
-// ---------- BELOW FROM https://github.com/optionality/clone-factory/blob/edd18bd4146cb012fa13ef7535c2ecce01767ece/contracts/CloneFactory.sol ----------
+// ----------------------------------------------------------------------------
+// CloneFactory contract
+// https://github.com/optionality/clone-factory/blob/edd18bd4146cb012fa13ef7535c2ecce01767ece/contracts/CloneFactory.sol
+// ----------------------------------------------------------------------------
 /*
 The MIT License (MIT)
 
@@ -97,6 +100,9 @@ contract CloneFactory {
 }
 
 
+// ----------------------------------------------------------------------------
+// DEXWalletFactory contract
+// ----------------------------------------------------------------------------
 contract DEXWalletFactory is CloneFactory, Owned {
     DEXWallet public walletTemplate;
 
@@ -119,5 +125,8 @@ contract DEXWalletFactory is CloneFactory, Owned {
         wallets.push(newWallet);
         ownedWallets[msg.sender].push(newWallet);
         emit WalletCreated(_owner, address(newWallet));
+    }
+    function numberOfWallets() public view returns (uint) {
+        return wallets.length;
     }
 }
