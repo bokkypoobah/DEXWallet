@@ -28,11 +28,14 @@ library Orders {
         require(!self.initialised);
         self.initialised = true;
     }
+    function getKey(address fromToken, address toToken, uint price) internal pure returns (bytes32) {
+        return keccak256(abi.encodePacked(fromToken, toToken, price));
+    }
     function exists(Data storage self, bytes32 key) internal view returns (bool) {
         return self.orders[key].fromToken != address(0);
     }
     function add(Data storage self, address fromToken, address toToken, uint price, uint amount) internal returns (bytes32) {
-        bytes32 key = keccak256(abi.encodePacked(fromToken, toToken, price, amount));
+        bytes32 key = getKey(fromToken, toToken, price);
         require(self.orders[key].fromToken != address(0));
         self.index.push(key);
         self.orders[key] = Order(fromToken, toToken, price, amount, self.index.length - 1);
@@ -62,11 +65,18 @@ library Orders {
 // DEXWallet contract
 // ----------------------------------------------------------------------------
 contract DEXWallet is Owned {
+    using Orders for Orders.Data;
+
     uint public xyz = 123;
     address public owner;
+    Orders.Data orders;
     // token => price => approved
-    mapping(address => mapping(uint => uint)) orders;
+    // mapping(address => mapping(uint => uint)) orders;
     bool initialised;
+
+    // Copied from Orders library so it is presented in the ABI
+    event OrderAdded(bytes32 indexed key, address fromToken, address toToken, uint price, uint amount, uint totalAfter);
+    event OrderRemoved(bytes32 indexed key, address fromToken, address toToken, uint price, uint amount, uint totalAfter);
 
     function init(address _owner) public {
         require(!initialised);
@@ -74,19 +84,28 @@ contract DEXWallet is Owned {
         initialised = true;
     }
 
-    function addOrder(address token, uint price, uint amount) public {
-        orders[token][price] = amount;
+    function getOrderKey(address fromToken, address toToken, uint price) public pure returns (bytes32) {
+        return Orders.getKey(fromToken, toToken, price);
     }
+    function addOrder(address fromToken, address toToken, uint price, uint amount) public returns (bytes32) {
+        return orders.add(fromToken, toToken, price, amount);
+    }
+    function removeOrder(bytes32 key) public {
+        orders.remove(key);
+    }
+    /*
     function updateOrderAmount(address token, uint price, uint newAmount) public {
-        orders[token][price] = newAmount;
+        // orders[token][price] = newAmount;
     }
     function updateOrderPrice(address token, uint oldPrice, uint newPrice) public {
-        uint amount = orders[token][oldPrice];
-        orders[token][oldPrice] = 0;
-        orders[token][newPrice] = amount;
+        // uint amount = orders[token][oldPrice];
+        // orders[token][oldPrice] = 0;
+        // orders[token][newPrice] = amount;
     }
-    function getOrder(address token, uint price) public view returns (uint) {
-        return orders[token][price];
+    */
+    function getOrder(bytes32 key) public view returns (address _fromToken, address _toToken, uint _price, uint _amount) {
+        Orders.Order memory order = orders.orders[key];
+        return (order.fromToken, order.toToken, order.price, order.amount);
     }
 }
 
