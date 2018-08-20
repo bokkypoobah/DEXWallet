@@ -30,7 +30,7 @@ find ./modifiedContracts -type f -name \* -exec cp {} . \;
 # --- Modify parameters ---
 #`perl -pi -e "s/AddressControlStatus addressControlStatus;/AddressControlStatus public addressControlStatus;/" Kyc.sol`
 
-DIFFS1=`diff -r -x '*.js' -x '*.json' -x '*.txt' -x 'testchain' -x '*.md -x' -x '*.sh' -x 'settings' -x 'modifiedContracts' $SOURCEDIR .`
+DIFFS1=`diff -r -x '*.js' -x '*.json' -x '*.txt' -x 'testchain' -x '*.md' -x '*.sh' -x 'settings' -x 'modifiedContracts' $SOURCEDIR .`
 echo "--- Differences $SOURCEDIR/*.sol *.sol ---" | tee -a $TEST1OUTPUT
 echo "$DIFFS1" | tee -a $TEST1OUTPUT
 
@@ -176,13 +176,45 @@ addAccount(user1WalletAddress, "User1 DEXWallet");
 addAccount(user2WalletAddress, "User2 DEXWallet");
 addAccount(user3WalletAddress, "User3 DEXWallet");
 printBalances();
-failIfTxStatusError(deployWallets1_1Tx, deployWallets1Message + " user1 newDEXWallet");
-failIfTxStatusError(deployWallets1_2Tx, deployWallets1Message + " user2 newDEXWallet");
-failIfTxStatusError(deployWallets1_3Tx, deployWallets1Message + " user3 newDEXWallet");
+failIfTxStatusError(deployWallets1_1Tx, deployWallets1Message + " - user1 newDEXWallet");
+failIfTxStatusError(deployWallets1_2Tx, deployWallets1Message + " - user2 newDEXWallet");
+failIfTxStatusError(deployWallets1_3Tx, deployWallets1Message + " - user3 newDEXWallet");
 printTxData("deployWallets1_1Tx", deployWallets1_1Tx);
 printTxData("deployWallets1_2Tx", deployWallets1_2Tx);
 printTxData("deployWallets1_3Tx", deployWallets1_3Tx);
 printDEXWalletFactoryContractDetails();
+console.log("RESULT: ");
+
+
+// -----------------------------------------------------------------------------
+var distributedTokensMessage = "Distribute Tokens #1";
+var tokenAAmount = new BigNumber("1000").shift(tokenADecimals);
+var tokenBAmount = new BigNumber("10000").shift(tokenBDecimals);
+// -----------------------------------------------------------------------------
+console.log("RESULT: ----- " + distributedTokensMessage + " -----");
+var distributedTokens_1Tx = tokenA.mint(user1WalletAddress, tokenAAmount, {from: deployer, gas: 2000000, gasPrice: defaultGasPrice});
+var distributedTokens_2Tx = tokenA.mint(user2WalletAddress, tokenAAmount, {from: deployer, gas: 2000000, gasPrice: defaultGasPrice});
+var distributedTokens_3Tx = tokenA.mint(user3WalletAddress, tokenAAmount, {from: deployer, gas: 2000000, gasPrice: defaultGasPrice});
+var distributedTokens_4Tx = tokenB.mint(user1WalletAddress, tokenBAmount, {from: deployer, gas: 2000000, gasPrice: defaultGasPrice});
+var distributedTokens_5Tx = tokenB.mint(user2WalletAddress, tokenBAmount, {from: deployer, gas: 2000000, gasPrice: defaultGasPrice});
+var distributedTokens_6Tx = tokenB.mint(user3WalletAddress, tokenBAmount, {from: deployer, gas: 2000000, gasPrice: defaultGasPrice});
+while (txpool.status.pending > 0) {
+}
+printBalances();
+failIfTxStatusError(distributedTokens_1Tx, distributedTokensMessage + " - tokenA.mint(user1Wallet, " + tokenAAmount.shift(-tokenADecimals) + ")");
+failIfTxStatusError(distributedTokens_2Tx, distributedTokensMessage + " - tokenA.mint(user2Wallet, " + tokenAAmount.shift(-tokenADecimals) + ")");
+failIfTxStatusError(distributedTokens_3Tx, distributedTokensMessage + " - tokenA.mint(user3Wallet, " + tokenAAmount.shift(-tokenADecimals) + ")");
+failIfTxStatusError(distributedTokens_4Tx, distributedTokensMessage + " - tokenB.mint(user1Wallet, " + tokenBAmount.shift(-tokenBDecimals) + ")");
+failIfTxStatusError(distributedTokens_5Tx, distributedTokensMessage + " - tokenB.mint(user2Wallet, " + tokenBAmount.shift(-tokenBDecimals) + ")");
+failIfTxStatusError(distributedTokens_6Tx, distributedTokensMessage + " - tokenB.mint(user3Wallet, " + tokenBAmount.shift(-tokenBDecimals) + ")");
+printTxData("distributedTokens_1Tx", distributedTokens_1Tx);
+printTxData("distributedTokens_2Tx", distributedTokens_2Tx);
+printTxData("distributedTokens_3Tx", distributedTokens_3Tx);
+printTxData("distributedTokens_4Tx", distributedTokens_4Tx);
+printTxData("distributedTokens_5Tx", distributedTokens_5Tx);
+printTxData("distributedTokens_6Tx", distributedTokens_6Tx);
+printTokenAContractDetails();
+printTokenBContractDetails();
 console.log("RESULT: ");
 
 
