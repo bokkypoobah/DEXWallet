@@ -40,6 +40,7 @@ solc_0.4.24 --version | tee -a $TEST1OUTPUT
 echo "var dexWalletOutput=`solc_0.4.24 --allow-paths . --optimize --pretty-json --combined-json abi,bin,interface $DEXWALLETSOL`;" > $DEXWALLETJS
 echo "var mintableTokenOutput=`solc_0.4.24 --allow-paths . --optimize --pretty-json --combined-json abi,bin,interface $MINTABLETOKENSOL`;" > $MINTABLETOKENJS
 
+
 geth --verbosity 3 attach $GETHATTACHPOINT << EOF | tee -a $TEST1OUTPUT
 loadScript("$DEXWALLETJS");
 loadScript("$MINTABLETOKENJS");
