@@ -38,19 +38,26 @@ echo "$DIFFS1" | tee -a $TEST1OUTPUT
 solc_0.4.24 --version | tee -a $TEST1OUTPUT
 
 echo "var dexWalletOutput=`solc_0.4.24 --allow-paths . --optimize --pretty-json --combined-json abi,bin,interface $DEXWALLETSOL`;" > $DEXWALLETJS
+echo "var mintableTokenOutput=`solc_0.4.24 --allow-paths . --optimize --pretty-json --combined-json abi,bin,interface $MINTABLETOKENSOL`;" > $MINTABLETOKENJS
 
 geth --verbosity 3 attach $GETHATTACHPOINT << EOF | tee -a $TEST1OUTPUT
 loadScript("$DEXWALLETJS");
+loadScript("$MINTABLETOKENJS");
 loadScript("lookups.js");
 loadScript("functions.js");
 
 var dexWalletAbi = JSON.parse(dexWalletOutput.contracts["$DEXWALLETSOL:DEXWallet"].abi);
 var dexWalletFactoryAbi = JSON.parse(dexWalletOutput.contracts["$DEXWALLETSOL:DEXWalletFactory"].abi);
 var dexWalletFactoryBin = "0x" + dexWalletOutput.contracts["$DEXWALLETSOL:DEXWalletFactory"].bin;
+var mintableTokenAbi = JSON.parse(mintableTokenOutput.contracts["$MINTABLETOKENSOL:MintableToken"].abi);
+var mintableTokenBin = "0x" + mintableTokenOutput.contracts["$MINTABLETOKENSOL:MintableToken"].bin;
 
 // console.log("DATA: dexWalletAbi=" + JSON.stringify(dexWalletAbi));
 // console.log("DATA: dexWalletFactoryAbi=" + JSON.stringify(dexWalletFactoryAbi));
 // console.log("DATA: dexWalletFactoryBin=" + JSON.stringify(dexWalletFactoryBin));
+// console.log("DATA: mintableTokenAbi=" + JSON.stringify(mintableTokenAbi));
+// console.log("DATA: mintableTokenBin=" + JSON.stringify(mintableTokenBin));
+
 
 unlockAccounts("$PASSWORD");
 printBalances();
@@ -58,9 +65,17 @@ console.log("RESULT: ");
 
 
 // -----------------------------------------------------------------------------
-var deployFactoryMessage = "Deploy Factory";
+var deployGroup1Message = "Deploy Group #1";
+var tokenASymbol = "TOKA";
+var tokenAName = "Token A";
+var tokenADecimals = 18;
+var tokenAInitialSupply = 0;
+var tokenBSymbol = "TOKB";
+var tokenBName = "Token B";
+var tokenBDecimals = 18;
+var tokenBInitialSupply = 0;
 // -----------------------------------------------------------------------------
-console.log("RESULT: ---------- " + deployFactoryMessage + " ----------");
+console.log("RESULT: ---------- " + deployGroup1Message + " ----------");
 var dexWalletFactoryContract = web3.eth.contract(dexWalletFactoryAbi);
 var dexWalletFactoryTx = null;
 var dexWalletFactoryAddress = null;
@@ -80,12 +95,56 @@ var dexWalletFactory = dexWalletFactoryContract.new({from: deployer, data: dexWa
     }
   }
 );
+var tokenAContract = web3.eth.contract(mintableTokenAbi);
+var tokenATx = null;
+var tokenAAddress = null;
+var tokenA = tokenAContract.new(tokenASymbol, tokenAName, tokenADecimals, deployer, tokenAInitialSupply, {from: deployer, data: mintableTokenBin, gas: 2000000, gasPrice: defaultGasPrice},
+  function(e, contract) {
+    if (!e) {
+      if (!contract.address) {
+        tokenATx = contract.transactionHash;
+      } else {
+        tokenAAddress = contract.address;
+        addAccount(tokenAAddress, "Token '" + tokenA.symbol() + "' '" + tokenA.name() + "'");
+        addTokenAContractAddressAndAbi(tokenAAddress, mintableTokenAbi);
+        console.log("DATA: var tokenAAddress=\"" + tokenAAddress + "\";");
+        console.log("DATA: var tokenAAbi=" + JSON.stringify(mintableTokenAbi) + ";");
+        console.log("DATA: var tokenA=eth.contract(tokenAAbi).at(tokenAAddress);");
+      }
+    }
+  }
+);
+var tokenBContract = web3.eth.contract(mintableTokenAbi);
+var tokenBTx = null;
+var tokenBAddress = null;
+var tokenB = tokenBContract.new(tokenBSymbol, tokenBName, tokenBDecimals, deployer, tokenBInitialSupply, {from: deployer, data: mintableTokenBin, gas: 2000000, gasPrice: defaultGasPrice},
+  function(e, contract) {
+    if (!e) {
+      if (!contract.address) {
+        tokenBTx = contract.transactionHash;
+      } else {
+        tokenBAddress = contract.address;
+        addAccount(tokenBAddress, "Token '" + tokenB.symbol() + "' '" + tokenB.name() + "'");
+        addTokenBContractAddressAndAbi(tokenBAddress, mintableTokenAbi);
+        console.log("DATA: var tokenBAddress=\"" + tokenBAddress + "\";");
+        console.log("DATA: var tokenBAbi=" + JSON.stringify(mintableTokenAbi) + ";");
+        console.log("DATA: var tokenB=eth.contract(tokenBAbi).at(tokenBAddress);");
+      }
+    }
+  }
+);
 while (txpool.status.pending > 0) {
 }
 printBalances();
-failIfTxStatusError(dexWalletFactoryTx, deployFactoryMessage);
+failIfTxStatusError(dexWalletFactoryTx, deployGroup1Message + " - DEXWalletFactory");
+failIfTxStatusError(tokenATx, deployGroup1Message + " - Token ''" + tokenA.symbol() + "' '" + tokenA.name() + "'");
+failIfTxStatusError(tokenBTx, deployGroup1Message + " - Token ''" + tokenB.symbol() + "' '" + tokenB.name() + "'");
 printTxData("dexWalletFactoryTx", dexWalletFactoryTx);
+printTxData("tokenATx", tokenATx);
+printTxData("tokenBTx", tokenBTx);
 printDEXWalletFactoryContractDetails();
+printTokenAContractDetails();
+printTokenBContractDetails();
 console.log("RESULT: ");
 
 
@@ -124,11 +183,6 @@ printTxData("deployWallets1_1Tx", deployWallets1_1Tx);
 printTxData("deployWallets1_2Tx", deployWallets1_2Tx);
 printTxData("deployWallets1_3Tx", deployWallets1_3Tx);
 printDEXWalletFactoryContractDetails();
-/*
-  printOptionContractDetails(callAddress, optionAbi);
-  printOptionTokenContractDetails(callCoverTokenAddress, optionTokenAbi);
-  printOptionTokenContractDetails(callOptionTokenAddress, optionTokenAbi);
-*/
 console.log("RESULT: ");
 
 

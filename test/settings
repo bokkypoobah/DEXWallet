@@ -5,6 +5,8 @@ SOURCEDIR=../contracts/
 
 DEXWALLETSOL=DEXWallet.sol
 DEXWALLETJS=DEXWallet.js
+MINTABLETOKENSOL=MintableToken.sol
+MINTABLETOKENJS=MintableToken.js
 
 DEPLOYMENTDATA=deploymentData.js
 

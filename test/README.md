@@ -18,7 +18,7 @@
 
 * The tests works on OS/X. Should work in Linux. May work in Windows with Cygwin
 * Geth/v1.8.12-stable-37685930/darwin-amd64/go1.10.3 running with the Byzantium fork switched on
-* Solc 0.4.23+commit.124ca40d.Darwin.appleclang
+* Solc 0.4.24+commit.e67f0147.Darwin.appleclang
 
 <br />
 
@@ -43,7 +43,7 @@
 # Notes
 
 * The tests were conducted using bash shell scripts running Geth/v1.8.12-stable-37685930/darwin-amd64/go1.10.3 JavaScript commands
-* The smart contracts were compiled using Solidity 0.4.23+commit.124ca40d.Darwin.appleclang
+* The smart contracts were compiled using Solidity 0.4.24+commit.e67f0147.Darwin.appleclang
 * The test script can be found in [01_test1.sh](01_test1.sh)
 * The test results can be found in [test1results.txt](test1results.txt) with details in [test1output.txt](test1output.txt)
 * The test can be run on OS/X, should run on Linux and may run on Windows with Cygwin
@@ -52,5 +52,5 @@
 * The reasons for using the test environment as listed above, instead of truffles/testrpc are:
   * The test are conducted using the actual blockchain client software as is running on Mainnet and not just a mock environment like testrpc
   * It is easy to change parameters like dates, addresses or blocknumbers using the Unix search/replace tools
-  * There have been issues in the part with version incompatibility between testrpc and solidity, i.e., version mismatches 
+  * There have been issues in the part with version incompatibility between testrpc and solidity, i.e., version mismatches
   * The intermediate and key results are all saved to later viewing
