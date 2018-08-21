@@ -90,22 +90,61 @@ contract DEXWallet is Owned {
     function addOrder(address fromToken, address toToken, uint price, uint amount) public returns (bytes32) {
         return orders.add(fromToken, toToken, price, amount);
     }
+    function increaseOrder(address fromToken, address toToken, uint price, uint amount) public returns (uint _newAmount) {
+        bytes32 key = Orders.getKey(fromToken, toToken, price);
+        Orders.Order storage order = orders.orders[key];
+        if (order.fromToken != address(0)) {
+            order.amount = order.amount + amount;
+            _newAmount = order.amount;
+        } else {
+            orders.add(fromToken, toToken, price, amount);
+            _newAmount = amount;
+        }
+    }
+    function decreaseOrder(address fromToken, address toToken, uint price, uint amount) public returns (uint _newAmount) {
+        bytes32 key = Orders.getKey(fromToken, toToken, price);
+        Orders.Order storage order = orders.orders[key];
+        require(order.fromToken != address(0));
+        if (amount >= order.amount) {
+            orders.remove(key);
+            _newAmount = 0;
+        } else {
+            order.amount = order.amount - amount;
+            _newAmount = order.amount;
+        }
+    }
+    function updateOrderPrice(address fromToken, address toToken, uint oldPrice, uint newPrice) public returns (uint _newAmount) {
+        bytes32 oldKey = Orders.getKey(fromToken, toToken, oldPrice);
+        Orders.Order storage oldOrder = orders.orders[oldKey];
+        require(oldOrder.fromToken != address(0));
+        bytes32 newKey = Orders.getKey(fromToken, toToken, newPrice);
+        Orders.Order storage newOrder = orders.orders[newKey];
+        if (newOrder.fromToken != address(0)) {
+            newOrder.amount = newOrder.amount + oldOrder.amount;
+            _newAmount = newOrder.amount;
+        } else {
+            orders.add(fromToken, toToken, newPrice, oldOrder.amount);
+            _newAmount = oldOrder.amount;
+        }
+        orders.remove(oldKey);
+    }
     function removeOrder(bytes32 key) public {
         orders.remove(key);
     }
-    /*
-    function updateOrderAmount(address token, uint price, uint newAmount) public {
-        // orders[token][price] = newAmount;
-    }
-    function updateOrderPrice(address token, uint oldPrice, uint newPrice) public {
-        // uint amount = orders[token][oldPrice];
-        // orders[token][oldPrice] = 0;
-        // orders[token][newPrice] = amount;
-    }
-    */
-    function getOrder(bytes32 key) public view returns (address _fromToken, address _toToken, uint _price, uint _amount) {
+    function getOrderByKey(bytes32 key) public view returns (address _fromToken, address _toToken, uint _price, uint _amount) {
         Orders.Order memory order = orders.orders[key];
         return (order.fromToken, order.toToken, order.price, order.amount);
+    }
+    function getOrderByIndex(uint index) public view returns (address _fromToken, address _toToken, uint _price, uint _amount) {
+        bytes32 key = orders.index[index];
+        Orders.Order memory order = orders.orders[key];
+        return (order.fromToken, order.toToken, order.price, order.amount);
+    }
+    function getNumberOfOrders() public view returns (uint) {
+        return orders.index.length;
+    }
+    function getOrderKey(uint index) public view returns (bytes32) {
+        return orders.index[index];
     }
 }
 
