@@ -98,7 +98,7 @@ function printBalances() {
   var i = 0;
   var totalTokenABalance = new BigNumber(0);
   var totalTokenBBalance = new BigNumber(0);
-  console.log("RESULT:  # Account                                             EtherBalanceChange                 (Token A) WETH                  (Token B) DAI Name");
+  console.log("RESULT:  # Account                                             EtherBalanceChange                        Token A                        Token B Name");
   console.log("RESULT: -- ------------------------------------------ --------------------------- ------------------------------ ------------------------------ ---------------------------");
   accounts.forEach(function(e) {
     var etherBalanceBaseBlock = eth.getBalance(e, baseBlock);
@@ -421,7 +421,7 @@ function printDEXWalletFactoryContractDetails() {
   if (dexWalletFactoryFromBlock == 0) {
     dexWalletFactoryFromBlock = baseBlock;
   }
-  console.log("RESULT: dexWalletFactory.address=" + dexWalletFactoryContractAddress);
+  console.log("RESULT: dexWalletFactory.address=" + getAddressName(dexWalletFactoryContractAddress));
   if (dexWalletFactoryContractAddress != null && dexWalletFactoryContractAbi != null) {
     var contract = eth.contract(dexWalletFactoryContractAbi).at(dexWalletFactoryContractAddress);
     console.log("RESULT: dexWalletFactory.owner/new=" + getAddressName(contract.owner()) + " " + getAddressName(contract.newOwner()));
@@ -457,5 +457,50 @@ function printDEXWalletFactoryContractDetails() {
     walletCreatedEvents.stopWatching();
 
     dexWalletFactoryFromBlock = latestBlock + 1;
+  }
+}
+
+
+var fromBlock = {};
+function printDEXWalletContractDetails(address, abi) {
+  if (fromBlock[address] == 0) {
+    fromBlock[address] = baseBlock;
+  }
+  console.log("RESULT: dexWallet.address=" + getAddressName(address));
+  if (address != null && abi != null) {
+    var contract = eth.contract(abi).at(address);
+    console.log("RESULT: dexWallet.owner/new=" + getAddressName(contract.owner()) + " " + getAddressName(contract.newOwner()));
+
+    var i;
+    // for (i = 0; i < contract.numberOfWallets(); i++) {
+    //   var walletAddress = contract.wallets(i);
+    //   // var owner = contract.optionDetails(optionAddress);
+    //   console.log("RESULT: dexWalletFactory.wallets[" + i + "]=" + walletAddress);
+    // }
+
+    var latestBlock = eth.blockNumber;
+
+    var ownershipTransferredEvents = contract.OwnershipTransferred({}, { fromBlock: fromBlock[address], toBlock: latestBlock });
+    i = 0;
+    ownershipTransferredEvents.watch(function (error, result) {
+      console.log("RESULT: OwnershipTransferred " + i++ + " #" + result.blockNumber + " " + JSON.stringify(result.args));
+    });
+    ownershipTransferredEvents.stopWatching();
+
+    var orderAddedEvents = contract.OrderAdded({}, { fromBlock: fromBlock[address], toBlock: latestBlock });
+    i = 0;
+    orderAddedEvents.watch(function (error, result) {
+      console.log("RESULT: dexWallet.OrderAdded " + i++ + " #" + result.blockNumber + " " + JSON.stringify(result.args));
+    });
+    orderAddedEvents.stopWatching();
+
+    var orderRemovedEvents = contract.OrderRemoved({}, { fromBlock: fromBlock[address], toBlock: latestBlock });
+    i = 0;
+    orderRemovedEvents.watch(function (error, result) {
+      console.log("RESULT: dexWallet.OrderRemoved " + i++ + " #" + result.blockNumber + " " + JSON.stringify(result.args));
+    });
+    orderRemovedEvents.stopWatching();
+
+    fromBlock[address] = latestBlock + 1;
   }
 }

@@ -1,5 +1,6 @@
 pragma solidity ^0.4.24;
 
+import "SafeMath.sol";
 import "Owned.sol";
 import "CloneFactory.sol";
 
@@ -36,7 +37,7 @@ library Orders {
     }
     function add(Data storage self, address fromToken, address toToken, uint price, uint amount) internal returns (bytes32) {
         bytes32 key = getKey(fromToken, toToken, price);
-        require(self.orders[key].fromToken != address(0));
+        require(self.orders[key].fromToken == address(0));
         self.index.push(key);
         self.orders[key] = Order(fromToken, toToken, price, amount, self.index.length - 1);
         emit OrderAdded(key, fromToken, toToken, price, amount, self.index.length);
@@ -65,10 +66,10 @@ library Orders {
 // DEXWallet contract
 // ----------------------------------------------------------------------------
 contract DEXWallet is Owned {
+    using SafeMath for uint;
     using Orders for Orders.Data;
 
     uint public xyz = 123;
-    address public owner;
     Orders.Data orders;
     // token => price => approved
     // mapping(address => mapping(uint => uint)) orders;
@@ -87,21 +88,21 @@ contract DEXWallet is Owned {
     function getOrderKey(address fromToken, address toToken, uint price) public pure returns (bytes32) {
         return Orders.getKey(fromToken, toToken, price);
     }
-    function addOrder(address fromToken, address toToken, uint price, uint amount) public returns (bytes32) {
+    function addOrder(address fromToken, address toToken, uint price, uint amount) public onlyOwner returns (bytes32) {
         return orders.add(fromToken, toToken, price, amount);
     }
-    function increaseOrder(address fromToken, address toToken, uint price, uint amount) public returns (uint _newAmount) {
+    function increaseOrderAmount(address fromToken, address toToken, uint price, uint amount) public onlyOwner returns (uint _newAmount) {
         bytes32 key = Orders.getKey(fromToken, toToken, price);
         Orders.Order storage order = orders.orders[key];
         if (order.fromToken != address(0)) {
-            order.amount = order.amount + amount;
+            order.amount = order.amount.add(amount);
             _newAmount = order.amount;
         } else {
             orders.add(fromToken, toToken, price, amount);
             _newAmount = amount;
         }
     }
-    function decreaseOrder(address fromToken, address toToken, uint price, uint amount) public returns (uint _newAmount) {
+    function decreaseOrderAmount(address fromToken, address toToken, uint price, uint amount) public onlyOwner returns (uint _newAmount) {
         bytes32 key = Orders.getKey(fromToken, toToken, price);
         Orders.Order storage order = orders.orders[key];
         require(order.fromToken != address(0));
@@ -109,18 +110,18 @@ contract DEXWallet is Owned {
             orders.remove(key);
             _newAmount = 0;
         } else {
-            order.amount = order.amount - amount;
+            order.amount = order.amount.sub(amount);
             _newAmount = order.amount;
         }
     }
-    function updateOrderPrice(address fromToken, address toToken, uint oldPrice, uint newPrice) public returns (uint _newAmount) {
+    function updateOrderPrice(address fromToken, address toToken, uint oldPrice, uint newPrice) public onlyOwner returns (uint _newAmount) {
         bytes32 oldKey = Orders.getKey(fromToken, toToken, oldPrice);
         Orders.Order storage oldOrder = orders.orders[oldKey];
         require(oldOrder.fromToken != address(0));
         bytes32 newKey = Orders.getKey(fromToken, toToken, newPrice);
         Orders.Order storage newOrder = orders.orders[newKey];
         if (newOrder.fromToken != address(0)) {
-            newOrder.amount = newOrder.amount + oldOrder.amount;
+            newOrder.amount = newOrder.amount.add(oldOrder.amount);
             _newAmount = newOrder.amount;
         } else {
             orders.add(fromToken, toToken, newPrice, oldOrder.amount);
@@ -128,7 +129,38 @@ contract DEXWallet is Owned {
         }
         orders.remove(oldKey);
     }
-    function removeOrder(bytes32 key) public {
+    function transferOrderAmountToNewPrice(address fromToken, address toToken, uint oldPrice, uint newPrice, uint amount) public onlyOwner returns (uint _oldAmount, uint _newAmount) {
+        bytes32 oldKey = Orders.getKey(fromToken, toToken, oldPrice);
+        Orders.Order storage oldOrder = orders.orders[oldKey];
+        require(oldOrder.fromToken != address(0));
+        bytes32 newKey = Orders.getKey(fromToken, toToken, newPrice);
+        Orders.Order storage newOrder = orders.orders[newKey];
+        if (newOrder.fromToken != address(0)) {
+            if (amount >= oldOrder.amount) {
+                newOrder.amount = newOrder.amount.add(oldOrder.amount);
+                orders.remove(oldKey);
+                _oldAmount = 0;
+            } else {
+                oldOrder.amount = oldOrder.amount.sub(amount);
+                newOrder.amount = newOrder.amount.add(amount);
+                _oldAmount = oldOrder.amount;
+            }
+            _newAmount = newOrder.amount;
+        } else {
+            if (amount >= oldOrder.amount) {
+                _newAmount = oldOrder.amount;
+                orders.add(fromToken, toToken, newPrice, oldOrder.amount);
+                orders.remove(oldKey);
+                _oldAmount = 0;
+            } else {
+                oldOrder.amount = oldOrder.amount.sub(amount);
+                orders.add(fromToken, toToken, newPrice, amount);
+                _oldAmount = oldOrder.amount;
+                _newAmount = amount;
+            }
+        }
+    }
+    function removeOrder(bytes32 key) public onlyOwner {
         orders.remove(key);
     }
     function getOrderByKey(bytes32 key) public view returns (address _fromToken, address _toToken, uint _price, uint _amount) {
