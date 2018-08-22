@@ -2,6 +2,7 @@ pragma solidity ^0.4.24;
 
 import "SafeMath.sol";
 import "Owned.sol";
+import "ERC20Interface.sol";
 import "CloneFactory.sol";
 
 
@@ -9,10 +10,17 @@ import "CloneFactory.sol";
 // Membership Data Structure
 // ----------------------------------------------------------------------------
 library Orders {
+    enum OrderType {
+        Buy,
+        Sell
+    }
+    // GNT/ETH = base/quote = 0.00054087
     struct Order {
-        address fromToken;
-        address toToken;
-        uint price;
+        OrderType orderType;
+        address baseToken;
+        address quoteToken;
+        uint price; // in number of quoteToken per unit baseToken
+        uint expiry;
         uint amount;
         uint index;
     }
@@ -22,32 +30,32 @@ library Orders {
         bytes32[] index;
     }
 
-    event OrderAdded(bytes32 indexed key, address fromToken, address toToken, uint price, uint amount, uint totalAfter);
-    event OrderRemoved(bytes32 indexed key, address fromToken, address toToken, uint price, uint amount, uint totalAfter);
+    event OrderAdded(bytes32 indexed key, uint orderType, address baseToken, address quoteToken, uint price, uint expiry, uint amount);
+    event OrderRemoved(bytes32 indexed key, uint orderType, address baseToken, address quoteToken, uint price, uint expiry, uint amount);
 
     function init(Data storage self) internal {
         require(!self.initialised);
         self.initialised = true;
     }
-    function getKey(address fromToken, address toToken, uint price) internal pure returns (bytes32) {
-        return keccak256(abi.encodePacked(fromToken, toToken, price));
+    function orderKey(OrderType orderType, address baseToken, address quoteToken, uint price, uint expiry) internal pure returns (bytes32) {
+        return keccak256(abi.encodePacked(orderType, baseToken, quoteToken, price, expiry));
     }
     function exists(Data storage self, bytes32 key) internal view returns (bool) {
-        return self.orders[key].fromToken != address(0);
+        return self.orders[key].baseToken != address(0);
     }
-    function add(Data storage self, address fromToken, address toToken, uint price, uint amount) internal returns (bytes32) {
-        bytes32 key = getKey(fromToken, toToken, price);
-        require(self.orders[key].fromToken == address(0));
+    function add(Data storage self, OrderType orderType, address baseToken, address quoteToken, uint price, uint expiry, uint amount) internal returns (bytes32) {
+        bytes32 key = orderKey(orderType, baseToken, quoteToken, price, expiry);
+        require(self.orders[key].baseToken == address(0));
         self.index.push(key);
-        self.orders[key] = Order(fromToken, toToken, price, amount, self.index.length - 1);
-        emit OrderAdded(key, fromToken, toToken, price, amount, self.index.length);
+        self.orders[key] = Order(orderType, baseToken, quoteToken, price, expiry, amount, self.index.length - 1);
+        emit OrderAdded(key, uint(orderType), baseToken, quoteToken, price, expiry, amount);
     }
     function remove(Data storage self, bytes32 key) internal {
         Order memory order = self.orders[key];
-        require(order.fromToken != address(0));
+        require(order.baseToken != address(0));
         uint removeIndex = order.index;
-        emit OrderRemoved(key, order.fromToken, order.toToken, order.price, order.amount, self.index.length - 1);
         uint lastIndex = self.index.length - 1;
+        emit OrderRemoved(key, uint(order.orderType), order.baseToken, order.quoteToken, order.price, order.expiry, order.amount);
         bytes32 lastIndexKey = self.index[lastIndex];
         self.index[removeIndex] = lastIndexKey;
         self.orders[lastIndexKey].index = removeIndex;
@@ -76,8 +84,12 @@ contract DEXWallet is Owned {
     bool initialised;
 
     // Copied from Orders library so it is presented in the ABI
-    event OrderAdded(bytes32 indexed key, address fromToken, address toToken, uint price, uint amount, uint totalAfter);
-    event OrderRemoved(bytes32 indexed key, address fromToken, address toToken, uint price, uint amount, uint totalAfter);
+    event OrderAdded(bytes32 indexed key, uint orderType, address baseToken, address quoteToken, uint price, uint expiry, uint amount);
+    event OrderRemoved(bytes32 indexed key, uint orderType, address baseToken, address quoteToken, uint price, uint expiry, uint amount);
+    event EthersDeposited(address indexed sender, uint ethers, uint balanceAfter);
+    event EthersWithdrawn(address indexed to, uint ethers, uint balanceAfter);
+    event TokensDeposited(address indexed sender, uint tokens, uint balanceAfter);
+    event TokensWithdrawn(address indexed to, uint tokens, uint balanceAfter);
 
     function init(address _owner) public {
         require(!initialised);
@@ -85,27 +97,27 @@ contract DEXWallet is Owned {
         initialised = true;
     }
 
-    function getOrderKey(address fromToken, address toToken, uint price) public pure returns (bytes32) {
-        return Orders.getKey(fromToken, toToken, price);
+    function orderKey(Orders.OrderType orderType, address baseToken, address quoteToken, uint price, uint expiry) public pure returns (bytes32) {
+        return Orders.orderKey(orderType, baseToken, quoteToken, price, expiry);
     }
-    function addOrder(address fromToken, address toToken, uint price, uint amount) public onlyOwner returns (bytes32) {
-        return orders.add(fromToken, toToken, price, amount);
+    function addOrder(Orders.OrderType orderType, address baseToken, address quoteToken, uint price, uint expiry, uint amount) public onlyOwner returns (bytes32) {
+        return orders.add(orderType, baseToken, quoteToken, price, amount, expiry);
     }
-    function increaseOrderAmount(address fromToken, address toToken, uint price, uint amount) public onlyOwner returns (uint _newAmount) {
-        bytes32 key = Orders.getKey(fromToken, toToken, price);
+    function increaseOrderAmount(Orders.OrderType orderType, address baseToken, address quoteToken, uint price, uint expiry, uint amount) public onlyOwner returns (uint _newAmount) {
+        bytes32 key = Orders.orderKey(orderType, baseToken, quoteToken, price, expiry);
         Orders.Order storage order = orders.orders[key];
-        if (order.fromToken != address(0)) {
+        if (order.baseToken != address(0)) {
             order.amount = order.amount.add(amount);
             _newAmount = order.amount;
         } else {
-            orders.add(fromToken, toToken, price, amount);
+            orders.add(orderType, baseToken, quoteToken, price, expiry, amount);
             _newAmount = amount;
         }
     }
-    function decreaseOrderAmount(address fromToken, address toToken, uint price, uint amount) public onlyOwner returns (uint _newAmount) {
-        bytes32 key = Orders.getKey(fromToken, toToken, price);
+    function decreaseOrderAmount(Orders.OrderType orderType, address baseToken, address quoteToken, uint price, uint expiry, uint amount) public onlyOwner returns (uint _newAmount) {
+        bytes32 key = Orders.orderKey(orderType, baseToken, quoteToken, price, expiry);
         Orders.Order storage order = orders.orders[key];
-        require(order.fromToken != address(0));
+        require(order.baseToken != address(0));
         if (amount >= order.amount) {
             orders.remove(key);
             _newAmount = 0;
@@ -114,28 +126,28 @@ contract DEXWallet is Owned {
             _newAmount = order.amount;
         }
     }
-    function updateOrderPrice(address fromToken, address toToken, uint oldPrice, uint newPrice) public onlyOwner returns (uint _newAmount) {
-        bytes32 oldKey = Orders.getKey(fromToken, toToken, oldPrice);
+    function updateOrderPrice(Orders.OrderType orderType, address baseToken, address quoteToken, uint oldPrice, uint expiry, uint newPrice) public onlyOwner returns (uint _newAmount) {
+        bytes32 oldKey = Orders.orderKey(orderType, baseToken, quoteToken, oldPrice, expiry);
         Orders.Order storage oldOrder = orders.orders[oldKey];
-        require(oldOrder.fromToken != address(0));
-        bytes32 newKey = Orders.getKey(fromToken, toToken, newPrice);
+        require(oldOrder.baseToken != address(0));
+        bytes32 newKey = Orders.orderKey(orderType, baseToken, quoteToken, newPrice, expiry);
         Orders.Order storage newOrder = orders.orders[newKey];
-        if (newOrder.fromToken != address(0)) {
+        if (newOrder.baseToken != address(0)) {
             newOrder.amount = newOrder.amount.add(oldOrder.amount);
             _newAmount = newOrder.amount;
         } else {
-            orders.add(fromToken, toToken, newPrice, oldOrder.amount);
+            orders.add(orderType, baseToken, quoteToken, newPrice, expiry, oldOrder.amount);
             _newAmount = oldOrder.amount;
         }
         orders.remove(oldKey);
     }
-    function transferOrderAmountToNewPrice(address fromToken, address toToken, uint oldPrice, uint newPrice, uint amount) public onlyOwner returns (uint _oldAmount, uint _newAmount) {
-        bytes32 oldKey = Orders.getKey(fromToken, toToken, oldPrice);
+    function transferOrderAmountToNewPrice(Orders.OrderType orderType, address baseToken, address quoteToken, uint oldPrice, uint expiry, uint newPrice, uint amount) public onlyOwner returns (uint _oldAmount, uint _newAmount) {
+        bytes32 oldKey = Orders.orderKey(orderType, baseToken, quoteToken, oldPrice, expiry);
         Orders.Order storage oldOrder = orders.orders[oldKey];
-        require(oldOrder.fromToken != address(0));
-        bytes32 newKey = Orders.getKey(fromToken, toToken, newPrice);
+        require(oldOrder.baseToken != address(0));
+        bytes32 newKey = Orders.orderKey(orderType, baseToken, quoteToken, newPrice, expiry);
         Orders.Order storage newOrder = orders.orders[newKey];
-        if (newOrder.fromToken != address(0)) {
+        if (newOrder.baseToken != address(0)) {
             if (amount >= oldOrder.amount) {
                 newOrder.amount = newOrder.amount.add(oldOrder.amount);
                 orders.remove(oldKey);
@@ -149,12 +161,12 @@ contract DEXWallet is Owned {
         } else {
             if (amount >= oldOrder.amount) {
                 _newAmount = oldOrder.amount;
-                orders.add(fromToken, toToken, newPrice, oldOrder.amount);
+                orders.add(orderType, baseToken, quoteToken, newPrice, expiry, oldOrder.amount);
                 orders.remove(oldKey);
                 _oldAmount = 0;
             } else {
                 oldOrder.amount = oldOrder.amount.sub(amount);
-                orders.add(fromToken, toToken, newPrice, amount);
+                orders.add(orderType, baseToken, quoteToken, newPrice, expiry, amount);
                 _oldAmount = oldOrder.amount;
                 _newAmount = amount;
             }
@@ -163,20 +175,43 @@ contract DEXWallet is Owned {
     function removeOrder(bytes32 key) public onlyOwner {
         orders.remove(key);
     }
-    function getOrderByKey(bytes32 key) public view returns (address _fromToken, address _toToken, uint _price, uint _amount) {
+    function getOrderByKey(bytes32 key) public view returns (address _baseToken, address _quoteToken, uint _price, uint _expiry, uint _amount) {
         Orders.Order memory order = orders.orders[key];
-        return (order.fromToken, order.toToken, order.price, order.amount);
+        return (order.baseToken, order.quoteToken, order.price, order.expiry, order.amount);
     }
-    function getOrderByIndex(uint index) public view returns (address _fromToken, address _toToken, uint _price, uint _amount) {
+    function getOrderByIndex(uint index) public view returns (address _baseToken, address _quoteToken, uint _price, uint _expiry, uint _amount) {
         bytes32 key = orders.index[index];
         Orders.Order memory order = orders.orders[key];
-        return (order.fromToken, order.toToken, order.price, order.amount);
+        return (order.baseToken, order.quoteToken, order.price, order.expiry, order.amount);
     }
     function getNumberOfOrders() public view returns (uint) {
         return orders.index.length;
     }
-    function getOrderKey(uint index) public view returns (bytes32) {
+    function getOrderKeyByIndex(uint index) public view returns (bytes32) {
         return orders.index[index];
+    }
+    function () public payable {
+    	emit EthersDeposited(msg.sender, msg.value, address(this).balance);
+    }
+    function withdrawEthers(address to, uint ethers) public onlyOwner {
+    	to.transfer(ethers);
+    	emit EthersWithdrawn(to, ethers, address(this).balance);
+    }
+    function depositTokens(address tokenAddress, uint tokens) public {
+    	ERC20Interface token = ERC20Interface(tokenAddress);
+    	uint balanceBefore = token.balanceOf(address(this));
+    	require(token.transferFrom(msg.sender, address(this), tokens));
+    	uint balanceAfter = token.balanceOf(address(this));
+    	require(balanceBefore.add(tokens) == balanceAfter);
+    	emit TokensDeposited(msg.sender, tokens, balanceAfter);
+    }
+    function withdrawTokens(address tokenAddress, address to, uint tokens) public onlyOwner {
+    	ERC20Interface token = ERC20Interface(tokenAddress);
+    	uint balanceBefore = token.balanceOf(address(this));
+    	require(token.transfer(to, tokens));
+    	uint balanceAfter = token.balanceOf(address(this));
+    	require(balanceBefore.sub(tokens) == balanceAfter);
+    	emit TokensWithdrawn(to, tokens, balanceAfter);
     }
 }
 

@@ -472,11 +472,11 @@ function printDEXWalletContractDetails(address, abi) {
     console.log("RESULT: dexWallet.owner/new=" + getAddressName(contract.owner()) + " " + getAddressName(contract.newOwner()));
 
     var i;
-    // for (i = 0; i < contract.numberOfWallets(); i++) {
-    //   var walletAddress = contract.wallets(i);
-    //   // var owner = contract.optionDetails(optionAddress);
-    //   console.log("RESULT: dexWalletFactory.wallets[" + i + "]=" + walletAddress);
-    // }
+    for (i = 0; i < contract.getNumberOfOrders(); i++) {
+       var orderKey = contract.getOrderKey(i);
+       var order = contract.getOrderByKey(orderKey);
+       console.log("RESULT: dexWallet.orders[" + orderKey + "]=" + JSON.stringify(order));
+    }
 
     var latestBlock = eth.blockNumber;
 

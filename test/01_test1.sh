@@ -80,7 +80,7 @@ console.log("RESULT: ---------- " + deployGroup1Message + " ----------");
 var dexWalletFactoryContract = web3.eth.contract(dexWalletFactoryAbi);
 var dexWalletFactoryTx = null;
 var dexWalletFactoryAddress = null;
-var dexWalletFactory = dexWalletFactoryContract.new({from: deployer, data: dexWalletFactoryBin, gas: 2000000, gasPrice: defaultGasPrice},
+var dexWalletFactory = dexWalletFactoryContract.new({from: deployer, data: dexWalletFactoryBin, gas: 4000000, gasPrice: defaultGasPrice},
   function(e, contract) {
     if (!e) {
       if (!contract.address) {
@@ -226,13 +226,16 @@ console.log("RESULT: ");
 var addOrdersMessage = "Add Orders #1";
 var price = new BigNumber("1").shift(18);
 var amount = new BigNumber("10").shift(18);
+var BUY = 0;
+var SELL = 1;
+var expiry = parseInt(new Date()/1000) + 60*60;
 // -----------------------------------------------------------------------------
 console.log("RESULT: ----- " + addOrdersMessage + " -----");
-var addOrders_1Tx = user1Wallet.addOrder(tokenAAddress, tokenBAddress, price, amount, {from: user1, gas: 2000000, gasPrice: defaultGasPrice});
+var addOrders_1Tx = user1Wallet.addOrder(BUY, tokenAAddress, tokenBAddress, price, amount, expiry, {from: user1, gas: 2000000, gasPrice: defaultGasPrice});
 while (txpool.status.pending > 0) {
 }
 printBalances();
-failIfTxStatusError(addOrders_1Tx, addOrdersMessage + " - user1Wallet.addOrder(tokenA, tokenBA, price, amount)");
+failIfTxStatusError(addOrders_1Tx, addOrdersMessage + " - user1Wallet.addOrder(BUY, tokenA, tokenBA, price, amount, +1h)");
 printDEXWalletContractDetails(user1WalletAddress, dexWalletAbi);
 console.log("RESULT: ");
 
