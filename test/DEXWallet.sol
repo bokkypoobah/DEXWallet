@@ -235,6 +235,9 @@ contract DEXWallet is Owned {
 
             } else if (order.orderType == Orders.OrderType.SELL && buyToken == order.quoteToken && sellToken == order.baseToken) {
                 maxAmount = ERC20Interface(order.baseToken).balanceOf(address(this)).mul(order.price).div(TENPOW18);
+                if (maxAmount > ERC20Interface(order.quoteToken).balanceOf(address(this))) {
+                    maxAmount = ERC20Interface(order.quoteToken).balanceOf(address(this));
+                }
                 if (maxAmount > order.amount.mul(order.price).div(TENPOW18)) {
                     maxAmount = order.amount.mul(order.price).div(TENPOW18);
                 }

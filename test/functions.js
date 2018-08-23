@@ -474,7 +474,7 @@ function formatOrder(key, orderType, baseTokenAddress, quoteTokenAddress, price,
   var baseToken = getAddressSymbol(baseTokenAddress);
   var quoteToken = getAddressSymbol(quoteTokenAddress);
   return key + " " + (orderType == 0 ? "BUY" : "SELL") + " " + amount.shift(-18) + " " + baseToken + "[b] @ " + price.shift(-18) + " " +
-    baseToken + "[b] per unit " + quoteToken + "[q] until " + new Date(expiry * 1000).toUTCString();
+    baseToken + "[b] per unit " + quoteToken + "[q] until " + new Date(expiry * 1000).toString();
 }
 
 

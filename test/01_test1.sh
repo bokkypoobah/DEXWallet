@@ -194,7 +194,7 @@ console.log("RESULT: ");
 
 // -----------------------------------------------------------------------------
 var distributeTokensMessage = "Distribute Tokens #1";
-var tokenAAmount = new BigNumber("10000").shift(tokenADecimals);
+var tokenAAmount = new BigNumber("18777").shift(tokenADecimals);
 var tokenBAmount = new BigNumber("10000").shift(tokenBDecimals);
 // -----------------------------------------------------------------------------
 console.log("RESULT: ---------- " + distributeTokensMessage + " ----------");
@@ -227,7 +227,7 @@ console.log("RESULT: ");
 var BUY = 0;
 var SELL = 1;
 
-if (false) {
+if (true) {
 // -----------------------------------------------------------------------------
 var addOrders1Message = "Add Orders #1";
 var price = new BigNumber(54087).shift(10); // 0.00054087 = new BigNumber(54087).shift(10);
