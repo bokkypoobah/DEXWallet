@@ -257,7 +257,7 @@ var buyTokenSymbol = getAddressSymbol(buyToken);
 var sellTokenSymbol = getAddressSymbol(sellToken);
 console.log("RESULT: order=" + formatOrder(order[0], order[1], order[2], order[3], order[4], order[5], order[6]));
 [new BigNumber(0).shift(18), new BigNumber(10).shift(18), new BigNumber(100).shift(18), new BigNumber(1000).shift(18), new BigNumber(10000).shift(18), new BigNumber(100000).shift(18)].forEach(function(buyTokens) {
-  var details = user1Wallet.getBuyFromWalletDetails(orderKey, buyToken, sellToken, buyTokens);
+  var details = user1Wallet.getWalletBuyingDetails(orderKey, buyToken, sellToken, buyTokens);
   console.log("RESULT: buyTokens=" + buyTokens.shift(-18));
   console.log("RESULT:   _buyTokens=" + details[0].shift(-18) + " " + buyTokenSymbol);
   console.log("RESULT:   _sellTokens=" + details[1].shift(-18) + " " + sellTokenSymbol);
@@ -297,7 +297,7 @@ var buyTokenSymbol = getAddressSymbol(buyToken);
 var sellTokenSymbol = getAddressSymbol(sellToken);
 console.log("RESULT: order=" + formatOrder(order[0], order[1], order[2], order[3], order[4], order[5], order[6]));
 [new BigNumber(0).shift(18), new BigNumber(10).shift(18), new BigNumber(100).shift(18), new BigNumber(1000).shift(18), new BigNumber(10000).shift(18), new BigNumber(100000).shift(18)].forEach(function(buyTokens) {
-  var details = user1Wallet.getBuyFromWalletDetails(orderKey, buyToken, sellToken, buyTokens);
+  var details = user1Wallet.getWalletBuyingDetails(orderKey, buyToken, sellToken, buyTokens);
   console.log("RESULT: buyTokens=" + buyTokens.shift(-18));
   console.log("RESULT:   _buyTokens=" + details[0].shift(-18) + " " + buyTokenSymbol);
   console.log("RESULT:   _sellTokens=" + details[1].shift(-18) + " " + sellTokenSymbol);

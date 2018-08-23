@@ -142,6 +142,21 @@ contract DEXWallet is Owned {
         }
         orders.remove(oldKey);
     }
+    function updateOrderExpiry(Orders.OrderType orderType, address baseToken, address quoteToken, uint price, uint oldExpiry, uint newExpiry) public onlyOwner returns (uint _newAmount) {
+        bytes32 oldKey = Orders.orderKey(orderType, baseToken, quoteToken, price, oldExpiry);
+        Orders.Order storage oldOrder = orders.orders[oldKey];
+        require(oldOrder.baseToken != address(0));
+        bytes32 newKey = Orders.orderKey(orderType, baseToken, quoteToken, price, newExpiry);
+        Orders.Order storage newOrder = orders.orders[newKey];
+        if (newOrder.baseToken != address(0)) {
+            newOrder.amount = newOrder.amount.add(oldOrder.amount);
+            _newAmount = newOrder.amount;
+        } else {
+            orders.add(orderType, baseToken, quoteToken, price, newExpiry, oldOrder.amount);
+            _newAmount = oldOrder.amount;
+        }
+        orders.remove(oldKey);
+    }
     function transferOrderAmountToNewPrice(Orders.OrderType orderType, address baseToken, address quoteToken, uint oldPrice, uint expiry, uint newPrice, uint amount) public onlyOwner returns (uint _oldAmount, uint _newAmount) {
         bytes32 oldKey = Orders.orderKey(orderType, baseToken, quoteToken, oldPrice, expiry);
         Orders.Order storage oldOrder = orders.orders[oldKey];
@@ -215,7 +230,7 @@ contract DEXWallet is Owned {
 */
 
     uint constant public TENPOW18 = uint(10)**18;
-    function getBuyFromWalletDetails(bytes32 key, address buyToken, address sellToken, uint buyTokens) public view returns (uint _buyTokens, uint _sellTokens, uint _price, bool _inverse) {
+    function getWalletBuyingDetails(bytes32 key, address buyToken, address sellToken, uint buyTokens) public view returns (uint _buyTokens, uint _sellTokens, uint _price, bool _inverse) {
         Orders.Order memory order = orders.orders[key];
         if (now <= order.expiry) {
             uint maxAmount;
