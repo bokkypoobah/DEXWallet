@@ -470,6 +470,14 @@ function printDEXWalletFactoryContractDetails() {
 }
 
 
+function formatOrder(key, orderType, baseTokenAddress, quoteTokenAddress, price, expiry, amount) {
+  var baseToken = getAddressSymbol(baseTokenAddress);
+  var quoteToken = getAddressSymbol(quoteTokenAddress);
+  return key + " " + (orderType == 0 ? "BUY" : "SELL") + " " + amount.shift(-18) + " " + baseToken + "[b] @ " + price.shift(-18) + " " +
+    baseToken + "[b] per unit " + quoteToken + "[q] until " + new Date(expiry * 1000).toUTCString();
+}
+
+
 var fromBlock = {};
 function printDEXWalletContractDetails(address, abi) {
   if (fromBlock[address] == 0) {
@@ -484,7 +492,7 @@ function printDEXWalletContractDetails(address, abi) {
     for (i = 0; i < contract.getNumberOfOrders(); i++) {
        var orderKey = contract.getOrderKeyByIndex(i);
        var order = contract.getOrderByKey(orderKey);
-       console.log("RESULT: dexWallet.orders[" + orderKey + "]=" + JSON.stringify(order));
+       console.log("RESULT: dexWallet.orders.index[" + i + "]=" + formatOrder(order[0], order[1], order[2], order[3], order[4], order[5], order[6]));
     }
 
     var latestBlock = eth.blockNumber;
@@ -503,16 +511,16 @@ function printDEXWalletContractDetails(address, abi) {
     var orderAddedEvents = contract.OrderAdded({}, { fromBlock: fromBlock[address], toBlock: latestBlock });
     i = 0;
     orderAddedEvents.watch(function (error, result) {
-      console.log("RESULT: dexWallet.OrderAdded " + i++ + " #" + result.blockNumber + " " + result.args.key);
-      console.log("RESULT:   " + (result.args.orderType == 0 ? "BUY" : "SELL") + " " + result.args.amount.shift(-18) + " base @ " + result.args.price.shift(-18) + " #base per unit quote until " + new Date(result.args.expiry * 1000).toString());
-      console.log("RESULT:   baseToken " + getAddressSymbol(result.args.baseToken) + " quoteToken " + getAddressSymbol(result.args.quoteToken));
+      console.log("RESULT: dexWallet.OrderAdded " + i++ + " #" + result.blockNumber + " " +
+        formatOrder(result.args.key, result.args.orderType, result.args.baseToken, result.args.quoteToken, result.args.price, result.args.expiry, result.args.amount));
     });
     orderAddedEvents.stopWatching();
 
     var orderRemovedEvents = contract.OrderRemoved({}, { fromBlock: fromBlock[address], toBlock: latestBlock });
     i = 0;
     orderRemovedEvents.watch(function (error, result) {
-      console.log("RESULT: dexWallet.OrderRemoved " + i++ + " #" + result.blockNumber + " " + JSON.stringify(result.args));
+      console.log("RESULT: dexWallet.OrderRemoved " + i++ + " #" + result.blockNumber + " " +
+        formatOrder(result.args.key, result.args.orderType, result.args.baseToken, result.args.quoteToken, result.args.price, result.args.expiry, result.args.amount));
     });
     orderRemovedEvents.stopWatching();
 

@@ -176,14 +176,14 @@ contract DEXWallet is Owned {
     function removeOrder(bytes32 key) public onlyOwner {
         orders.remove(key);
     }
-    function getOrderByKey(bytes32 key) public view returns (address _baseToken, address _quoteToken, uint _price, uint _expiry, uint _amount) {
+    function getOrderByKey(bytes32 key) public view returns (bytes32 _key, uint _orderType, address _baseToken, address _quoteToken, uint _price, uint _expiry, uint _amount) {
         Orders.Order memory order = orders.orders[key];
-        return (order.baseToken, order.quoteToken, order.price, order.expiry, order.amount);
+        return (key, uint(order.orderType), order.baseToken, order.quoteToken, order.price, order.expiry, order.amount);
     }
-    function getOrderByIndex(uint index) public view returns (address _baseToken, address _quoteToken, uint _price, uint _expiry, uint _amount) {
+    function getOrderByIndex(uint index) public view returns (bytes32 _key, uint _orderType, address _baseToken, address _quoteToken, uint _price, uint _expiry, uint _amount) {
         bytes32 key = orders.index[index];
         Orders.Order memory order = orders.orders[key];
-        return (order.baseToken, order.quoteToken, order.price, order.expiry, order.amount);
+        return (key, uint(order.orderType), order.baseToken, order.quoteToken, order.price, order.expiry, order.amount);
     }
     function getNumberOfOrders() public view returns (uint) {
         return orders.index.length;
@@ -214,7 +214,8 @@ contract DEXWallet is Owned {
     getBuyDetails(key, GNT, ETH, 0)
 */
 
-    function getBuyDetails(bytes32 key, address buyToken, address sellToken, uint buyTokens) public view returns (uint _buyTokens, uint _sellTokens) {
+    uint constant public TENPOW18 = uint(10)**18;
+    function getBuyFromWalletDetails(bytes32 key, address buyToken, address sellToken, uint buyTokens) public view returns (uint _buyTokens, uint _sellTokens, uint _price, bool _inverse) {
         Orders.Order memory order = orders.orders[key];
         if (now <= order.expiry) {
             if (order.orderType == Orders.OrderType.BUY && buyToken == order.baseToken && sellToken == order.quoteToken) {
@@ -223,16 +224,20 @@ contract DEXWallet is Owned {
                 } else {
                     _buyTokens = buyTokens;
                 }
-                _sellTokens = _buyTokens.mul(order.price).div(1 ether);
+                _sellTokens = _buyTokens.mul(order.price).div(TENPOW18);
+                _price = order.price;
+                _inverse = false;
 
             } else if (order.orderType == Orders.OrderType.SELL && buyToken == order.quoteToken && sellToken == order.baseToken) {
-                uint maxAmount = ERC20Interface(buyToken).balanceOf(address(this)).mul(order.price).div(1 ether);
+                uint maxAmount = ERC20Interface(buyToken).balanceOf(address(this)).mul(order.price).div(TENPOW18);
                 if (buyTokens == 0 || buyTokens > maxAmount) {
                     _buyTokens = maxAmount;
                 } else {
                     _buyTokens = buyTokens;
                 }
                 _sellTokens = _buyTokens.mul(1 ether).div(order.price);
+                _price = (TENPOW18).mul(TENPOW18).div(order.price);
+                _inverse = true;
             }
         }
     }

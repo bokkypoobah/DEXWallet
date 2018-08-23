@@ -248,35 +248,60 @@ var testOrders1 = "Test Orders #1";
 // -----------------------------------------------------------------------------
 console.log("RESULT: ---------- " + testOrders1 + " ----------");
 var orderKey = user1Wallet.getOrderKeyByIndex(0);
+var order = user1Wallet.getOrderByKey(orderKey);
 var buyToken = tokenAAddress;
 var sellToken = tokenBAddress;
-console.log("RESULT: orderKey=" + orderKey);
-console.log("RESULT: order=" + JSON.stringify(user1Wallet.getOrderByKey(orderKey)));
-console.log("RESULT: buyToken=" + buyToken);
-console.log("RESULT: sellToken=" + sellToken);
+var buyTokenSymbol = getAddressSymbol(buyToken);
+var sellTokenSymbol = getAddressSymbol(sellToken);
+console.log("RESULT: order=" + formatOrder(order[0], order[1], order[2], order[3], order[4], order[5], order[6]));
 [new BigNumber(0).shift(18), new BigNumber(10).shift(18), new BigNumber(100).shift(18), new BigNumber(1000).shift(18), new BigNumber(10000).shift(18), new BigNumber(100000).shift(18)].forEach(function(buyTokens) {
-  var details = user1Wallet.getBuyDetails(orderKey, buyToken, sellToken, buyTokens);
+  var details = user1Wallet.getBuyFromWalletDetails(orderKey, buyToken, sellToken, buyTokens);
   console.log("RESULT: buyTokens=" + buyTokens.shift(-18));
-  console.log("RESULT:   _buyTokens=" + details[0].shift(-18));
-  console.log("RESULT:   _sellTokens=" + details[1].shift(-18));
+  console.log("RESULT:   _buyTokens=" + details[0].shift(-18) + " " + buyTokenSymbol);
+  console.log("RESULT:   _sellTokens=" + details[1].shift(-18) + " " + sellTokenSymbol);
+  console.log("RESULT:   _price=" + details[2].shift(-18) + " " + (details[3] == true ? "Inverse" : ""));
 });
+console.log("RESULT: ");
 
 
 // -----------------------------------------------------------------------------
 var addOrders2Message = "Add Orders #2";
-var price = new BigNumber(55087).shift(10); // 0.00055087 = new BigNumber(55087).shift(10);
+// GNT/ETH 0.00055087 = ETH/GNT 1815.310327300452012
+var price = new BigNumber("1815.310327300452012").shift(18);
 var amount = new BigNumber("10").shift(18);
 var expiry = parseInt(new Date()/1000) + 60*60;
 // -----------------------------------------------------------------------------
 console.log("RESULT: ---------- " + addOrders2Message + " ----------");
-var addOrders2_1Tx = user1Wallet.addOrder(SELL, tokenAAddress, tokenBAddress, price, amount, expiry, {from: user1, gas: 2000000, gasPrice: defaultGasPrice});
+var addOrders2_1Tx = user1Wallet.addOrder(SELL, tokenBAddress, tokenAAddress, price, amount, expiry, {from: user1, gas: 2000000, gasPrice: defaultGasPrice});
 while (txpool.status.pending > 0) {
 }
 printBalances();
-failIfTxStatusError(addOrders2_1Tx, addOrders2Message + " - user1Wallet.addOrder(SELL, " + tokenA.symbol() + ", " + tokenB.symbol() + ", " + price.shift(-18) + ", " + amount.shift(-18) + ", +1h)");
+failIfTxStatusError(addOrders2_1Tx, addOrders2Message + " - user1Wallet.addOrder(SELL, " + tokenB.symbol() + ", " + tokenA.symbol() + ", " + price.shift(-18) + ", " + amount.shift(-18) + ", +1h)");
 printTxData("addOrders2_1Tx", addOrders2_1Tx);
 printDEXWalletContractDetails(user1WalletAddress, dexWalletAbi);
 console.log("RESULT: ");
+
+
+// -----------------------------------------------------------------------------
+var testOrders2 = "Test Orders #1";
+// -----------------------------------------------------------------------------
+console.log("RESULT: ---------- " + testOrders2 + " ----------");
+var orderKey = user1Wallet.getOrderKeyByIndex(1);
+var order = user1Wallet.getOrderByKey(orderKey);
+var buyToken = tokenAAddress;
+var sellToken = tokenBAddress;
+var buyTokenSymbol = getAddressSymbol(buyToken);
+var sellTokenSymbol = getAddressSymbol(sellToken);
+console.log("RESULT: order=" + formatOrder(order[0], order[1], order[2], order[3], order[4], order[5], order[6]));
+[new BigNumber(0).shift(18), new BigNumber(10).shift(18), new BigNumber(100).shift(18), new BigNumber(1000).shift(18), new BigNumber(10000).shift(18), new BigNumber(100000).shift(18)].forEach(function(buyTokens) {
+  var details = user1Wallet.getBuyFromWalletDetails(orderKey, buyToken, sellToken, buyTokens);
+  console.log("RESULT: buyTokens=" + buyTokens.shift(-18));
+  console.log("RESULT:   _buyTokens=" + details[0].shift(-18) + " " + buyTokenSymbol);
+  console.log("RESULT:   _sellTokens=" + details[1].shift(-18) + " " + sellTokenSymbol);
+  console.log("RESULT:   _price=" + details[2].shift(-18) + " " + (details[3] == true ? "Inverse" : ""));
+});
+console.log("RESULT: ");
+
 
 
 
