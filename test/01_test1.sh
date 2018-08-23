@@ -67,12 +67,12 @@ console.log("RESULT: ");
 
 // -----------------------------------------------------------------------------
 var deployGroup1Message = "Deploy Group #1";
-var tokenASymbol = "TOKA";
-var tokenAName = "Token A";
+var tokenASymbol = "GNT";
+var tokenAName = "Golem";
 var tokenADecimals = 18;
 var tokenAInitialSupply = 0;
-var tokenBSymbol = "TOKB";
-var tokenBName = "Token B";
+var tokenBSymbol = "WETH";
+var tokenBName = "Wrapped ETH";
 var tokenBDecimals = 18;
 var tokenBInitialSupply = 0;
 // -----------------------------------------------------------------------------
@@ -107,6 +107,7 @@ var tokenA = tokenAContract.new(tokenASymbol, tokenAName, tokenADecimals, deploy
       } else {
         tokenAAddress = contract.address;
         addAccount(tokenAAddress, "Token '" + tokenA.symbol() + "' '" + tokenA.name() + "'");
+        addAddressSymbol(tokenAAddress, tokenA.symbol());
         addTokenAContractAddressAndAbi(tokenAAddress, mintableTokenAbi);
         console.log("DATA: var tokenAAddress=\"" + tokenAAddress + "\";");
         console.log("DATA: var tokenAAbi=" + JSON.stringify(mintableTokenAbi) + ";");
@@ -126,6 +127,7 @@ var tokenB = tokenBContract.new(tokenBSymbol, tokenBName, tokenBDecimals, deploy
       } else {
         tokenBAddress = contract.address;
         addAccount(tokenBAddress, "Token '" + tokenB.symbol() + "' '" + tokenB.name() + "'");
+        addAddressSymbol(tokenBAddress, tokenB.symbol());
         addTokenBContractAddressAndAbi(tokenBAddress, mintableTokenAbi);
         console.log("DATA: var tokenBAddress=\"" + tokenBAddress + "\";");
         console.log("DATA: var tokenBAbi=" + JSON.stringify(mintableTokenAbi) + ";");
@@ -152,7 +154,7 @@ console.log("RESULT: ");
 // -----------------------------------------------------------------------------
 var deployWallets1Message = "Deploy Wallets #1";
 // -----------------------------------------------------------------------------
-console.log("RESULT: ----- " + deployWallets1Message + " -----");
+console.log("RESULT: ---------- " + deployWallets1Message + " ----------");
 var deployWallets1_1Tx = dexWalletFactory.newDEXWallet({from: user1, gas: 2000000, gasPrice: defaultGasPrice});
 var deployWallets1_2Tx = dexWalletFactory.newDEXWallet({from: user2, gas: 2000000, gasPrice: defaultGasPrice});
 var deployWallets1_3Tx = dexWalletFactory.newDEXWallet({from: user3, gas: 2000000, gasPrice: defaultGasPrice});
@@ -195,7 +197,7 @@ var distributeTokensMessage = "Distribute Tokens #1";
 var tokenAAmount = new BigNumber("1000").shift(tokenADecimals);
 var tokenBAmount = new BigNumber("10000").shift(tokenBDecimals);
 // -----------------------------------------------------------------------------
-console.log("RESULT: ----- " + distributeTokensMessage + " -----");
+console.log("RESULT: ---------- " + distributeTokensMessage + " ----------");
 var distributeTokens_1Tx = tokenA.mint(user1WalletAddress, tokenAAmount, {from: deployer, gas: 2000000, gasPrice: defaultGasPrice});
 var distributeTokens_2Tx = tokenA.mint(user2WalletAddress, tokenAAmount, {from: deployer, gas: 2000000, gasPrice: defaultGasPrice});
 var distributeTokens_3Tx = tokenA.mint(user3WalletAddress, tokenAAmount, {from: deployer, gas: 2000000, gasPrice: defaultGasPrice});
@@ -223,21 +225,59 @@ console.log("RESULT: ");
 
 
 // -----------------------------------------------------------------------------
-var addOrdersMessage = "Add Orders #1";
-var price = new BigNumber("1").shift(18);
+var addOrders1Message = "Add Orders #1";
+var price = new BigNumber(54087).shift(10); // 0.00054087 = new BigNumber(54087).shift(10);
 var amount = new BigNumber("10").shift(18);
 var BUY = 0;
 var SELL = 1;
 var expiry = parseInt(new Date()/1000) + 60*60;
 // -----------------------------------------------------------------------------
-console.log("RESULT: ----- " + addOrdersMessage + " -----");
-var addOrders_1Tx = user1Wallet.addOrder(BUY, tokenAAddress, tokenBAddress, price, amount, expiry, {from: user1, gas: 2000000, gasPrice: defaultGasPrice});
+console.log("RESULT: ---------- " + addOrders1Message + " ----------");
+var addOrders1_1Tx = user1Wallet.addOrder(BUY, tokenAAddress, tokenBAddress, price, amount, expiry, {from: user1, gas: 2000000, gasPrice: defaultGasPrice});
 while (txpool.status.pending > 0) {
 }
 printBalances();
-failIfTxStatusError(addOrders_1Tx, addOrdersMessage + " - user1Wallet.addOrder(BUY, tokenA, tokenBA, price, amount, +1h)");
+failIfTxStatusError(addOrders1_1Tx, addOrders1Message + " - user1Wallet.addOrder(BUY, " + tokenA.symbol() + ", " + tokenB.symbol() + ", " + price.shift(-18) + ", " + amount.shift(-18) + ", +1h)");
+printTxData("addOrders1_1Tx", addOrders1_1Tx);
 printDEXWalletContractDetails(user1WalletAddress, dexWalletAbi);
 console.log("RESULT: ");
+
+
+// -----------------------------------------------------------------------------
+var testOrders1 = "Test Orders #1";
+// -----------------------------------------------------------------------------
+console.log("RESULT: ---------- " + testOrders1 + " ----------");
+var orderKey = user1Wallet.getOrderKeyByIndex(0);
+var buyToken = tokenAAddress;
+var sellToken = tokenBAddress;
+console.log("RESULT: orderKey=" + orderKey);
+console.log("RESULT: order=" + JSON.stringify(user1Wallet.getOrderByKey(orderKey)));
+console.log("RESULT: buyToken=" + buyToken);
+console.log("RESULT: sellToken=" + sellToken);
+[new BigNumber(0).shift(18), new BigNumber(10).shift(18), new BigNumber(100).shift(18), new BigNumber(1000).shift(18), new BigNumber(10000).shift(18), new BigNumber(100000).shift(18)].forEach(function(buyTokens) {
+  var details = user1Wallet.getBuyDetails(orderKey, buyToken, sellToken, buyTokens);
+  console.log("RESULT: buyTokens=" + buyTokens.shift(-18));
+  console.log("RESULT:   _buyTokens=" + details[0].shift(-18));
+  console.log("RESULT:   _sellTokens=" + details[1].shift(-18));
+});
+
+
+// -----------------------------------------------------------------------------
+var addOrders2Message = "Add Orders #2";
+var price = new BigNumber(55087).shift(10); // 0.00055087 = new BigNumber(55087).shift(10);
+var amount = new BigNumber("10").shift(18);
+var expiry = parseInt(new Date()/1000) + 60*60;
+// -----------------------------------------------------------------------------
+console.log("RESULT: ---------- " + addOrders2Message + " ----------");
+var addOrders2_1Tx = user1Wallet.addOrder(SELL, tokenAAddress, tokenBAddress, price, amount, expiry, {from: user1, gas: 2000000, gasPrice: defaultGasPrice});
+while (txpool.status.pending > 0) {
+}
+printBalances();
+failIfTxStatusError(addOrders2_1Tx, addOrders2Message + " - user1Wallet.addOrder(SELL, " + tokenA.symbol() + ", " + tokenB.symbol() + ", " + price.shift(-18) + ", " + amount.shift(-18) + ", +1h)");
+printTxData("addOrders2_1Tx", addOrders2_1Tx);
+printDEXWalletContractDetails(user1WalletAddress, dexWalletAbi);
+console.log("RESULT: ");
+
 
 
 EOF

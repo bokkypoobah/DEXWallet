@@ -150,3 +150,24 @@ function getAddressFromName(name) {
     return "";
   }
 }
+
+
+var addressSymbol = {};
+var symbolAddresses = {};
+
+function addAddressSymbol(address, symbol) {
+  var a = address.toLowerCase();
+  addressSymbol[a] = symbol;
+  symbolAddresses[symbol] = a;
+}
+
+function getAddressSymbol(address) {
+  if (address != null) {
+    var a = address.toLowerCase();
+    var s = addressSymbol[a];
+    if (s !== undefined) {
+      return s;
+    }
+  }
+  return address;
+}

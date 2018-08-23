@@ -11,17 +11,18 @@ import "CloneFactory.sol";
 // ----------------------------------------------------------------------------
 library Orders {
     enum OrderType {
-        Buy,
-        Sell
+        BUY,
+        SELL
     }
+    // 0.00054087 = new BigNumber(54087).shift(10);
     // GNT/ETH = base/quote = 0.00054087
     struct Order {
         OrderType orderType;
-        address baseToken;
-        address quoteToken;
-        uint price; // in number of quoteToken per unit baseToken
+        address baseToken;      // GNT
+        address quoteToken;     // ETH
+        uint price;             // GNT/ETH = 0.00054087 = #quoteToken per unit baseToken
         uint expiry;
-        uint amount;
+        uint amount;            // GNT - baseToken
         uint index;
     }
     struct Data {
@@ -189,6 +190,51 @@ contract DEXWallet is Owned {
     }
     function getOrderKeyByIndex(uint index) public view returns (bytes32) {
         return orders.index[index];
+    }
+
+/*
+    // GNT/ETH = base/quote = 0.00054087
+    struct Order {
+        OrderType orderType;    // BUY
+        address baseToken;      // GNT
+        address quoteToken;     // ETH
+        uint price;             // GNT/ETH = 0.00054087 = #quoteToken per unit baseToken
+        uint amount;            // GNT - baseToken
+    }
+
+    // ETH/GNT = base/quote = 1848.873111838334535
+    struct Order {
+        OrderType orderType;    // SELL
+        address baseToken;      // ETH
+        address quoteToken;     // GNT
+        uint price;             // ETH/GNT = 1848.873111838334535 = #quoteToken per unit baseToken
+        uint amount;            // ETH - baseToken
+    }
+
+    getBuyDetails(key, GNT, ETH, 0)
+*/
+
+    function getBuyDetails(bytes32 key, address buyToken, address sellToken, uint buyTokens) public view returns (uint _buyTokens, uint _sellTokens) {
+        Orders.Order memory order = orders.orders[key];
+        if (now <= order.expiry) {
+            if (order.orderType == Orders.OrderType.BUY && buyToken == order.baseToken && sellToken == order.quoteToken) {
+                if (buyTokens == 0 || buyTokens > ERC20Interface(buyToken).balanceOf(address(this))) {
+                    _buyTokens = ERC20Interface(buyToken).balanceOf(address(this));
+                } else {
+                    _buyTokens = buyTokens;
+                }
+                _sellTokens = _buyTokens.mul(order.price).div(1 ether);
+
+            } else if (order.orderType == Orders.OrderType.SELL && buyToken == order.quoteToken && sellToken == order.baseToken) {
+                uint maxAmount = ERC20Interface(buyToken).balanceOf(address(this)).mul(order.price).div(1 ether);
+                if (buyTokens == 0 || buyTokens > maxAmount) {
+                    _buyTokens = maxAmount;
+                } else {
+                    _buyTokens = buyTokens;
+                }
+                _sellTokens = _buyTokens.mul(1 ether).div(order.price);
+            }
+        }
     }
     function () public payable {
     	emit EthersDeposited(msg.sender, msg.value, address(this).balance);

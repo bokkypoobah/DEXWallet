@@ -98,7 +98,8 @@ function printBalances() {
   var i = 0;
   var totalTokenABalance = new BigNumber(0);
   var totalTokenBBalance = new BigNumber(0);
-  console.log("RESULT:  # Account                                             EtherBalanceChange                        Token A                        Token B Name");
+  // console.log("RESULT:  # Account                                             EtherBalanceChange                        Token A                        Token B Name");
+  console.log("RESULT:  # Account                                             EtherBalanceChange               " + padLeft(tokenA.symbol(), 16) + "               " + padLeft(tokenB.symbol(), 16) + " Name");
   console.log("RESULT: -- ------------------------------------------ --------------------------- ------------------------------ ------------------------------ ---------------------------");
   accounts.forEach(function(e) {
     var etherBalanceBaseBlock = eth.getBalance(e, baseBlock);
@@ -137,6 +138,14 @@ function padToken(s, decimals) {
   var o = s.toFixed(decimals);
   var l = parseInt(decimals)+12;
   while (o.length < l) {
+    o = " " + o;
+  }
+  return o;
+}
+
+function padLeft(s, n) {
+  var o = s;
+  while (o.length < n) {
     o = " " + o;
   }
   return o;
@@ -473,7 +482,7 @@ function printDEXWalletContractDetails(address, abi) {
 
     var i;
     for (i = 0; i < contract.getNumberOfOrders(); i++) {
-       var orderKey = contract.getOrderKey(i);
+       var orderKey = contract.getOrderKeyByIndex(i);
        var order = contract.getOrderByKey(orderKey);
        console.log("RESULT: dexWallet.orders[" + orderKey + "]=" + JSON.stringify(order));
     }
@@ -487,10 +496,16 @@ function printDEXWalletContractDetails(address, abi) {
     });
     ownershipTransferredEvents.stopWatching();
 
+    // event OrderAdded(bytes32 indexed key, uint orderType, address baseToken, address quoteToken, uint price, uint expiry, uint amount);
+    // dexWallet.OrderAdded 0 #1286 {"amount":"10000000000000000000","baseToken":"0xf235febef748bc1586d8aea01f093012eea7b3c8","expiry":"1534984941",
+    // "key":"0xaadfa703929c85641f7259876c10a6cca276b93549568190c51af59a5b42e9ba","orderType":"0","price":"1000000000000000000",
+    // "quoteToken":"0x27daa9fe81944d721dc95e09f54c8bd3a90a5603"}
     var orderAddedEvents = contract.OrderAdded({}, { fromBlock: fromBlock[address], toBlock: latestBlock });
     i = 0;
     orderAddedEvents.watch(function (error, result) {
-      console.log("RESULT: dexWallet.OrderAdded " + i++ + " #" + result.blockNumber + " " + JSON.stringify(result.args));
+      console.log("RESULT: dexWallet.OrderAdded " + i++ + " #" + result.blockNumber + " " + result.args.key);
+      console.log("RESULT:   " + (result.args.orderType == 0 ? "BUY" : "SELL") + " " + result.args.amount.shift(-18) + " base @ " + result.args.price.shift(-18) + " #base per unit quote until " + new Date(result.args.expiry * 1000).toString());
+      console.log("RESULT:   baseToken " + getAddressSymbol(result.args.baseToken) + " quoteToken " + getAddressSymbol(result.args.quoteToken));
     });
     orderAddedEvents.stopWatching();
 
