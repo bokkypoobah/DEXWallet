@@ -102,7 +102,7 @@ contract DEXWallet is Owned {
         return Orders.orderKey(orderType, baseToken, quoteToken, price, expiry);
     }
     function addOrder(Orders.OrderType orderType, address baseToken, address quoteToken, uint price, uint expiry, uint amount) public onlyOwner returns (bytes32) {
-        return orders.add(orderType, baseToken, quoteToken, price, amount, expiry);
+        return orders.add(orderType, baseToken, quoteToken, price, expiry, amount);
     }
     function increaseOrderAmount(Orders.OrderType orderType, address baseToken, address quoteToken, uint price, uint expiry, uint amount) public onlyOwner returns (uint _newAmount) {
         bytes32 key = Orders.orderKey(orderType, baseToken, quoteToken, price, expiry);

@@ -235,11 +235,11 @@ var amount = new BigNumber("1234").shift(18);
 var expiry = parseInt(new Date()/1000) + 60*60;
 // -----------------------------------------------------------------------------
 console.log("RESULT: ---------- " + addOrders1Message + " ----------");
-var addOrders1_1Tx = user1Wallet.addOrder(BUY, tokenAAddress, tokenBAddress, price, amount, expiry, {from: user1, gas: 2000000, gasPrice: defaultGasPrice});
+var addOrders1_1Tx = user1Wallet.addOrder(BUY, tokenAAddress, tokenBAddress, price, expiry, amount, {from: user1, gas: 2000000, gasPrice: defaultGasPrice});
 while (txpool.status.pending > 0) {
 }
 printBalances();
-failIfTxStatusError(addOrders1_1Tx, addOrders1Message + " - user1Wallet.addOrder(BUY, " + tokenA.symbol() + ", " + tokenB.symbol() + ", " + price.shift(-18) + ", " + amount.shift(-18) + ", +1h)");
+failIfTxStatusError(addOrders1_1Tx, addOrders1Message + " - user1Wallet.addOrder(BUY, " + tokenA.symbol() + ", " + tokenB.symbol() + ", " + price.shift(-18) + ", +1h, " + amount.shift(-18) + ")");
 printTxData("addOrders1_1Tx", addOrders1_1Tx);
 printDEXWalletContractDetails(user1WalletAddress, dexWalletAbi);
 console.log("RESULT: ");
@@ -275,11 +275,11 @@ var amount = new BigNumber("10").shift(18);
 var expiry = parseInt(new Date()/1000) + 60*60;
 // -----------------------------------------------------------------------------
 console.log("RESULT: ---------- " + addOrders2Message + " ----------");
-var addOrders2_1Tx = user1Wallet.addOrder(SELL, tokenBAddress, tokenAAddress, price, amount, expiry, {from: user1, gas: 2000000, gasPrice: defaultGasPrice});
+var addOrders2_1Tx = user1Wallet.addOrder(SELL, tokenBAddress, tokenAAddress, price, expiry, amount, {from: user1, gas: 2000000, gasPrice: defaultGasPrice});
 while (txpool.status.pending > 0) {
 }
 printBalances();
-failIfTxStatusError(addOrders2_1Tx, addOrders2Message + " - user1Wallet.addOrder(SELL, " + tokenB.symbol() + ", " + tokenA.symbol() + ", " + price.shift(-18) + ", " + amount.shift(-18) + ", +1h)");
+failIfTxStatusError(addOrders2_1Tx, addOrders2Message + " - user1Wallet.addOrder(SELL, " + tokenB.symbol() + ", " + tokenA.symbol() + ", " + price.shift(-18) + ", +1h, " + amount.shift(-18) + ")");
 printTxData("addOrders2_1Tx", addOrders2_1Tx);
 printDEXWalletContractDetails(user1WalletAddress, dexWalletAbi);
 console.log("RESULT: ");

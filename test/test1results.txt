@@ -2,8 +2,8 @@
 ---------- Deploy Group #1 ----------
  # Account                                             EtherBalanceChange                            GNT                           WETH Name
 -- ------------------------------------------ --------------------------- ------------------------------ ------------------------------ ---------------------------
- 0 0xa00af22d07c87d96eeeb0ed583f8f6ac7812827e        0.009515606000000000           0.000000000000000000           0.000000000000000000 Account #0 - Miner
- 1 0xa11aae29840fbb5c86e6fd4cf809eba183aef433       -0.009515606000000000           0.000000000000000000           0.000000000000000000 Account #1 - Deployer
+ 0 0xa00af22d07c87d96eeeb0ed583f8f6ac7812827e        0.009515734000000000           0.000000000000000000           0.000000000000000000 Account #0 - Miner
+ 1 0xa11aae29840fbb5c86e6fd4cf809eba183aef433       -0.009515734000000000           0.000000000000000000           0.000000000000000000 Account #1 - Deployer
  2 0xa22ab8a9d641ce77e06d98b7d7065d324d3d6976        0.000000000000000000           0.000000000000000000           0.000000000000000000 Account #2 - DEX Operator
  3 0xa33a6c312d9ad0e0f2e95541beed0cc081621fd0        0.000000000000000000           0.000000000000000000           0.000000000000000000 Account #3 - User 1
  4 0xa44a08d3f6933c69212114bb66e2df1813651844        0.000000000000000000           0.000000000000000000           0.000000000000000000 Account #4 - User 2
@@ -14,9 +14,9 @@
  9 0xa99a0ae3354c06b1459fd441a32a3f71005d7da0        0.000000000000000000           0.000000000000000000           0.000000000000000000 Account #9
 10 0xaaaa9de1e6c564446ebca0fd102d8bd92093c756        0.000000000000000000           0.000000000000000000           0.000000000000000000 Account #10
 11 0xabba43e7594e3b76afb157989e93c6621497fd4b        0.000000000000000000           0.000000000000000000           0.000000000000000000 Account #11
-12 0x5d078b663f964dd3927bb4e7d977f7f5962c7eaa        0.000000000000000000           0.000000000000000000           0.000000000000000000 DEXWalletFactory
-13 0xe26c693f36e9e79b1ac66808c8335ba81dacfa67        0.000000000000000000           0.000000000000000000           0.000000000000000000 Token 'GNT' 'Golem'
-14 0x0373d24cd5087c54d918d2e30dadd3355ee37d5f        0.000000000000000000           0.000000000000000000           0.000000000000000000 Token 'WETH' 'Wrapped ETH'
+12 0x127c99a8bee50980c8c9b35077cb1a17366c6ff8        0.000000000000000000           0.000000000000000000           0.000000000000000000 DEXWalletFactory
+13 0x8ab56e67795508d9b2d4511fe0d614e017fa6adc        0.000000000000000000           0.000000000000000000           0.000000000000000000 Token 'GNT' 'Golem'
+14 0x6de75c4ec96977f1fb9e67e0383b84bab36a42a3        0.000000000000000000           0.000000000000000000           0.000000000000000000 Token 'WETH' 'Wrapped ETH'
 -- ------------------------------------------ --------------------------- ------------------------------ ------------------------------ ---------------------------
                                                                                     0.000000000000000000           0.000000000000000000 Total Token Balances
 -- ------------------------------------------ --------------------------- ------------------------------ ------------------------------ ---------------------------
@@ -24,38 +24,38 @@
 PASS Deploy Group #1 - DEXWalletFactory
 PASS Deploy Group #1 - Token ''GNT' 'Golem'
 PASS Deploy Group #1 - Token ''WETH' 'Wrapped ETH'
-dexWalletFactoryTx status=0x1 Success gas=4000000 gasUsed=2613893 costETH=0.005227786 costUSD=2.2774849709 @ ETH/USD=435.65 gasPrice=2 gwei block=32627 txIx=0 txId=0x79c383666b691a6c0ad2bc8664c3a12ce3c083e8f5248d88e5f5fbd297c526b4 @ 1535012684 Thu, 23 Aug 2018 08:24:44 UTC
-tokenATx status=0x1 Success gas=2000000 gasUsed=1071731 costETH=0.002143462 costUSD=0.9337992203 @ ETH/USD=435.65 gasPrice=2 gwei block=32627 txIx=1 txId=0x7c8e8b578b18507c40fa53c1c98b26d65da0582850de85a0b349d01706da4b95 @ 1535012684 Thu, 23 Aug 2018 08:24:44 UTC
-tokenBTx status=0x1 Success gas=2000000 gasUsed=1072179 costETH=0.002144358 costUSD=0.9341895627 @ ETH/USD=435.65 gasPrice=2 gwei block=32627 txIx=2 txId=0xb6a14d28dfa8328d847606f75f219c8ef23cf735fe3e81f532ea7358525ab864 @ 1535012684 Thu, 23 Aug 2018 08:24:44 UTC
-dexWalletFactory.address=DEXWalletFactory:0x5d078b663f964dd3927bb4e7d977f7f5962c7eaa
+dexWalletFactoryTx status=0x1 Success gas=4000000 gasUsed=2613957 costETH=0.005227914 costUSD=2.2775407341 @ ETH/USD=435.65 gasPrice=2 gwei block=39021 txIx=0 txId=0xb98afa7af90c243fbfc35e53c457dcaeddd2b1555974477f575646bab17b1233 @ 1535019853 Thu, 23 Aug 2018 10:24:13 UTC
+tokenATx status=0x1 Success gas=2000000 gasUsed=1071731 costETH=0.002143462 costUSD=0.9337992203 @ ETH/USD=435.65 gasPrice=2 gwei block=39021 txIx=1 txId=0xa69fcf16e681af2cffad70e95d30a2de0daf022172e4ef7b7485f5723a787949 @ 1535019853 Thu, 23 Aug 2018 10:24:13 UTC
+tokenBTx status=0x1 Success gas=2000000 gasUsed=1072179 costETH=0.002144358 costUSD=0.9341895627 @ ETH/USD=435.65 gasPrice=2 gwei block=39021 txIx=2 txId=0x15db395fb0a69d7b7d9db43cdb83e9837ddc1a5081781b227d787f0804bf6620 @ 1535019853 Thu, 23 Aug 2018 10:24:13 UTC
+dexWalletFactory.address=DEXWalletFactory:0x127c99a8bee50980c8c9b35077cb1a17366c6ff8
 dexWalletFactory.owner/new=Account #1 - Deployer:0xa11aae29840fbb5c86e6fd4cf809eba183aef433 0x0000000000000000000000000000000000000000
-dexWalletFactory.walletTemplate=0x1559d6d45c5a193988ed7a2620e6da13b92ca21b
+dexWalletFactory.walletTemplate=0x0ed525e15bd6e753b97ea50bc71e3cd8346e1c1b
 dexWalletFactory.numberOfWallets=0
-tokenAContractAddress=Token 'GNT' 'Golem':0xe26c693f36e9e79b1ac66808c8335ba81dacfa67
+tokenAContractAddress=Token 'GNT' 'Golem':0x8ab56e67795508d9b2d4511fe0d614e017fa6adc
 tokenA.owner/new=Account #1 - Deployer:0xa11aae29840fbb5c86e6fd4cf809eba183aef433 0x0000000000000000000000000000000000000000
 tokenA.symbol=GNT
 tokenA.name=Golem
 tokenA.decimals=18
 tokenA.totalSupply=0 0
-tokenA.Transfer 0 #32627: from=0x0000000000000000000000000000000000000000 to=0xa11aae29840fbb5c86e6fd4cf809eba183aef433 tokens=0
-tokenBContractAddress=Token 'WETH' 'Wrapped ETH':0x0373d24cd5087c54d918d2e30dadd3355ee37d5f
+tokenA.Transfer 0 #39021: from=0x0000000000000000000000000000000000000000 to=0xa11aae29840fbb5c86e6fd4cf809eba183aef433 tokens=0
+tokenBContractAddress=Token 'WETH' 'Wrapped ETH':0x6de75c4ec96977f1fb9e67e0383b84bab36a42a3
 tokenB.owner/new=Account #1 - Deployer:0xa11aae29840fbb5c86e6fd4cf809eba183aef433 0x0000000000000000000000000000000000000000
 tokenB.symbol=WETH
 tokenB.name=Wrapped ETH
 tokenB.decimals=18
 tokenB.totalSupply=0 0
-tokenB.Transfer 0 #32627: from=0x0000000000000000000000000000000000000000 to=0xa11aae29840fbb5c86e6fd4cf809eba183aef433 tokens=0
+tokenB.Transfer 0 #39021: from=0x0000000000000000000000000000000000000000 to=0xa11aae29840fbb5c86e6fd4cf809eba183aef433 tokens=0
 
 ---------- Deploy Wallets #1 ----------
-dexWalletFactoryContractAddress=0x5d078b663f964dd3927bb4e7d977f7f5962c7eaa
-getNewDEXWallet.WalletCreated 0 #32631 {"dexWalletAddress":"0xa4688101d869f39f362d5cce684bfa17c1fcd356","owner":"0xa33a6c312d9ad0e0f2e95541beed0cc081621fd0"}
-getNewDEXWallet.WalletCreated 1 #32631 {"dexWalletAddress":"0xd89f6ac22a4d850960a868060fb90940601c5c7b","owner":"0xa55a151eb00fded1634d27d1127b4be4627079ea"}
-getNewDEXWallet.WalletCreated 2 #32631 {"dexWalletAddress":"0xfad7a3903096662698a3da916a0f73226eae6ba5","owner":"0xa44a08d3f6933c69212114bb66e2df1813651844"}
-newWallets={"0xa33a6c312d9ad0e0f2e95541beed0cc081621fd0":"0xa4688101d869f39f362d5cce684bfa17c1fcd356","0xa44a08d3f6933c69212114bb66e2df1813651844":"0xfad7a3903096662698a3da916a0f73226eae6ba5","0xa55a151eb00fded1634d27d1127b4be4627079ea":"0xd89f6ac22a4d850960a868060fb90940601c5c7b"}
+dexWalletFactoryContractAddress=0x127c99a8bee50980c8c9b35077cb1a17366c6ff8
+getNewDEXWallet.WalletCreated 0 #39025 {"dexWalletAddress":"0x4599f051ae1a3eb11587690cedc1a708d57e43de","owner":"0xa33a6c312d9ad0e0f2e95541beed0cc081621fd0"}
+getNewDEXWallet.WalletCreated 1 #39025 {"dexWalletAddress":"0xf8ff9cde9b306f1d298fdca758f0647147bd167e","owner":"0xa55a151eb00fded1634d27d1127b4be4627079ea"}
+getNewDEXWallet.WalletCreated 2 #39025 {"dexWalletAddress":"0x5f9f90492a6009f3fd9993d63ee32c43ea4fa828","owner":"0xa44a08d3f6933c69212114bb66e2df1813651844"}
+newWallets={"0xa33a6c312d9ad0e0f2e95541beed0cc081621fd0":"0x4599f051ae1a3eb11587690cedc1a708d57e43de","0xa44a08d3f6933c69212114bb66e2df1813651844":"0x5f9f90492a6009f3fd9993d63ee32c43ea4fa828","0xa55a151eb00fded1634d27d1127b4be4627079ea":"0xf8ff9cde9b306f1d298fdca758f0647147bd167e"}
  # Account                                             EtherBalanceChange                            GNT                           WETH Name
 -- ------------------------------------------ --------------------------- ------------------------------ ------------------------------ ---------------------------
- 0 0xa00af22d07c87d96eeeb0ed583f8f6ac7812827e        0.010611380000000000           0.000000000000000000           0.000000000000000000 Account #0 - Miner
- 1 0xa11aae29840fbb5c86e6fd4cf809eba183aef433       -0.009515606000000000           0.000000000000000000           0.000000000000000000 Account #1 - Deployer
+ 0 0xa00af22d07c87d96eeeb0ed583f8f6ac7812827e        0.010611508000000000           0.000000000000000000           0.000000000000000000 Account #0 - Miner
+ 1 0xa11aae29840fbb5c86e6fd4cf809eba183aef433       -0.009515734000000000           0.000000000000000000           0.000000000000000000 Account #1 - Deployer
  2 0xa22ab8a9d641ce77e06d98b7d7065d324d3d6976        0.000000000000000000           0.000000000000000000           0.000000000000000000 Account #2 - DEX Operator
  3 0xa33a6c312d9ad0e0f2e95541beed0cc081621fd0       -0.000385258000000000           0.000000000000000000           0.000000000000000000 Account #3 - User 1
  4 0xa44a08d3f6933c69212114bb66e2df1813651844       -0.000355258000000000           0.000000000000000000           0.000000000000000000 Account #4 - User 2
@@ -66,12 +66,12 @@ newWallets={"0xa33a6c312d9ad0e0f2e95541beed0cc081621fd0":"0xa4688101d869f39f362d
  9 0xa99a0ae3354c06b1459fd441a32a3f71005d7da0        0.000000000000000000           0.000000000000000000           0.000000000000000000 Account #9
 10 0xaaaa9de1e6c564446ebca0fd102d8bd92093c756        0.000000000000000000           0.000000000000000000           0.000000000000000000 Account #10
 11 0xabba43e7594e3b76afb157989e93c6621497fd4b        0.000000000000000000           0.000000000000000000           0.000000000000000000 Account #11
-12 0x5d078b663f964dd3927bb4e7d977f7f5962c7eaa        0.000000000000000000           0.000000000000000000           0.000000000000000000 DEXWalletFactory
-13 0xe26c693f36e9e79b1ac66808c8335ba81dacfa67        0.000000000000000000           0.000000000000000000           0.000000000000000000 Token 'GNT' 'Golem'
-14 0x0373d24cd5087c54d918d2e30dadd3355ee37d5f        0.000000000000000000           0.000000000000000000           0.000000000000000000 Token 'WETH' 'Wrapped ETH'
-15 0xa4688101d869f39f362d5cce684bfa17c1fcd356        0.000000000000000000           0.000000000000000000           0.000000000000000000 User1 DEXWallet
-16 0xfad7a3903096662698a3da916a0f73226eae6ba5        0.000000000000000000           0.000000000000000000           0.000000000000000000 User2 DEXWallet
-17 0xd89f6ac22a4d850960a868060fb90940601c5c7b        0.000000000000000000           0.000000000000000000           0.000000000000000000 User3 DEXWallet
+12 0x127c99a8bee50980c8c9b35077cb1a17366c6ff8        0.000000000000000000           0.000000000000000000           0.000000000000000000 DEXWalletFactory
+13 0x8ab56e67795508d9b2d4511fe0d614e017fa6adc        0.000000000000000000           0.000000000000000000           0.000000000000000000 Token 'GNT' 'Golem'
+14 0x6de75c4ec96977f1fb9e67e0383b84bab36a42a3        0.000000000000000000           0.000000000000000000           0.000000000000000000 Token 'WETH' 'Wrapped ETH'
+15 0x4599f051ae1a3eb11587690cedc1a708d57e43de        0.000000000000000000           0.000000000000000000           0.000000000000000000 User1 DEXWallet
+16 0x5f9f90492a6009f3fd9993d63ee32c43ea4fa828        0.000000000000000000           0.000000000000000000           0.000000000000000000 User2 DEXWallet
+17 0xf8ff9cde9b306f1d298fdca758f0647147bd167e        0.000000000000000000           0.000000000000000000           0.000000000000000000 User3 DEXWallet
 -- ------------------------------------------ --------------------------- ------------------------------ ------------------------------ ---------------------------
                                                                                     0.000000000000000000           0.000000000000000000 Total Token Balances
 -- ------------------------------------------ --------------------------- ------------------------------ ------------------------------ ---------------------------
@@ -79,31 +79,31 @@ newWallets={"0xa33a6c312d9ad0e0f2e95541beed0cc081621fd0":"0xa4688101d869f39f362d
 PASS Deploy Wallets #1 - user1 newDEXWallet
 PASS Deploy Wallets #1 - user2 newDEXWallet
 PASS Deploy Wallets #1 - user3 newDEXWallet
-deployWallets1_1Tx status=0x1 Success gas=2000000 gasUsed=192629 costETH=0.000385258 costUSD=0.1678376477 @ ETH/USD=435.65 gasPrice=2 gwei block=32631 txIx=0 txId=0x211c799aa493b85fb6dc385a8bbb877bb4f3ddeb80a99fd79d37d9b9842cc6c4 @ 1535012688 Thu, 23 Aug 2018 08:24:48 UTC
-deployWallets1_2Tx status=0x1 Success gas=2000000 gasUsed=177629 costETH=0.000355258 costUSD=0.1547681477 @ ETH/USD=435.65 gasPrice=2 gwei block=32631 txIx=2 txId=0x74c304e2f1c9924b511a9cc2441869dc79e5c0a7b0289bdf4a7acff84ac7e8ff @ 1535012688 Thu, 23 Aug 2018 08:24:48 UTC
-deployWallets1_3Tx status=0x1 Success gas=2000000 gasUsed=177629 costETH=0.000355258 costUSD=0.1547681477 @ ETH/USD=435.65 gasPrice=2 gwei block=32631 txIx=1 txId=0xc4186efd68b8bfdfa8420b2022371081efe61355cdd52b137f79554bfaa6282d @ 1535012688 Thu, 23 Aug 2018 08:24:48 UTC
-dexWalletFactory.address=DEXWalletFactory:0x5d078b663f964dd3927bb4e7d977f7f5962c7eaa
+deployWallets1_1Tx status=0x1 Success gas=2000000 gasUsed=192629 costETH=0.000385258 costUSD=0.1678376477 @ ETH/USD=435.65 gasPrice=2 gwei block=39025 txIx=0 txId=0x9632d03c316e9aaab3f0442f5f981195e168e3b8aabfa885f2f9becd283081be @ 1535019857 Thu, 23 Aug 2018 10:24:17 UTC
+deployWallets1_2Tx status=0x1 Success gas=2000000 gasUsed=177629 costETH=0.000355258 costUSD=0.1547681477 @ ETH/USD=435.65 gasPrice=2 gwei block=39025 txIx=2 txId=0x46f82979d5bcc2ea9685228b3486f52e09744293b01dcf866404a8537e9d264e @ 1535019857 Thu, 23 Aug 2018 10:24:17 UTC
+deployWallets1_3Tx status=0x1 Success gas=2000000 gasUsed=177629 costETH=0.000355258 costUSD=0.1547681477 @ ETH/USD=435.65 gasPrice=2 gwei block=39025 txIx=1 txId=0x39343ea9bc55ab462b54c6d5342511df4f21ab207635ce4b01339c409408e78d @ 1535019857 Thu, 23 Aug 2018 10:24:17 UTC
+dexWalletFactory.address=DEXWalletFactory:0x127c99a8bee50980c8c9b35077cb1a17366c6ff8
 dexWalletFactory.owner/new=Account #1 - Deployer:0xa11aae29840fbb5c86e6fd4cf809eba183aef433 0x0000000000000000000000000000000000000000
-dexWalletFactory.walletTemplate=0x1559d6d45c5a193988ed7a2620e6da13b92ca21b
+dexWalletFactory.walletTemplate=0x0ed525e15bd6e753b97ea50bc71e3cd8346e1c1b
 dexWalletFactory.numberOfWallets=3
-dexWalletFactory.wallets[0]=0xa4688101d869f39f362d5cce684bfa17c1fcd356
-dexWalletFactory.wallets[1]=0xd89f6ac22a4d850960a868060fb90940601c5c7b
-dexWalletFactory.wallets[2]=0xfad7a3903096662698a3da916a0f73226eae6ba5
-WalletCreated 0 #32631 owner=0xa33a6c312d9ad0e0f2e95541beed0cc081621fd0 dexWalletAddress=0xa4688101d869f39f362d5cce684bfa17c1fcd356
-WalletCreated 1 #32631 owner=0xa55a151eb00fded1634d27d1127b4be4627079ea dexWalletAddress=0xd89f6ac22a4d850960a868060fb90940601c5c7b
-WalletCreated 2 #32631 owner=0xa44a08d3f6933c69212114bb66e2df1813651844 dexWalletAddress=0xfad7a3903096662698a3da916a0f73226eae6ba5
-dexWallet.address=User1 DEXWallet:0xa4688101d869f39f362d5cce684bfa17c1fcd356
+dexWalletFactory.wallets[0]=0x4599f051ae1a3eb11587690cedc1a708d57e43de
+dexWalletFactory.wallets[1]=0xf8ff9cde9b306f1d298fdca758f0647147bd167e
+dexWalletFactory.wallets[2]=0x5f9f90492a6009f3fd9993d63ee32c43ea4fa828
+WalletCreated 0 #39025 owner=0xa33a6c312d9ad0e0f2e95541beed0cc081621fd0 dexWalletAddress=0x4599f051ae1a3eb11587690cedc1a708d57e43de
+WalletCreated 1 #39025 owner=0xa55a151eb00fded1634d27d1127b4be4627079ea dexWalletAddress=0xf8ff9cde9b306f1d298fdca758f0647147bd167e
+WalletCreated 2 #39025 owner=0xa44a08d3f6933c69212114bb66e2df1813651844 dexWalletAddress=0x5f9f90492a6009f3fd9993d63ee32c43ea4fa828
+dexWallet.address=User1 DEXWallet:0x4599f051ae1a3eb11587690cedc1a708d57e43de
 dexWallet.owner/new=Account #3 - User 1:0xa33a6c312d9ad0e0f2e95541beed0cc081621fd0 0x0000000000000000000000000000000000000000
-dexWallet.address=User2 DEXWallet:0xfad7a3903096662698a3da916a0f73226eae6ba5
+dexWallet.address=User2 DEXWallet:0x5f9f90492a6009f3fd9993d63ee32c43ea4fa828
 dexWallet.owner/new=Account #4 - User 2:0xa44a08d3f6933c69212114bb66e2df1813651844 0x0000000000000000000000000000000000000000
-dexWallet.address=User3 DEXWallet:0xd89f6ac22a4d850960a868060fb90940601c5c7b
+dexWallet.address=User3 DEXWallet:0xf8ff9cde9b306f1d298fdca758f0647147bd167e
 dexWallet.owner/new=Account #5 - User 3:0xa55a151eb00fded1634d27d1127b4be4627079ea 0x0000000000000000000000000000000000000000
 
 ---------- Distribute Tokens #1 ----------
  # Account                                             EtherBalanceChange                            GNT                           WETH Name
 -- ------------------------------------------ --------------------------- ------------------------------ ------------------------------ ---------------------------
- 0 0xa00af22d07c87d96eeeb0ed583f8f6ac7812827e        0.011293004000000000           0.000000000000000000           0.000000000000000000 Account #0 - Miner
- 1 0xa11aae29840fbb5c86e6fd4cf809eba183aef433       -0.010197230000000000           0.000000000000000000           0.000000000000000000 Account #1 - Deployer
+ 0 0xa00af22d07c87d96eeeb0ed583f8f6ac7812827e        0.011293132000000000           0.000000000000000000           0.000000000000000000 Account #0 - Miner
+ 1 0xa11aae29840fbb5c86e6fd4cf809eba183aef433       -0.010197358000000000           0.000000000000000000           0.000000000000000000 Account #1 - Deployer
  2 0xa22ab8a9d641ce77e06d98b7d7065d324d3d6976        0.000000000000000000           0.000000000000000000           0.000000000000000000 Account #2 - DEX Operator
  3 0xa33a6c312d9ad0e0f2e95541beed0cc081621fd0       -0.000385258000000000           0.000000000000000000           0.000000000000000000 Account #3 - User 1
  4 0xa44a08d3f6933c69212114bb66e2df1813651844       -0.000355258000000000           0.000000000000000000           0.000000000000000000 Account #4 - User 2
@@ -114,12 +114,12 @@ dexWallet.owner/new=Account #5 - User 3:0xa55a151eb00fded1634d27d1127b4be4627079
  9 0xa99a0ae3354c06b1459fd441a32a3f71005d7da0        0.000000000000000000           0.000000000000000000           0.000000000000000000 Account #9
 10 0xaaaa9de1e6c564446ebca0fd102d8bd92093c756        0.000000000000000000           0.000000000000000000           0.000000000000000000 Account #10
 11 0xabba43e7594e3b76afb157989e93c6621497fd4b        0.000000000000000000           0.000000000000000000           0.000000000000000000 Account #11
-12 0x5d078b663f964dd3927bb4e7d977f7f5962c7eaa        0.000000000000000000           0.000000000000000000           0.000000000000000000 DEXWalletFactory
-13 0xe26c693f36e9e79b1ac66808c8335ba81dacfa67        0.000000000000000000           0.000000000000000000           0.000000000000000000 Token 'GNT' 'Golem'
-14 0x0373d24cd5087c54d918d2e30dadd3355ee37d5f        0.000000000000000000           0.000000000000000000           0.000000000000000000 Token 'WETH' 'Wrapped ETH'
-15 0xa4688101d869f39f362d5cce684bfa17c1fcd356        0.000000000000000000       18777.000000000000000000       10000.000000000000000000 User1 DEXWallet
-16 0xfad7a3903096662698a3da916a0f73226eae6ba5        0.000000000000000000       18777.000000000000000000       10000.000000000000000000 User2 DEXWallet
-17 0xd89f6ac22a4d850960a868060fb90940601c5c7b        0.000000000000000000       18777.000000000000000000       10000.000000000000000000 User3 DEXWallet
+12 0x127c99a8bee50980c8c9b35077cb1a17366c6ff8        0.000000000000000000           0.000000000000000000           0.000000000000000000 DEXWalletFactory
+13 0x8ab56e67795508d9b2d4511fe0d614e017fa6adc        0.000000000000000000           0.000000000000000000           0.000000000000000000 Token 'GNT' 'Golem'
+14 0x6de75c4ec96977f1fb9e67e0383b84bab36a42a3        0.000000000000000000           0.000000000000000000           0.000000000000000000 Token 'WETH' 'Wrapped ETH'
+15 0x4599f051ae1a3eb11587690cedc1a708d57e43de        0.000000000000000000       18777.000000000000000000       10000.000000000000000000 User1 DEXWallet
+16 0x5f9f90492a6009f3fd9993d63ee32c43ea4fa828        0.000000000000000000       18777.000000000000000000       10000.000000000000000000 User2 DEXWallet
+17 0xf8ff9cde9b306f1d298fdca758f0647147bd167e        0.000000000000000000       18777.000000000000000000       10000.000000000000000000 User3 DEXWallet
 -- ------------------------------------------ --------------------------- ------------------------------ ------------------------------ ---------------------------
                                                                                 56331.000000000000000000       30000.000000000000000000 Total Token Balances
 -- ------------------------------------------ --------------------------- ------------------------------ ------------------------------ ---------------------------
@@ -130,36 +130,36 @@ PASS Distribute Tokens #1 - tokenA.mint(user3Wallet, 18777)
 PASS Distribute Tokens #1 - tokenB.mint(user1Wallet, 10000)
 PASS Distribute Tokens #1 - tokenB.mint(user2Wallet, 10000)
 PASS Distribute Tokens #1 - tokenB.mint(user3Wallet, 10000)
-distributeTokens_1Tx status=0x1 Success gas=2000000 gasUsed=66802 costETH=0.000133604 costUSD=0.0582045826 @ ETH/USD=435.65 gasPrice=2 gwei block=32635 txIx=0 txId=0xcf106727a20c06e813366470474d7495c5496a81527572b53d230d5a1b545ed4 @ 1535012692 Thu, 23 Aug 2018 08:24:52 UTC
-distributeTokens_2Tx status=0x1 Success gas=2000000 gasUsed=51802 costETH=0.000103604 costUSD=0.0451350826 @ ETH/USD=435.65 gasPrice=2 gwei block=32635 txIx=1 txId=0xb809fe4c7691b1fa05c4fa030bc8820a3abbc583601fec527f71ceb16e2176bc @ 1535012692 Thu, 23 Aug 2018 08:24:52 UTC
-distributeTokens_3Tx status=0x1 Success gas=2000000 gasUsed=51802 costETH=0.000103604 costUSD=0.0451350826 @ ETH/USD=435.65 gasPrice=2 gwei block=32635 txIx=2 txId=0x5edee6d0906c4e639485754ad5db8de2ca6d5983b80178ed18eb6c9244b212e7 @ 1535012692 Thu, 23 Aug 2018 08:24:52 UTC
-distributeTokens_4Tx status=0x1 Success gas=2000000 gasUsed=66802 costETH=0.000133604 costUSD=0.0582045826 @ ETH/USD=435.65 gasPrice=2 gwei block=32635 txIx=3 txId=0x5ea163f37ba2feda868e9afd9b3c54e31cb99a368e0c62498e1f6bbda253c840 @ 1535012692 Thu, 23 Aug 2018 08:24:52 UTC
-distributeTokens_5Tx status=0x1 Success gas=2000000 gasUsed=51802 costETH=0.000103604 costUSD=0.0451350826 @ ETH/USD=435.65 gasPrice=2 gwei block=32635 txIx=4 txId=0xed4e8fe4c51c63b687a3858e248c67308e474ac9c648be8655a51262d6a110ae @ 1535012692 Thu, 23 Aug 2018 08:24:52 UTC
-distributeTokens_6Tx status=0x1 Success gas=2000000 gasUsed=51802 costETH=0.000103604 costUSD=0.0451350826 @ ETH/USD=435.65 gasPrice=2 gwei block=32635 txIx=5 txId=0x7ec36787b4a675ddfa5a4439c2388eb0111de74b71f821a018fa93f249eb510a @ 1535012692 Thu, 23 Aug 2018 08:24:52 UTC
-tokenAContractAddress=Token 'GNT' 'Golem':0xe26c693f36e9e79b1ac66808c8335ba81dacfa67
+distributeTokens_1Tx status=0x1 Success gas=2000000 gasUsed=66802 costETH=0.000133604 costUSD=0.0582045826 @ ETH/USD=435.65 gasPrice=2 gwei block=39030 txIx=0 txId=0x5a50b46a85c834992f96bb4c035b315170273887b5510f6ceecb313c7fbb6385 @ 1535019862 Thu, 23 Aug 2018 10:24:22 UTC
+distributeTokens_2Tx status=0x1 Success gas=2000000 gasUsed=51802 costETH=0.000103604 costUSD=0.0451350826 @ ETH/USD=435.65 gasPrice=2 gwei block=39030 txIx=1 txId=0xf3e9f00d76e02de3d9574889a87ce20dbc2e47e56739950e7e8934ec265f463f @ 1535019862 Thu, 23 Aug 2018 10:24:22 UTC
+distributeTokens_3Tx status=0x1 Success gas=2000000 gasUsed=51802 costETH=0.000103604 costUSD=0.0451350826 @ ETH/USD=435.65 gasPrice=2 gwei block=39030 txIx=2 txId=0xdf34ab928f0ebfc0c3236d71075dd48e4384ec8bfb9718801e58b2867d0fd850 @ 1535019862 Thu, 23 Aug 2018 10:24:22 UTC
+distributeTokens_4Tx status=0x1 Success gas=2000000 gasUsed=66802 costETH=0.000133604 costUSD=0.0582045826 @ ETH/USD=435.65 gasPrice=2 gwei block=39030 txIx=3 txId=0x434eede206135a9d3ce3d4793c335f68333d397338001943adf8f9f472442d85 @ 1535019862 Thu, 23 Aug 2018 10:24:22 UTC
+distributeTokens_5Tx status=0x1 Success gas=2000000 gasUsed=51802 costETH=0.000103604 costUSD=0.0451350826 @ ETH/USD=435.65 gasPrice=2 gwei block=39031 txIx=0 txId=0xdc496b7037d6e3016449019ac7706af17f30e6ae0628bfb63f1031d309071858 @ 1535019863 Thu, 23 Aug 2018 10:24:23 UTC
+distributeTokens_6Tx status=0x1 Success gas=2000000 gasUsed=51802 costETH=0.000103604 costUSD=0.0451350826 @ ETH/USD=435.65 gasPrice=2 gwei block=39031 txIx=1 txId=0xe05ae6cba18dbc147f20047cd857a85498b613283870968f9e6145bcf6e545c4 @ 1535019863 Thu, 23 Aug 2018 10:24:23 UTC
+tokenAContractAddress=Token 'GNT' 'Golem':0x8ab56e67795508d9b2d4511fe0d614e017fa6adc
 tokenA.owner/new=Account #1 - Deployer:0xa11aae29840fbb5c86e6fd4cf809eba183aef433 0x0000000000000000000000000000000000000000
 tokenA.symbol=GNT
 tokenA.name=Golem
 tokenA.decimals=18
 tokenA.totalSupply=5.6331e+22 56331
-tokenA.Transfer 0 #32635: from=0x0000000000000000000000000000000000000000 to=0xa4688101d869f39f362d5cce684bfa17c1fcd356 tokens=18777
-tokenA.Transfer 1 #32635: from=0x0000000000000000000000000000000000000000 to=0xfad7a3903096662698a3da916a0f73226eae6ba5 tokens=18777
-tokenA.Transfer 2 #32635: from=0x0000000000000000000000000000000000000000 to=0xd89f6ac22a4d850960a868060fb90940601c5c7b tokens=18777
-tokenBContractAddress=Token 'WETH' 'Wrapped ETH':0x0373d24cd5087c54d918d2e30dadd3355ee37d5f
+tokenA.Transfer 0 #39030: from=0x0000000000000000000000000000000000000000 to=0x4599f051ae1a3eb11587690cedc1a708d57e43de tokens=18777
+tokenA.Transfer 1 #39030: from=0x0000000000000000000000000000000000000000 to=0x5f9f90492a6009f3fd9993d63ee32c43ea4fa828 tokens=18777
+tokenA.Transfer 2 #39030: from=0x0000000000000000000000000000000000000000 to=0xf8ff9cde9b306f1d298fdca758f0647147bd167e tokens=18777
+tokenBContractAddress=Token 'WETH' 'Wrapped ETH':0x6de75c4ec96977f1fb9e67e0383b84bab36a42a3
 tokenB.owner/new=Account #1 - Deployer:0xa11aae29840fbb5c86e6fd4cf809eba183aef433 0x0000000000000000000000000000000000000000
 tokenB.symbol=WETH
 tokenB.name=Wrapped ETH
 tokenB.decimals=18
 tokenB.totalSupply=3e+22 30000
-tokenB.Transfer 0 #32635: from=0x0000000000000000000000000000000000000000 to=0xa4688101d869f39f362d5cce684bfa17c1fcd356 tokens=10000
-tokenB.Transfer 1 #32635: from=0x0000000000000000000000000000000000000000 to=0xfad7a3903096662698a3da916a0f73226eae6ba5 tokens=10000
-tokenB.Transfer 2 #32635: from=0x0000000000000000000000000000000000000000 to=0xd89f6ac22a4d850960a868060fb90940601c5c7b tokens=10000
+tokenB.Transfer 0 #39030: from=0x0000000000000000000000000000000000000000 to=0x4599f051ae1a3eb11587690cedc1a708d57e43de tokens=10000
+tokenB.Transfer 1 #39031: from=0x0000000000000000000000000000000000000000 to=0x5f9f90492a6009f3fd9993d63ee32c43ea4fa828 tokens=10000
+tokenB.Transfer 2 #39031: from=0x0000000000000000000000000000000000000000 to=0xf8ff9cde9b306f1d298fdca758f0647147bd167e tokens=10000
 
 ---------- Add Orders #1 ----------
  # Account                                             EtherBalanceChange                            GNT                           WETH Name
 -- ------------------------------------------ --------------------------- ------------------------------ ------------------------------ ---------------------------
- 0 0xa00af22d07c87d96eeeb0ed583f8f6ac7812827e        0.011661028000000000           0.000000000000000000           0.000000000000000000 Account #0 - Miner
- 1 0xa11aae29840fbb5c86e6fd4cf809eba183aef433       -0.010197230000000000           0.000000000000000000           0.000000000000000000 Account #1 - Deployer
+ 0 0xa00af22d07c87d96eeeb0ed583f8f6ac7812827e        0.011661156000000000           0.000000000000000000           0.000000000000000000 Account #0 - Miner
+ 1 0xa11aae29840fbb5c86e6fd4cf809eba183aef433       -0.010197358000000000           0.000000000000000000           0.000000000000000000 Account #1 - Deployer
  2 0xa22ab8a9d641ce77e06d98b7d7065d324d3d6976        0.000000000000000000           0.000000000000000000           0.000000000000000000 Account #2 - DEX Operator
  3 0xa33a6c312d9ad0e0f2e95541beed0cc081621fd0       -0.000753282000000000           0.000000000000000000           0.000000000000000000 Account #3 - User 1
  4 0xa44a08d3f6933c69212114bb66e2df1813651844       -0.000355258000000000           0.000000000000000000           0.000000000000000000 Account #4 - User 2
@@ -170,25 +170,25 @@ tokenB.Transfer 2 #32635: from=0x0000000000000000000000000000000000000000 to=0xd
  9 0xa99a0ae3354c06b1459fd441a32a3f71005d7da0        0.000000000000000000           0.000000000000000000           0.000000000000000000 Account #9
 10 0xaaaa9de1e6c564446ebca0fd102d8bd92093c756        0.000000000000000000           0.000000000000000000           0.000000000000000000 Account #10
 11 0xabba43e7594e3b76afb157989e93c6621497fd4b        0.000000000000000000           0.000000000000000000           0.000000000000000000 Account #11
-12 0x5d078b663f964dd3927bb4e7d977f7f5962c7eaa        0.000000000000000000           0.000000000000000000           0.000000000000000000 DEXWalletFactory
-13 0xe26c693f36e9e79b1ac66808c8335ba81dacfa67        0.000000000000000000           0.000000000000000000           0.000000000000000000 Token 'GNT' 'Golem'
-14 0x0373d24cd5087c54d918d2e30dadd3355ee37d5f        0.000000000000000000           0.000000000000000000           0.000000000000000000 Token 'WETH' 'Wrapped ETH'
-15 0xa4688101d869f39f362d5cce684bfa17c1fcd356        0.000000000000000000       18777.000000000000000000       10000.000000000000000000 User1 DEXWallet
-16 0xfad7a3903096662698a3da916a0f73226eae6ba5        0.000000000000000000       18777.000000000000000000       10000.000000000000000000 User2 DEXWallet
-17 0xd89f6ac22a4d850960a868060fb90940601c5c7b        0.000000000000000000       18777.000000000000000000       10000.000000000000000000 User3 DEXWallet
+12 0x127c99a8bee50980c8c9b35077cb1a17366c6ff8        0.000000000000000000           0.000000000000000000           0.000000000000000000 DEXWalletFactory
+13 0x8ab56e67795508d9b2d4511fe0d614e017fa6adc        0.000000000000000000           0.000000000000000000           0.000000000000000000 Token 'GNT' 'Golem'
+14 0x6de75c4ec96977f1fb9e67e0383b84bab36a42a3        0.000000000000000000           0.000000000000000000           0.000000000000000000 Token 'WETH' 'Wrapped ETH'
+15 0x4599f051ae1a3eb11587690cedc1a708d57e43de        0.000000000000000000       18777.000000000000000000       10000.000000000000000000 User1 DEXWallet
+16 0x5f9f90492a6009f3fd9993d63ee32c43ea4fa828        0.000000000000000000       18777.000000000000000000       10000.000000000000000000 User2 DEXWallet
+17 0xf8ff9cde9b306f1d298fdca758f0647147bd167e        0.000000000000000000       18777.000000000000000000       10000.000000000000000000 User3 DEXWallet
 -- ------------------------------------------ --------------------------- ------------------------------ ------------------------------ ---------------------------
                                                                                 56331.000000000000000000       30000.000000000000000000 Total Token Balances
 -- ------------------------------------------ --------------------------- ------------------------------ ------------------------------ ---------------------------
 
-PASS Add Orders #1 - user1Wallet.addOrder(BUY, GNT, WETH, 0.00054087, 1234, +1h)
-addOrders1_1Tx status=0x1 Success gas=2000000 gasUsed=184012 costETH=0.000368024 costUSD=0.1603296556 @ ETH/USD=435.65 gasPrice=2 gwei block=32639 txIx=0 txId=0x42b67828a33a6f81dd618d4996218ca132404ea37813fd4ecfdfb2bac995dafa @ 1535012696 Thu, 23 Aug 2018 08:24:56 UTC
-dexWallet.address=User1 DEXWallet:0xa4688101d869f39f362d5cce684bfa17c1fcd356
+PASS Add Orders #1 - user1Wallet.addOrder(BUY, GNT, WETH, 0.00054087, +1h, 1234)
+addOrders1_1Tx status=0x1 Success gas=2000000 gasUsed=184012 costETH=0.000368024 costUSD=0.1603296556 @ ETH/USD=435.65 gasPrice=2 gwei block=39036 txIx=0 txId=0x5ef7bf3ed1dbfb44ea92c5afb845a9fcc91ab6f12d79300276b172908d6e9f2f @ 1535019868 Thu, 23 Aug 2018 10:24:28 UTC
+dexWallet.address=User1 DEXWallet:0x4599f051ae1a3eb11587690cedc1a708d57e43de
 dexWallet.owner/new=Account #3 - User 1:0xa33a6c312d9ad0e0f2e95541beed0cc081621fd0 0x0000000000000000000000000000000000000000
-dexWallet.orders.index[0]=0xc7fa155867cb0fa8159ec2b978c7b11a3d67e8d0e57521cd3da08b0c7910754c BUY 1234 GNT[b] @ 0.00054087 GNT[b] per unit WETH[q] until Thu, 23 Aug 2018 19:24:54 AEST
-dexWallet.OrderAdded 0 #32639 0xc7fa155867cb0fa8159ec2b978c7b11a3d67e8d0e57521cd3da08b0c7910754c BUY 1234 GNT[b] @ 0.00054087 GNT[b] per unit WETH[q] until Thu, 23 Aug 2018 19:24:54 AEST
+dexWallet.orders.index[0]=0x0bb81b87d8766b0bef8f7cf7c237f31e07d469b5a41ceb1da899e33c61bc509b BUY 1234 GNT[b] @ 0.00054087 GNT[b] per unit WETH[q] until Thu, 23 Aug 2018 21:24:26 AEST
+dexWallet.OrderAdded 0 #39036 0x0bb81b87d8766b0bef8f7cf7c237f31e07d469b5a41ceb1da899e33c61bc509b BUY 1234 GNT[b] @ 0.00054087 GNT[b] per unit WETH[q] until Thu, 23 Aug 2018 21:24:26 AEST
 
 ---------- Test Orders #1 ----------
-order=0xc7fa155867cb0fa8159ec2b978c7b11a3d67e8d0e57521cd3da08b0c7910754c BUY 1234 GNT[b] @ 0.00054087 GNT[b] per unit WETH[q] until Thu, 23 Aug 2018 19:24:54 AEST
+order=0x0bb81b87d8766b0bef8f7cf7c237f31e07d469b5a41ceb1da899e33c61bc509b BUY 1234 GNT[b] @ 0.00054087 GNT[b] per unit WETH[q] until Thu, 23 Aug 2018 21:24:26 AEST
 buyTokens=0
   _buyTokens=1234 GNT
   _sellTokens=0.66743358 WETH
@@ -217,8 +217,8 @@ buyTokens=100000
 ---------- Add Orders #2 ----------
  # Account                                             EtherBalanceChange                            GNT                           WETH Name
 -- ------------------------------------------ --------------------------- ------------------------------ ------------------------------ ---------------------------
- 0 0xa00af22d07c87d96eeeb0ed583f8f6ac7812827e        0.012029436000000000           0.000000000000000000           0.000000000000000000 Account #0 - Miner
- 1 0xa11aae29840fbb5c86e6fd4cf809eba183aef433       -0.010197230000000000           0.000000000000000000           0.000000000000000000 Account #1 - Deployer
+ 0 0xa00af22d07c87d96eeeb0ed583f8f6ac7812827e        0.012029564000000000           0.000000000000000000           0.000000000000000000 Account #0 - Miner
+ 1 0xa11aae29840fbb5c86e6fd4cf809eba183aef433       -0.010197358000000000           0.000000000000000000           0.000000000000000000 Account #1 - Deployer
  2 0xa22ab8a9d641ce77e06d98b7d7065d324d3d6976        0.000000000000000000           0.000000000000000000           0.000000000000000000 Account #2 - DEX Operator
  3 0xa33a6c312d9ad0e0f2e95541beed0cc081621fd0       -0.001121690000000000           0.000000000000000000           0.000000000000000000 Account #3 - User 1
  4 0xa44a08d3f6933c69212114bb66e2df1813651844       -0.000355258000000000           0.000000000000000000           0.000000000000000000 Account #4 - User 2
@@ -229,26 +229,26 @@ buyTokens=100000
  9 0xa99a0ae3354c06b1459fd441a32a3f71005d7da0        0.000000000000000000           0.000000000000000000           0.000000000000000000 Account #9
 10 0xaaaa9de1e6c564446ebca0fd102d8bd92093c756        0.000000000000000000           0.000000000000000000           0.000000000000000000 Account #10
 11 0xabba43e7594e3b76afb157989e93c6621497fd4b        0.000000000000000000           0.000000000000000000           0.000000000000000000 Account #11
-12 0x5d078b663f964dd3927bb4e7d977f7f5962c7eaa        0.000000000000000000           0.000000000000000000           0.000000000000000000 DEXWalletFactory
-13 0xe26c693f36e9e79b1ac66808c8335ba81dacfa67        0.000000000000000000           0.000000000000000000           0.000000000000000000 Token 'GNT' 'Golem'
-14 0x0373d24cd5087c54d918d2e30dadd3355ee37d5f        0.000000000000000000           0.000000000000000000           0.000000000000000000 Token 'WETH' 'Wrapped ETH'
-15 0xa4688101d869f39f362d5cce684bfa17c1fcd356        0.000000000000000000       18777.000000000000000000       10000.000000000000000000 User1 DEXWallet
-16 0xfad7a3903096662698a3da916a0f73226eae6ba5        0.000000000000000000       18777.000000000000000000       10000.000000000000000000 User2 DEXWallet
-17 0xd89f6ac22a4d850960a868060fb90940601c5c7b        0.000000000000000000       18777.000000000000000000       10000.000000000000000000 User3 DEXWallet
+12 0x127c99a8bee50980c8c9b35077cb1a17366c6ff8        0.000000000000000000           0.000000000000000000           0.000000000000000000 DEXWalletFactory
+13 0x8ab56e67795508d9b2d4511fe0d614e017fa6adc        0.000000000000000000           0.000000000000000000           0.000000000000000000 Token 'GNT' 'Golem'
+14 0x6de75c4ec96977f1fb9e67e0383b84bab36a42a3        0.000000000000000000           0.000000000000000000           0.000000000000000000 Token 'WETH' 'Wrapped ETH'
+15 0x4599f051ae1a3eb11587690cedc1a708d57e43de        0.000000000000000000       18777.000000000000000000       10000.000000000000000000 User1 DEXWallet
+16 0x5f9f90492a6009f3fd9993d63ee32c43ea4fa828        0.000000000000000000       18777.000000000000000000       10000.000000000000000000 User2 DEXWallet
+17 0xf8ff9cde9b306f1d298fdca758f0647147bd167e        0.000000000000000000       18777.000000000000000000       10000.000000000000000000 User3 DEXWallet
 -- ------------------------------------------ --------------------------- ------------------------------ ------------------------------ ---------------------------
                                                                                 56331.000000000000000000       30000.000000000000000000 Total Token Balances
 -- ------------------------------------------ --------------------------- ------------------------------ ------------------------------ ---------------------------
 
-PASS Add Orders #2 - user1Wallet.addOrder(SELL, WETH, GNT, 1815.310327300452012, 10, +1h)
-addOrders2_1Tx status=0x1 Success gas=2000000 gasUsed=184204 costETH=0.000368408 costUSD=0.1604969452 @ ETH/USD=435.65 gasPrice=2 gwei block=32643 txIx=0 txId=0x7660a23f861216a380cbf55a0225f167422fbe9c3e730f83185a50959ad77d3d @ 1535012700 Thu, 23 Aug 2018 08:25:00 UTC
-dexWallet.address=User1 DEXWallet:0xa4688101d869f39f362d5cce684bfa17c1fcd356
+PASS Add Orders #2 - user1Wallet.addOrder(SELL, WETH, GNT, 1815.310327300452012, +1h, 10)
+addOrders2_1Tx status=0x1 Success gas=2000000 gasUsed=184204 costETH=0.000368408 costUSD=0.1604969452 @ ETH/USD=435.65 gasPrice=2 gwei block=39040 txIx=0 txId=0x620e26877876d98410c28836abb005403ef2fb4eee719d251f5e8e31c8014dc2 @ 1535019872 Thu, 23 Aug 2018 10:24:32 UTC
+dexWallet.address=User1 DEXWallet:0x4599f051ae1a3eb11587690cedc1a708d57e43de
 dexWallet.owner/new=Account #3 - User 1:0xa33a6c312d9ad0e0f2e95541beed0cc081621fd0 0x0000000000000000000000000000000000000000
-dexWallet.orders.index[0]=0xc7fa155867cb0fa8159ec2b978c7b11a3d67e8d0e57521cd3da08b0c7910754c BUY 1234 GNT[b] @ 0.00054087 GNT[b] per unit WETH[q] until Thu, 23 Aug 2018 19:24:54 AEST
-dexWallet.orders.index[1]=0xb86f0a73f1be37f0f94b8bfcc90e1b89b66bf158eb421444c98c129334978376 SELL 10 WETH[b] @ 1815.310327300452012 WETH[b] per unit GNT[q] until Thu, 23 Aug 2018 19:24:58 AEST
-dexWallet.OrderAdded 0 #32643 0xb86f0a73f1be37f0f94b8bfcc90e1b89b66bf158eb421444c98c129334978376 SELL 10 WETH[b] @ 1815.310327300452012 WETH[b] per unit GNT[q] until Thu, 23 Aug 2018 19:24:58 AEST
+dexWallet.orders.index[0]=0x0bb81b87d8766b0bef8f7cf7c237f31e07d469b5a41ceb1da899e33c61bc509b BUY 1234 GNT[b] @ 0.00054087 GNT[b] per unit WETH[q] until Thu, 23 Aug 2018 21:24:26 AEST
+dexWallet.orders.index[1]=0xb886a13c82953f8a7573737887a6c056ed0b5248f17e43b005a1804f9d4d3d23 SELL 10 WETH[b] @ 1815.310327300452012 WETH[b] per unit GNT[q] until Thu, 23 Aug 2018 21:24:30 AEST
+dexWallet.OrderAdded 0 #39040 0xb886a13c82953f8a7573737887a6c056ed0b5248f17e43b005a1804f9d4d3d23 SELL 10 WETH[b] @ 1815.310327300452012 WETH[b] per unit GNT[q] until Thu, 23 Aug 2018 21:24:30 AEST
 
 ---------- Test Orders #1 ----------
-order=0xb86f0a73f1be37f0f94b8bfcc90e1b89b66bf158eb421444c98c129334978376 SELL 10 WETH[b] @ 1815.310327300452012 WETH[b] per unit GNT[q] until Thu, 23 Aug 2018 19:24:58 AEST
+order=0xb886a13c82953f8a7573737887a6c056ed0b5248f17e43b005a1804f9d4d3d23 SELL 10 WETH[b] @ 1815.310327300452012 WETH[b] per unit GNT[q] until Thu, 23 Aug 2018 21:24:30 AEST
 buyTokens=0
   _buyTokens=18153.10327300452012 GNT
   _sellTokens=10 WETH
