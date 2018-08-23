@@ -194,7 +194,7 @@ console.log("RESULT: ");
 
 // -----------------------------------------------------------------------------
 var distributeTokensMessage = "Distribute Tokens #1";
-var tokenAAmount = new BigNumber("1000").shift(tokenADecimals);
+var tokenAAmount = new BigNumber("10000").shift(tokenADecimals);
 var tokenBAmount = new BigNumber("10000").shift(tokenBDecimals);
 // -----------------------------------------------------------------------------
 console.log("RESULT: ---------- " + distributeTokensMessage + " ----------");
@@ -224,12 +224,14 @@ printTokenBContractDetails();
 console.log("RESULT: ");
 
 
+var BUY = 0;
+var SELL = 1;
+
+if (false) {
 // -----------------------------------------------------------------------------
 var addOrders1Message = "Add Orders #1";
 var price = new BigNumber(54087).shift(10); // 0.00054087 = new BigNumber(54087).shift(10);
-var amount = new BigNumber("10").shift(18);
-var BUY = 0;
-var SELL = 1;
+var amount = new BigNumber("1234").shift(18);
 var expiry = parseInt(new Date()/1000) + 60*60;
 // -----------------------------------------------------------------------------
 console.log("RESULT: ---------- " + addOrders1Message + " ----------");
@@ -247,7 +249,7 @@ console.log("RESULT: ");
 var testOrders1 = "Test Orders #1";
 // -----------------------------------------------------------------------------
 console.log("RESULT: ---------- " + testOrders1 + " ----------");
-var orderKey = user1Wallet.getOrderKeyByIndex(0);
+var orderKey = user1Wallet.getOrderKeyByIndex(user1Wallet.getNumberOfOrders() - 1);
 var order = user1Wallet.getOrderByKey(orderKey);
 var buyToken = tokenAAddress;
 var sellToken = tokenBAddress;
@@ -262,6 +264,7 @@ console.log("RESULT: order=" + formatOrder(order[0], order[1], order[2], order[3
   console.log("RESULT:   _price=" + details[2].shift(-18) + " " + (details[3] == true ? "Inverse" : ""));
 });
 console.log("RESULT: ");
+}
 
 
 // -----------------------------------------------------------------------------
@@ -286,7 +289,7 @@ console.log("RESULT: ");
 var testOrders2 = "Test Orders #1";
 // -----------------------------------------------------------------------------
 console.log("RESULT: ---------- " + testOrders2 + " ----------");
-var orderKey = user1Wallet.getOrderKeyByIndex(1);
+var orderKey = user1Wallet.getOrderKeyByIndex(user1Wallet.getNumberOfOrders() - 1);
 var order = user1Wallet.getOrderByKey(orderKey);
 var buyToken = tokenAAddress;
 var sellToken = tokenBAddress;
