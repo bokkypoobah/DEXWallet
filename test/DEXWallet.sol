@@ -208,6 +208,15 @@ contract DEXWallet is Owned {
     }
 
 /*
+
+OT   Pair         Price  Inv Price
+---- ------- ---------- ----------
+BUY  GNT/ETH 0.00054087
+SELL ETH/GNT            0.00054087
+BUY  ETH/GNT            0.00055087
+SELL GNT/ETH 0.00055087
+
+
     // GNT/ETH = base/quote = 0.00054087
     struct Order {
         OrderType orderType;    // BUY
@@ -230,6 +239,7 @@ contract DEXWallet is Owned {
 */
 
     uint constant public TENPOW18 = uint(10)**18;
+    // NOTE - buyTokens = 0 will give you the maximum tokens that the wallet will buy and sell
     function getWalletBuyingDetails(bytes32 key, address buyToken, address sellToken, uint buyTokens) public view returns (uint _buyTokens, uint _sellTokens, uint _price, bool _inverse) {
         Orders.Order memory order = orders.orders[key];
         if (now <= order.expiry) {
@@ -266,6 +276,23 @@ contract DEXWallet is Owned {
                 _inverse = true;
             }
         }
+    }
+    function buyFromWallet(bytes32 key, address buyToken, address sellToken, uint buyTokens) public {
+        require(buyTokens > 0);
+        uint _buyTokens;
+        uint _sellTokens;
+        uint _price;
+        bool _inverse;
+        (_buyTokens, _sellTokens, _price, _inverse) = getWalletBuyingDetails(key, buyToken, sellToken, buyTokens);
+        if (_buyTokens > 0 && _sellTokens > 0) {
+            Orders.Order storage order = orders.orders[key];
+        }
+        // bytes32[] memory keys;
+        // keys.push(key);
+        // buyMultipleFromWallet(keys, buyToken, sellToken, buyTokens);
+    }
+    function buyMultipleFromWallet(bytes32[] /* keys */, address /* buyToken */, address /* sellToken */, uint /* buyTokens */) public pure {
+
     }
     function () public payable {
     	emit EthersDeposited(msg.sender, msg.value, address(this).balance);
