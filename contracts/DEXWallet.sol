@@ -78,10 +78,8 @@ contract DEXWallet is Owned {
     using SafeMath for uint;
     using Orders for Orders.Data;
 
-    uint public xyz = 123;
+    uint constant public TENPOW18 = uint(10)**18;
     Orders.Data orders;
-    // token => price => approved
-    // mapping(address => mapping(uint => uint)) orders;
     bool initialised;
 
     // Copied from Orders library so it is presented in the ABI
@@ -206,16 +204,31 @@ contract DEXWallet is Owned {
     function getOrderKeyByIndex(uint index) public view returns (bytes32) {
         return orders.index[index];
     }
-
+    function getEffectiveOrder(bytes32 key) public view returns (uint _orderType, address _baseToken, address _quoteToken, uint _price, uint _expiry, uint _baseAmount, uint _quoteAmount) {
+        Orders.Order memory order = orders.orders[key];
+        (_orderType, _baseToken, _quoteToken, _price, _expiry) = (uint(order.orderType), order.baseToken, order.quoteToken, order.price, order.expiry);
+        if (now <= order.expiry) {
+            if (order.orderType == Orders.OrderType.BUY) {
+                _baseAmount = order.amount;
+                _quoteAmount = _baseAmount.mul(_price).div(TENPOW18).min(ERC20Interface(_quoteToken).balanceOf(address(this)));
+                _baseAmount = _quoteAmount.mul(TENPOW18).div(_price);
+            } else {
+                _baseAmount = order.amount.min(ERC20Interface(_baseToken).balanceOf(address(this)));
+                _quoteAmount = _baseAmount.mul(_price).div(TENPOW18);
+            }
+        }
+    }
 /*
 
 OT   Pair         Price  Inv Price
 ---- ------- ---------- ----------
 BUY  GNT/ETH 0.00054087
+SELL GNT/ETH 0.00055087
 SELL ETH/GNT            0.00054087
 BUY  ETH/GNT            0.00055087
-SELL GNT/ETH 0.00055087
 
+if BUY, DEXWallet must have amount x price in quoteToken
+if SELL, DEXWallet must have amount in baseToken
 
     // GNT/ETH = base/quote = 0.00054087
     struct Order {
@@ -225,7 +238,6 @@ SELL GNT/ETH 0.00055087
         uint price;             // GNT/ETH = 0.00054087 = #quoteToken per unit baseToken
         uint amount;            // GNT - baseToken
     }
-
     // ETH/GNT = base/quote = 1848.873111838334535
     struct Order {
         OrderType orderType;    // SELL
@@ -234,11 +246,8 @@ SELL GNT/ETH 0.00055087
         uint price;             // ETH/GNT = 1848.873111838334535 = #quoteToken per unit baseToken
         uint amount;            // ETH - baseToken
     }
-
-    getBuyDetails(key, GNT, ETH, 0)
 */
 
-    uint constant public TENPOW18 = uint(10)**18;
     // NOTE - buyTokens = 0 will give you the maximum tokens that the wallet will buy and sell
     function getWalletBuyingDetails(bytes32 key, address buyToken, address sellToken, uint buyTokens) public view returns (uint _buyTokens, uint _sellTokens, uint _price, bool _inverse) {
         Orders.Order memory order = orders.orders[key];
@@ -277,6 +286,8 @@ SELL GNT/ETH 0.00055087
             }
         }
     }
+
+    /*
     function buyFromWallet(bytes32 key, address buyToken, address sellToken, uint buyTokens) public {
         require(buyTokens > 0);
         uint _buyTokens;
@@ -291,9 +302,9 @@ SELL GNT/ETH 0.00055087
         // keys.push(key);
         // buyMultipleFromWallet(keys, buyToken, sellToken, buyTokens);
     }
-    function buyMultipleFromWallet(bytes32[] /* keys */, address /* buyToken */, address /* sellToken */, uint /* buyTokens */) public pure {
-
-    }
+    */
+    // function buyMultipleFromWallet(bytes32[] /* keys */, address /* buyToken */, address /* sellToken */, uint /* buyTokens */) public pure {
+    // }
     function () public payable {
     	emit EthersDeposited(msg.sender, msg.value, address(this).balance);
     }

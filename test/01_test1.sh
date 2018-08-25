@@ -194,8 +194,8 @@ console.log("RESULT: ");
 
 // -----------------------------------------------------------------------------
 var distributeTokensMessage = "Distribute Tokens #1";
-var tokenAAmount = new BigNumber("18777").shift(tokenADecimals);
-var tokenBAmount = new BigNumber("10000").shift(tokenBDecimals);
+var tokenAAmount = new BigNumber("1870").shift(tokenADecimals);
+var tokenBAmount = new BigNumber("10").shift(tokenBDecimals);
 // -----------------------------------------------------------------------------
 console.log("RESULT: ---------- " + distributeTokensMessage + " ----------");
 var distributeTokens_1Tx = tokenA.mint(user1WalletAddress, tokenAAmount, {from: deployer, gas: 2000000, gasPrice: defaultGasPrice});
@@ -227,7 +227,30 @@ console.log("RESULT: ");
 var BUY = 0;
 var SELL = 1;
 
-if (true) {
+
+// -----------------------------------------------------------------------------
+var addOrders1Message = "Add Orders #1";
+var buyPrice = new BigNumber(54087).shift(10); // 0.00054087 = new BigNumber(54087).shift(10);
+var sellPrice = new BigNumber(55087).shift(10); // 0.00054087 = new BigNumber(54087).shift(10);
+var buyAmount = new BigNumber("123400").shift(18);
+var sellAmount = new BigNumber("123400").shift(18);
+var expiry = parseInt(new Date()/1000) + 60*60;
+// -----------------------------------------------------------------------------
+console.log("RESULT: ---------- " + addOrders1Message + " ----------");
+var addOrders1_1Tx = user1Wallet.addOrder(BUY, tokenAAddress, tokenBAddress, buyPrice, expiry, buyAmount, {from: user1, gas: 2000000, gasPrice: defaultGasPrice});
+var addOrders1_2Tx = user1Wallet.addOrder(SELL, tokenAAddress, tokenBAddress, sellPrice, expiry, sellAmount, {from: user1, gas: 2000000, gasPrice: defaultGasPrice});
+while (txpool.status.pending > 0) {
+}
+printBalances();
+failIfTxStatusError(addOrders1_1Tx, addOrders1Message + " - user1Wallet.addOrder(BUY, " + tokenA.symbol() + ", " + tokenB.symbol() + ", " + buyPrice.shift(-18) + ", +1h, " + buyAmount.shift(-18) + ")");
+failIfTxStatusError(addOrders1_2Tx, addOrders1Message + " - user1Wallet.addOrder(SELL, " + tokenA.symbol() + ", " + tokenB.symbol() + ", " + sellPrice.shift(-18) + ", +1h, " + sellAmount.shift(-18) + ")");
+printTxData("addOrders1_1Tx", addOrders1_1Tx);
+printTxData("addOrders1_2Tx", addOrders1_2Tx);
+printDEXWalletContractDetails(user1WalletAddress, dexWalletAbi);
+console.log("RESULT: ");
+
+
+if (false) {
 // -----------------------------------------------------------------------------
 var addOrders1Message = "Add Orders #1";
 var price = new BigNumber(54087).shift(10); // 0.00054087 = new BigNumber(54087).shift(10);
@@ -243,8 +266,10 @@ failIfTxStatusError(addOrders1_1Tx, addOrders1Message + " - user1Wallet.addOrder
 printTxData("addOrders1_1Tx", addOrders1_1Tx);
 printDEXWalletContractDetails(user1WalletAddress, dexWalletAbi);
 console.log("RESULT: ");
+}
 
 
+if (false) {
 // -----------------------------------------------------------------------------
 var testOrders1 = "Test Orders #1";
 // -----------------------------------------------------------------------------
@@ -267,6 +292,7 @@ console.log("RESULT: ");
 }
 
 
+if (false) {
 // -----------------------------------------------------------------------------
 var addOrders2Message = "Add Orders #2";
 // GNT/ETH 0.00055087 = ETH/GNT 1815.310327300452012
@@ -283,8 +309,10 @@ failIfTxStatusError(addOrders2_1Tx, addOrders2Message + " - user1Wallet.addOrder
 printTxData("addOrders2_1Tx", addOrders2_1Tx);
 printDEXWalletContractDetails(user1WalletAddress, dexWalletAbi);
 console.log("RESULT: ");
+}
 
 
+if (false) {
 // -----------------------------------------------------------------------------
 var testOrders2 = "Test Orders #1";
 // -----------------------------------------------------------------------------
@@ -304,7 +332,7 @@ console.log("RESULT: order=" + formatOrder(order[0], order[1], order[2], order[3
   console.log("RESULT:   _price=" + details[2].shift(-18) + " " + (details[3] == true ? "Inverse" : ""));
 });
 console.log("RESULT: ");
-
+}
 
 
 

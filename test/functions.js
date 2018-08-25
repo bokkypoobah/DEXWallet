@@ -476,6 +476,18 @@ function formatOrder(key, orderType, baseTokenAddress, quoteTokenAddress, price,
   return key + " " + (orderType == 0 ? "BUY" : "SELL") + " " + amount.shift(-18) + " " + baseToken + "[b] @ " + price.shift(-18) + " " +
     baseToken + "[b] per unit " + quoteToken + "[q] until " + new Date(expiry * 1000).toString();
 }
+function formatEffectiveOrder(effectiveOrder) {
+  var orderType = effectiveOrder[0];
+  var baseToken = getAddressSymbol(effectiveOrder[1]);
+  var quoteToken = getAddressSymbol(effectiveOrder[2]);
+  var price = effectiveOrder[3];
+  var expiry = effectiveOrder[4];
+  var baseAmount = effectiveOrder[5];
+  var quoteAmount = effectiveOrder[6];
+  return (orderType == 0 ? "BUY" : "SELL") + " baseAmount=" + baseAmount.shift(-18) + " quoteAmount=" + quoteAmount.shift(-18) + " " + baseToken + "[b] @ " + price.shift(-18) + " " +
+    baseToken + "/" + quoteToken + " until " + new Date(expiry * 1000).toString();
+}
+// function getEffectiveOrder(bytes32 key) public view returns (uint _orderType, address _baseToken, address _quoteToken, uint _price, uint _expiry, uint _baseAmount, uint _quoteAmount);
 
 
 var fromBlock = {};
@@ -492,7 +504,9 @@ function printDEXWalletContractDetails(address, abi) {
     for (i = 0; i < contract.getNumberOfOrders(); i++) {
        var orderKey = contract.getOrderKeyByIndex(i);
        var order = contract.getOrderByKey(orderKey);
+       var effectiveOrder = contract.getEffectiveOrder(orderKey);
        console.log("RESULT: dexWallet.orders.index[" + i + "]=" + formatOrder(order[0], order[1], order[2], order[3], order[4], order[5], order[6]));
+       console.log("RESULT:   effectiveOrder=" + formatEffectiveOrder(effectiveOrder));
     }
 
     var latestBlock = eth.blockNumber;
