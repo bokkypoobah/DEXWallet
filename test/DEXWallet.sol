@@ -218,6 +218,25 @@ contract DEXWallet is Owned {
             }
         }
     }
+    event LogUint(string note, uint number);
+    function takerSell(bytes32 key, uint amount) public returns (uint _baseAmount, uint _quoteAmount) {
+        Orders.Order memory order = orders.orders[key];
+        require(now <= order.expiry);
+        require(order.orderType == Orders.OrderType.BUY);
+        uint approvedBaseAmount = ERC20Interface(order.baseToken).allowance(msg.sender, address(this));
+        _baseAmount = approvedBaseAmount.min(order.amount.min(amount));
+        _quoteAmount = _baseAmount.mul(order.price).div(TENPOW18).min(ERC20Interface(order.quoteToken).balanceOf(address(this)));
+        _baseAmount = _quoteAmount.mul(TENPOW18).div(order.price);
+        require(ERC20Interface(order.baseToken).transferFrom(msg.sender, address(this), _baseAmount));
+        require(ERC20Interface(order.quoteToken).transfer(msg.sender, _quoteAmount));
+    }
+    // function takerBuy(bytes32 key, uint amount) public returns (uint _baseAmount, uint _quoteAmount) {
+    //     Orders.Order memory order = orders.orders[key];
+    //     require(now <= order.expiry);
+    //     require(order.orderType == Orders.OrderType.SELL);
+    //     uint approvedQuoteAmount = ERC20Interface(order.quoteToken).allowance(msg.sender, address(this));
+    //     // ?
+    // }
 /*
 
 OT   Pair         Price  Inv Price

@@ -21,9 +21,9 @@ TEST3RESULTS=test3results.txt
 TEST4OUTPUT=test4output.txt
 TEST4RESULTS=test4results.txt
 
-CURRENTTIME               = '1535219246' 'Sun Aug 26 03:47:26 2018'
-START_DATE                = '1535219291' 'Sun Aug 26 03:48:11 2018'
-END_DATE                  = '1535219366' 'Sun Aug 26 03:49:26 2018'
+CURRENTTIME               = '1535223252' 'Sun Aug 26 04:54:12 2018'
+START_DATE                = '1535223297' 'Sun Aug 26 04:54:57 2018'
+END_DATE                  = '1535223372' 'Sun Aug 26 04:56:12 2018'
 --- Differences ../contracts//*.sol *.sol ---
 
 solc, the solidity compiler commandline interface
@@ -32,7 +32,7 @@ Welcome to the Geth JavaScript console!
 
 instance: Geth/v1.8.12-stable-37685930/darwin-amd64/go1.10.3
 coinbase: 0xa00af22d07c87d96eeeb0ed583f8f6ac7812827e
-at block: 8701 (Sun, 26 Aug 2018 03:47:27 AEST)
+at block: 12707 (Sun, 26 Aug 2018 04:54:13 AEST)
  datadir: /Users/bok/Projects/DEXWallet/test/testchain
  modules: admin:1.0 clique:1.0 debug:1.0 eth:1.0 miner:1.0 net:1.0 personal:1.0 rpc:1.0 shh:1.0 txpool:1.0 web3:1.0
 
@@ -186,19 +186,19 @@ undefined
 ... 
 undefined
 > 
-DATA: var dexWalletFactoryAddress="0xdbf468de0962819bd951bf829d821a8ba436907a";
+DATA: var dexWalletFactoryAddress="0x2971552ca0a289f03d1da55050d867def431415c";
 DATA: var dexWalletFactoryAbi=[{"constant":true,"inputs":[],"name":"numberOfWallets","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[],"name":"newDEXWallet","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"walletTemplate","outputs":[{"name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[],"name":"acceptOwnership","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[{"name":"","type":"uint256"}],"name":"wallets","outputs":[{"name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"_newOwner","type":"address"}],"name":"transferOwnershipImmediately","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"_owner","type":"address"}],"name":"newDEXWalletFor","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"owner","outputs":[{"name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"","type":"address"},{"name":"","type":"uint256"}],"name":"ownedWallets","outputs":[{"name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"newOwner","outputs":[{"name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"_newOwner","type":"address"}],"name":"transferOwnership","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"inputs":[],"payable":false,"stateMutability":"nonpayable","type":"constructor"},{"anonymous":false,"inputs":[{"indexed":true,"name":"owner","type":"address"},{"indexed":true,"name":"dexWalletAddress","type":"address"}],"name":"WalletCreated","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"name":"_from","type":"address"},{"indexed":true,"name":"_to","type":"address"}],"name":"OwnershipTransferred","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"name":"target","type":"address"},{"indexed":false,"name":"clone","type":"address"}],"name":"CloneCreated","type":"event"}];
 DATA: var dexWalletFactory=eth.contract(dexWalletFactoryAbi).at(dexWalletFactoryAddress);
-DATA: var tokenAAddress="0x6f6219a19a821e2ed20b1d5485c24915d6c96517";
+DATA: var tokenAAddress="0xf96dc245626a6aea6013484121b551be048c4bb6";
 DATA: var tokenAAbi=[{"constant":true,"inputs":[],"name":"name","outputs":[{"name":"","type":"string"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"spender","type":"address"},{"name":"tokens","type":"uint256"}],"name":"approve","outputs":[{"name":"success","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"totalSupply","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"from","type":"address"},{"name":"to","type":"address"},{"name":"tokens","type":"uint256"}],"name":"transferFrom","outputs":[{"name":"success","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"decimals","outputs":[{"name":"","type":"uint8"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"tokenOwner","type":"address"},{"name":"tokens","type":"uint256"}],"name":"mint","outputs":[{"name":"success","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[{"name":"tokenOwner","type":"address"}],"name":"balanceOf","outputs":[{"name":"balance","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[],"name":"acceptOwnership","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"_newOwner","type":"address"}],"name":"transferOwnershipImmediately","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"owner","outputs":[{"name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"symbol","outputs":[{"name":"","type":"string"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"tokenOwner","type":"address"},{"name":"tokens","type":"uint256"}],"name":"burn","outputs":[{"name":"success","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"to","type":"address"},{"name":"tokens","type":"uint256"}],"name":"transfer","outputs":[{"name":"success","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"spender","type":"address"},{"name":"tokens","type":"uint256"},{"name":"data","type":"bytes"}],"name":"approveAndCall","outputs":[{"name":"success","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"newOwner","outputs":[{"name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"tokenAddress","type":"address"},{"name":"tokens","type":"uint256"}],"name":"transferAnyERC20Token","outputs":[{"name":"success","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[{"name":"tokenOwner","type":"address"},{"name":"spender","type":"address"}],"name":"allowance","outputs":[{"name":"remaining","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"_newOwner","type":"address"}],"name":"transferOwnership","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"inputs":[{"name":"symbol","type":"string"},{"name":"name","type":"string"},{"name":"decimals","type":"uint8"},{"name":"tokenOwner","type":"address"},{"name":"initialSupply","type":"uint256"}],"payable":false,"stateMutability":"nonpayable","type":"constructor"},{"payable":true,"stateMutability":"payable","type":"fallback"},{"anonymous":false,"inputs":[{"indexed":true,"name":"_from","type":"address"},{"indexed":true,"name":"_to","type":"address"}],"name":"OwnershipTransferred","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"name":"from","type":"address"},{"indexed":true,"name":"to","type":"address"},{"indexed":false,"name":"tokens","type":"uint256"}],"name":"Transfer","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"name":"tokenOwner","type":"address"},{"indexed":true,"name":"spender","type":"address"},{"indexed":false,"name":"tokens","type":"uint256"}],"name":"Approval","type":"event"}];
 DATA: var tokenA=eth.contract(tokenAAbi).at(tokenAAddress);
-DATA: var tokenBAddress="0xa15ac97faf20d873309a67d762acc3968912e688";
+DATA: var tokenBAddress="0x9d786268484fc73f848bb6b907a5014d861964ae";
 DATA: var tokenBAbi=[{"constant":true,"inputs":[],"name":"name","outputs":[{"name":"","type":"string"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"spender","type":"address"},{"name":"tokens","type":"uint256"}],"name":"approve","outputs":[{"name":"success","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"totalSupply","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"from","type":"address"},{"name":"to","type":"address"},{"name":"tokens","type":"uint256"}],"name":"transferFrom","outputs":[{"name":"success","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"decimals","outputs":[{"name":"","type":"uint8"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"tokenOwner","type":"address"},{"name":"tokens","type":"uint256"}],"name":"mint","outputs":[{"name":"success","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[{"name":"tokenOwner","type":"address"}],"name":"balanceOf","outputs":[{"name":"balance","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[],"name":"acceptOwnership","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"_newOwner","type":"address"}],"name":"transferOwnershipImmediately","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"owner","outputs":[{"name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"symbol","outputs":[{"name":"","type":"string"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"tokenOwner","type":"address"},{"name":"tokens","type":"uint256"}],"name":"burn","outputs":[{"name":"success","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"to","type":"address"},{"name":"tokens","type":"uint256"}],"name":"transfer","outputs":[{"name":"success","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"spender","type":"address"},{"name":"tokens","type":"uint256"},{"name":"data","type":"bytes"}],"name":"approveAndCall","outputs":[{"name":"success","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"newOwner","outputs":[{"name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"tokenAddress","type":"address"},{"name":"tokens","type":"uint256"}],"name":"transferAnyERC20Token","outputs":[{"name":"success","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[{"name":"tokenOwner","type":"address"},{"name":"spender","type":"address"}],"name":"allowance","outputs":[{"name":"remaining","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"_newOwner","type":"address"}],"name":"transferOwnership","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"inputs":[{"name":"symbol","type":"string"},{"name":"name","type":"string"},{"name":"decimals","type":"uint8"},{"name":"tokenOwner","type":"address"},{"name":"initialSupply","type":"uint256"}],"payable":false,"stateMutability":"nonpayable","type":"constructor"},{"payable":true,"stateMutability":"payable","type":"fallback"},{"anonymous":false,"inputs":[{"indexed":true,"name":"_from","type":"address"},{"indexed":true,"name":"_to","type":"address"}],"name":"OwnershipTransferred","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"name":"from","type":"address"},{"indexed":true,"name":"to","type":"address"},{"indexed":false,"name":"tokens","type":"uint256"}],"name":"Transfer","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"name":"tokenOwner","type":"address"},{"indexed":true,"name":"spender","type":"address"},{"indexed":false,"name":"tokens","type":"uint256"}],"name":"Approval","type":"event"}];
 DATA: var tokenB=eth.contract(tokenBAbi).at(tokenBAddress);
 RESULT:  # Account                                             EtherBalanceChange                            GNT                           WETH Name
 RESULT: -- ------------------------------------------ --------------------------- ------------------------------ ------------------------------ ---------------------------
-RESULT:  0 0xa00af22d07c87d96eeeb0ed583f8f6ac7812827e        0.010000462000000000           0.000000000000000000           0.000000000000000000 Account #0 - Miner
-RESULT:  1 0xa11aae29840fbb5c86e6fd4cf809eba183aef433       -0.010000462000000000           0.000000000000000000           0.000000000000000000 Account #1 - Deployer
+RESULT:  0 0xa00af22d07c87d96eeeb0ed583f8f6ac7812827e        0.010491680000000000           0.000000000000000000           0.000000000000000000 Account #0 - Miner
+RESULT:  1 0xa11aae29840fbb5c86e6fd4cf809eba183aef433       -0.010491680000000000           0.000000000000000000           0.000000000000000000 Account #1 - Deployer
 RESULT:  2 0xa22ab8a9d641ce77e06d98b7d7065d324d3d6976        0.000000000000000000           0.000000000000000000           0.000000000000000000 Account #2 - DEX Operator
 RESULT:  3 0xa33a6c312d9ad0e0f2e95541beed0cc081621fd0        0.000000000000000000           0.000000000000000000           0.000000000000000000 Account #3 - User 1
 RESULT:  4 0xa44a08d3f6933c69212114bb66e2df1813651844        0.000000000000000000           0.000000000000000000           0.000000000000000000 Account #4 - User 2
@@ -209,9 +209,9 @@ RESULT:  8 0xa88a05d2b88283ce84c8325760b72a64591279a2        0.00000000000000000
 RESULT:  9 0xa99a0ae3354c06b1459fd441a32a3f71005d7da0        0.000000000000000000           0.000000000000000000           0.000000000000000000 Account #9
 RESULT: 10 0xaaaa9de1e6c564446ebca0fd102d8bd92093c756        0.000000000000000000           0.000000000000000000           0.000000000000000000 Account #10
 RESULT: 11 0xabba43e7594e3b76afb157989e93c6621497fd4b        0.000000000000000000           0.000000000000000000           0.000000000000000000 Account #11
-RESULT: 12 0xdbf468de0962819bd951bf829d821a8ba436907a        0.000000000000000000           0.000000000000000000           0.000000000000000000 DEXWalletFactory
-RESULT: 13 0x6f6219a19a821e2ed20b1d5485c24915d6c96517        0.000000000000000000           0.000000000000000000           0.000000000000000000 Token 'GNT' 'Golem'
-RESULT: 14 0xa15ac97faf20d873309a67d762acc3968912e688        0.000000000000000000           0.000000000000000000           0.000000000000000000 Token 'WETH' 'Wrapped ETH'
+RESULT: 12 0x2971552ca0a289f03d1da55050d867def431415c        0.000000000000000000           0.000000000000000000           0.000000000000000000 DEXWalletFactory
+RESULT: 13 0xf96dc245626a6aea6013484121b551be048c4bb6        0.000000000000000000           0.000000000000000000           0.000000000000000000 Token 'GNT' 'Golem'
+RESULT: 14 0x9d786268484fc73f848bb6b907a5014d861964ae        0.000000000000000000           0.000000000000000000           0.000000000000000000 Token 'WETH' 'Wrapped ETH'
 RESULT: -- ------------------------------------------ --------------------------- ------------------------------ ------------------------------ ---------------------------
 RESULT:                                                                                     0.000000000000000000           0.000000000000000000 Total Token Balances
 RESULT: -- ------------------------------------------ --------------------------- ------------------------------ ------------------------------ ---------------------------
@@ -227,37 +227,37 @@ RESULT: PASS Deploy Group #1 - Token ''GNT' 'Golem'
 RESULT: PASS Deploy Group #1 - Token ''WETH' 'Wrapped ETH'
 1
 > 
-RESULT: dexWalletFactoryTx status=0x1 Success gas=4000000 gasUsed=2856321 costETH=0.005712642 costUSD=2.4887124873 @ ETH/USD=435.65 gasPrice=2 gwei block=8712 txIx=0 txId=0x6a2ffc0fa656e2281df81fb4d111206efbbfc0357dce8c5751c9ceb612e3cca4 @ 1535219258 Sat, 25 Aug 2018 17:47:38 UTC
+RESULT: dexWalletFactoryTx status=0x1 Success gas=4000000 gasUsed=3101930 costETH=0.00620386 costUSD=2.702711609 @ ETH/USD=435.65 gasPrice=2 gwei block=12717 txIx=0 txId=0x7c6d226e35210ff3ada5fb68efd0ec523ea2a3f35f9d08f7065309035a34cd1d @ 1535223263 Sat, 25 Aug 2018 18:54:23 UTC
 undefined
 > 
-RESULT: tokenATx status=0x1 Success gas=2000000 gasUsed=1071731 costETH=0.002143462 costUSD=0.9337992203 @ ETH/USD=435.65 gasPrice=2 gwei block=8712 txIx=1 txId=0x13ae4698a04bd38ed4325fd33f127ef43b88986ab07555065a5d6b6ed835bc87 @ 1535219258 Sat, 25 Aug 2018 17:47:38 UTC
+RESULT: tokenATx status=0x1 Success gas=2000000 gasUsed=1071731 costETH=0.002143462 costUSD=0.9337992203 @ ETH/USD=435.65 gasPrice=2 gwei block=12717 txIx=1 txId=0xeaeccf11fb429c8ffc1d5d75a921d670d6de254db54be5d775139e3eb70cccc4 @ 1535223263 Sat, 25 Aug 2018 18:54:23 UTC
 undefined
 > 
-RESULT: tokenBTx status=0x1 Success gas=2000000 gasUsed=1072179 costETH=0.002144358 costUSD=0.9341895627 @ ETH/USD=435.65 gasPrice=2 gwei block=8712 txIx=2 txId=0xd513816d1ddd8c8351b33fc3c97b14d0c0e603e7aa4bd55f2a382a38e2d8be6b @ 1535219258 Sat, 25 Aug 2018 17:47:38 UTC
+RESULT: tokenBTx status=0x1 Success gas=2000000 gasUsed=1072179 costETH=0.002144358 costUSD=0.9341895627 @ ETH/USD=435.65 gasPrice=2 gwei block=12717 txIx=2 txId=0xbb9f5523ec966d5c9a6d7e4133b2a6a5a50cff25cdb6409f435cc54f3f7802ba @ 1535223263 Sat, 25 Aug 2018 18:54:23 UTC
 undefined
 > 
-RESULT: dexWalletFactory.address=DEXWalletFactory:0xdbf468de0962819bd951bf829d821a8ba436907a
+RESULT: dexWalletFactory.address=DEXWalletFactory:0x2971552ca0a289f03d1da55050d867def431415c
 RESULT: dexWalletFactory.owner/new=Account #1 - Deployer:0xa11aae29840fbb5c86e6fd4cf809eba183aef433 0x0000000000000000000000000000000000000000
-RESULT: dexWalletFactory.walletTemplate=0x8e3d0967bf2bc761c60936d142f01692d75f0069
+RESULT: dexWalletFactory.walletTemplate=0xd3dcfbbd0117cdd9dbb993a041856b12191a72b8
 RESULT: dexWalletFactory.numberOfWallets=0
 undefined
 > 
-RESULT: tokenAContractAddress=Token 'GNT' 'Golem':0x6f6219a19a821e2ed20b1d5485c24915d6c96517
+RESULT: tokenAContractAddress=Token 'GNT' 'Golem':0xf96dc245626a6aea6013484121b551be048c4bb6
 RESULT: tokenA.owner/new=Account #1 - Deployer:0xa11aae29840fbb5c86e6fd4cf809eba183aef433 0x0000000000000000000000000000000000000000
 RESULT: tokenA.symbol=GNT
 RESULT: tokenA.name=Golem
 RESULT: tokenA.decimals=18
 RESULT: tokenA.totalSupply=0 0
-RESULT: tokenA.Transfer 0 #8712: from=0x0000000000000000000000000000000000000000 to=0xa11aae29840fbb5c86e6fd4cf809eba183aef433 tokens=0
+RESULT: tokenA.Transfer 0 #12717: from=0x0000000000000000000000000000000000000000 to=0xa11aae29840fbb5c86e6fd4cf809eba183aef433 tokens=0
 undefined
 > 
-RESULT: tokenBContractAddress=Token 'WETH' 'Wrapped ETH':0xa15ac97faf20d873309a67d762acc3968912e688
+RESULT: tokenBContractAddress=Token 'WETH' 'Wrapped ETH':0x9d786268484fc73f848bb6b907a5014d861964ae
 RESULT: tokenB.owner/new=Account #1 - Deployer:0xa11aae29840fbb5c86e6fd4cf809eba183aef433 0x0000000000000000000000000000000000000000
 RESULT: tokenB.symbol=WETH
 RESULT: tokenB.name=Wrapped ETH
 RESULT: tokenB.decimals=18
 RESULT: tokenB.totalSupply=0 0
-RESULT: tokenB.Transfer 0 #8712: from=0x0000000000000000000000000000000000000000 to=0xa11aae29840fbb5c86e6fd4cf809eba183aef433 tokens=0
+RESULT: tokenB.Transfer 0 #12717: from=0x0000000000000000000000000000000000000000 to=0xa11aae29840fbb5c86e6fd4cf809eba183aef433 tokens=0
 undefined
 > 
 RESULT: 
@@ -283,17 +283,13 @@ undefined
 ... 
 undefined
 > 
-RESULT: dexWalletFactoryContractAddress=0xdbf468de0962819bd951bf829d821a8ba436907a
-RESULT: getNewDEXWallet.WalletCreated 0 #8716 {"dexWalletAddress":"0x5c093e6bd25768910e6f497f04bcce64c8b5661a","owner":"0xa55a151eb00fded1634d27d1127b4be4627079ea"}
-RESULT: getNewDEXWallet.WalletCreated 1 #8716 {"dexWalletAddress":"0x33b6b3f6ef256ddb87039980106f9ffbebffdae8","owner":"0xa44a08d3f6933c69212114bb66e2df1813651844"}
-RESULT: getNewDEXWallet.WalletCreated 2 #8716 {"dexWalletAddress":"0x5264533545e0c97e49fc5d2578367c347faf64c9","owner":"0xa33a6c312d9ad0e0f2e95541beed0cc081621fd0"}
+RESULT: dexWalletFactoryContractAddress=0x2971552ca0a289f03d1da55050d867def431415c
+RESULT: getNewDEXWallet.WalletCreated 0 #12721 {"dexWalletAddress":"0xa1754f2976581acbfb45469f16a88d2a7985b03b","owner":"0xa33a6c312d9ad0e0f2e95541beed0cc081621fd0"}
+RESULT: getNewDEXWallet.WalletCreated 1 #12721 {"dexWalletAddress":"0x9835dc998e4ff304b8c9e3242f72d10e4ded8d96","owner":"0xa55a151eb00fded1634d27d1127b4be4627079ea"}
+RESULT: getNewDEXWallet.WalletCreated 2 #12721 {"dexWalletAddress":"0x1dc3221ecaaf4ff6f9f30acedc6c747c2c43dd18","owner":"0xa44a08d3f6933c69212114bb66e2df1813651844"}
 undefined
 > 
-RESULT: newWallets={"0xa33a6c312d9ad0e0f2e95541beed0cc081621fd0":"0x5264533545e0c97e49fc5d2578367c347faf64c9","0xa44a08d3f6933c69212114bb66e2df1813651844":"0x33b6b3f6ef256ddb87039980106f9ffbebffdae8","0xa55a151eb00fded1634d27d1127b4be4627079ea":"0x5c093e6bd25768910e6f497f04bcce64c8b5661a"}
-undefined
-> 
-undefined
-> 
+RESULT: newWallets={"0xa33a6c312d9ad0e0f2e95541beed0cc081621fd0":"0xa1754f2976581acbfb45469f16a88d2a7985b03b","0xa44a08d3f6933c69212114bb66e2df1813651844":"0x1dc3221ecaaf4ff6f9f30acedc6c747c2c43dd18","0xa55a151eb00fded1634d27d1127b4be4627079ea":"0x9835dc998e4ff304b8c9e3242f72d10e4ded8d96"}
 undefined
 > 
 undefined
@@ -304,16 +300,20 @@ undefined
 > 
 undefined
 > 
-DATA: var user1WalletAddress="0x5264533545e0c97e49fc5d2578367c347faf64c9";
 undefined
 > 
-DATA: var user2WalletAddress="0x33b6b3f6ef256ddb87039980106f9ffbebffdae8";
 undefined
 > 
-DATA: var user3WalletAddress="0x5c093e6bd25768910e6f497f04bcce64c8b5661a";
+DATA: var user1WalletAddress="0xa1754f2976581acbfb45469f16a88d2a7985b03b";
 undefined
 > 
-DATA: var dexWalletAbi=[{"constant":true,"inputs":[],"name":"getNumberOfOrders","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"orderType","type":"uint8"},{"name":"baseToken","type":"address"},{"name":"quoteToken","type":"address"},{"name":"price","type":"uint256"},{"name":"oldExpiry","type":"uint256"},{"name":"newExpiry","type":"uint256"}],"name":"updateOrderExpiry","outputs":[{"name":"_newAmount","type":"uint256"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"_owner","type":"address"}],"name":"init","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[{"name":"key","type":"bytes32"}],"name":"getEffectiveOrder","outputs":[{"name":"_orderType","type":"uint256"},{"name":"_baseToken","type":"address"},{"name":"_quoteToken","type":"address"},{"name":"_price","type":"uint256"},{"name":"_expiry","type":"uint256"},{"name":"_baseAmount","type":"uint256"},{"name":"_quoteAmount","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"orderType","type":"uint8"},{"name":"baseToken","type":"address"},{"name":"quoteToken","type":"address"},{"name":"price","type":"uint256"},{"name":"expiry","type":"uint256"},{"name":"amount","type":"uint256"}],"name":"increaseOrderAmount","outputs":[{"name":"_newAmount","type":"uint256"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"orderType","type":"uint8"},{"name":"baseToken","type":"address"},{"name":"quoteToken","type":"address"},{"name":"price","type":"uint256"},{"name":"expiry","type":"uint256"},{"name":"amount","type":"uint256"}],"name":"decreaseOrderAmount","outputs":[{"name":"_newAmount","type":"uint256"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"tokenAddress","type":"address"},{"name":"to","type":"address"},{"name":"tokens","type":"uint256"}],"name":"withdrawTokens","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"tokenAddress","type":"address"},{"name":"tokens","type":"uint256"}],"name":"depositTokens","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[],"name":"acceptOwnership","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"_newOwner","type":"address"}],"name":"transferOwnershipImmediately","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"owner","outputs":[{"name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"to","type":"address"},{"name":"ethers","type":"uint256"}],"name":"withdrawEthers","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"orderType","type":"uint8"},{"name":"baseToken","type":"address"},{"name":"quoteToken","type":"address"},{"name":"oldPrice","type":"uint256"},{"name":"expiry","type":"uint256"},{"name":"newPrice","type":"uint256"}],"name":"updateOrderPrice","outputs":[{"name":"_newAmount","type":"uint256"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"TENPOW18","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"key","type":"bytes32"}],"name":"getOrderByKey","outputs":[{"name":"_key","type":"bytes32"},{"name":"_orderType","type":"uint256"},{"name":"_baseToken","type":"address"},{"name":"_quoteToken","type":"address"},{"name":"_price","type":"uint256"},{"name":"_expiry","type":"uint256"},{"name":"_amount","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"index","type":"uint256"}],"name":"getOrderKeyByIndex","outputs":[{"name":"","type":"bytes32"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"newOwner","outputs":[{"name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"index","type":"uint256"}],"name":"getOrderByIndex","outputs":[{"name":"_key","type":"bytes32"},{"name":"_orderType","type":"uint256"},{"name":"_baseToken","type":"address"},{"name":"_quoteToken","type":"address"},{"name":"_price","type":"uint256"},{"name":"_expiry","type":"uint256"},{"name":"_amount","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"orderType","type":"uint8"},{"name":"baseToken","type":"address"},{"name":"quoteToken","type":"address"},{"name":"price","type":"uint256"},{"name":"expiry","type":"uint256"}],"name":"orderKey","outputs":[{"name":"","type":"bytes32"}],"payable":false,"stateMutability":"pure","type":"function"},{"constant":true,"inputs":[{"name":"key","type":"bytes32"},{"name":"buyToken","type":"address"},{"name":"sellToken","type":"address"},{"name":"buyTokens","type":"uint256"}],"name":"getWalletBuyingDetails","outputs":[{"name":"_buyTokens","type":"uint256"},{"name":"_sellTokens","type":"uint256"},{"name":"_price","type":"uint256"},{"name":"_inverse","type":"bool"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"_newOwner","type":"address"}],"name":"transferOwnership","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"orderType","type":"uint8"},{"name":"baseToken","type":"address"},{"name":"quoteToken","type":"address"},{"name":"oldPrice","type":"uint256"},{"name":"expiry","type":"uint256"},{"name":"newPrice","type":"uint256"},{"name":"amount","type":"uint256"}],"name":"transferOrderAmountToNewPrice","outputs":[{"name":"_oldAmount","type":"uint256"},{"name":"_newAmount","type":"uint256"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"orderType","type":"uint8"},{"name":"baseToken","type":"address"},{"name":"quoteToken","type":"address"},{"name":"price","type":"uint256"},{"name":"expiry","type":"uint256"},{"name":"amount","type":"uint256"}],"name":"addOrder","outputs":[{"name":"","type":"bytes32"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"key","type":"bytes32"}],"name":"removeOrder","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"payable":true,"stateMutability":"payable","type":"fallback"},{"anonymous":false,"inputs":[{"indexed":true,"name":"key","type":"bytes32"},{"indexed":false,"name":"orderType","type":"uint256"},{"indexed":false,"name":"baseToken","type":"address"},{"indexed":false,"name":"quoteToken","type":"address"},{"indexed":false,"name":"price","type":"uint256"},{"indexed":false,"name":"expiry","type":"uint256"},{"indexed":false,"name":"amount","type":"uint256"}],"name":"OrderAdded","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"name":"key","type":"bytes32"},{"indexed":false,"name":"orderType","type":"uint256"},{"indexed":false,"name":"baseToken","type":"address"},{"indexed":false,"name":"quoteToken","type":"address"},{"indexed":false,"name":"price","type":"uint256"},{"indexed":false,"name":"expiry","type":"uint256"},{"indexed":false,"name":"amount","type":"uint256"}],"name":"OrderRemoved","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"name":"sender","type":"address"},{"indexed":false,"name":"ethers","type":"uint256"},{"indexed":false,"name":"balanceAfter","type":"uint256"}],"name":"EthersDeposited","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"name":"to","type":"address"},{"indexed":false,"name":"ethers","type":"uint256"},{"indexed":false,"name":"balanceAfter","type":"uint256"}],"name":"EthersWithdrawn","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"name":"sender","type":"address"},{"indexed":false,"name":"tokens","type":"uint256"},{"indexed":false,"name":"balanceAfter","type":"uint256"}],"name":"TokensDeposited","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"name":"to","type":"address"},{"indexed":false,"name":"tokens","type":"uint256"},{"indexed":false,"name":"balanceAfter","type":"uint256"}],"name":"TokensWithdrawn","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"name":"_from","type":"address"},{"indexed":true,"name":"_to","type":"address"}],"name":"OwnershipTransferred","type":"event"}];
+DATA: var user2WalletAddress="0x1dc3221ecaaf4ff6f9f30acedc6c747c2c43dd18";
+undefined
+> 
+DATA: var user3WalletAddress="0x9835dc998e4ff304b8c9e3242f72d10e4ded8d96";
+undefined
+> 
+DATA: var dexWalletAbi=[{"constant":true,"inputs":[],"name":"getNumberOfOrders","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"orderType","type":"uint8"},{"name":"baseToken","type":"address"},{"name":"quoteToken","type":"address"},{"name":"price","type":"uint256"},{"name":"oldExpiry","type":"uint256"},{"name":"newExpiry","type":"uint256"}],"name":"updateOrderExpiry","outputs":[{"name":"_newAmount","type":"uint256"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"_owner","type":"address"}],"name":"init","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[{"name":"key","type":"bytes32"}],"name":"getEffectiveOrder","outputs":[{"name":"_orderType","type":"uint256"},{"name":"_baseToken","type":"address"},{"name":"_quoteToken","type":"address"},{"name":"_price","type":"uint256"},{"name":"_expiry","type":"uint256"},{"name":"_baseAmount","type":"uint256"},{"name":"_quoteAmount","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"orderType","type":"uint8"},{"name":"baseToken","type":"address"},{"name":"quoteToken","type":"address"},{"name":"price","type":"uint256"},{"name":"expiry","type":"uint256"},{"name":"amount","type":"uint256"}],"name":"increaseOrderAmount","outputs":[{"name":"_newAmount","type":"uint256"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"orderType","type":"uint8"},{"name":"baseToken","type":"address"},{"name":"quoteToken","type":"address"},{"name":"price","type":"uint256"},{"name":"expiry","type":"uint256"},{"name":"amount","type":"uint256"}],"name":"decreaseOrderAmount","outputs":[{"name":"_newAmount","type":"uint256"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"tokenAddress","type":"address"},{"name":"to","type":"address"},{"name":"tokens","type":"uint256"}],"name":"withdrawTokens","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"tokenAddress","type":"address"},{"name":"tokens","type":"uint256"}],"name":"depositTokens","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[],"name":"acceptOwnership","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"_newOwner","type":"address"}],"name":"transferOwnershipImmediately","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"owner","outputs":[{"name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"to","type":"address"},{"name":"ethers","type":"uint256"}],"name":"withdrawEthers","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"orderType","type":"uint8"},{"name":"baseToken","type":"address"},{"name":"quoteToken","type":"address"},{"name":"oldPrice","type":"uint256"},{"name":"expiry","type":"uint256"},{"name":"newPrice","type":"uint256"}],"name":"updateOrderPrice","outputs":[{"name":"_newAmount","type":"uint256"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"TENPOW18","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"key","type":"bytes32"}],"name":"getOrderByKey","outputs":[{"name":"_key","type":"bytes32"},{"name":"_orderType","type":"uint256"},{"name":"_baseToken","type":"address"},{"name":"_quoteToken","type":"address"},{"name":"_price","type":"uint256"},{"name":"_expiry","type":"uint256"},{"name":"_amount","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"index","type":"uint256"}],"name":"getOrderKeyByIndex","outputs":[{"name":"","type":"bytes32"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"key","type":"bytes32"},{"name":"amount","type":"uint256"}],"name":"takerSell","outputs":[{"name":"_baseAmount","type":"uint256"},{"name":"_quoteAmount","type":"uint256"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"newOwner","outputs":[{"name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"index","type":"uint256"}],"name":"getOrderByIndex","outputs":[{"name":"_key","type":"bytes32"},{"name":"_orderType","type":"uint256"},{"name":"_baseToken","type":"address"},{"name":"_quoteToken","type":"address"},{"name":"_price","type":"uint256"},{"name":"_expiry","type":"uint256"},{"name":"_amount","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"orderType","type":"uint8"},{"name":"baseToken","type":"address"},{"name":"quoteToken","type":"address"},{"name":"price","type":"uint256"},{"name":"expiry","type":"uint256"}],"name":"orderKey","outputs":[{"name":"","type":"bytes32"}],"payable":false,"stateMutability":"pure","type":"function"},{"constant":true,"inputs":[{"name":"key","type":"bytes32"},{"name":"buyToken","type":"address"},{"name":"sellToken","type":"address"},{"name":"buyTokens","type":"uint256"}],"name":"getWalletBuyingDetails","outputs":[{"name":"_buyTokens","type":"uint256"},{"name":"_sellTokens","type":"uint256"},{"name":"_price","type":"uint256"},{"name":"_inverse","type":"bool"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"_newOwner","type":"address"}],"name":"transferOwnership","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"orderType","type":"uint8"},{"name":"baseToken","type":"address"},{"name":"quoteToken","type":"address"},{"name":"oldPrice","type":"uint256"},{"name":"expiry","type":"uint256"},{"name":"newPrice","type":"uint256"},{"name":"amount","type":"uint256"}],"name":"transferOrderAmountToNewPrice","outputs":[{"name":"_oldAmount","type":"uint256"},{"name":"_newAmount","type":"uint256"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"orderType","type":"uint8"},{"name":"baseToken","type":"address"},{"name":"quoteToken","type":"address"},{"name":"price","type":"uint256"},{"name":"expiry","type":"uint256"},{"name":"amount","type":"uint256"}],"name":"addOrder","outputs":[{"name":"","type":"bytes32"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"key","type":"bytes32"}],"name":"removeOrder","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"payable":true,"stateMutability":"payable","type":"fallback"},{"anonymous":false,"inputs":[{"indexed":true,"name":"key","type":"bytes32"},{"indexed":false,"name":"orderType","type":"uint256"},{"indexed":false,"name":"baseToken","type":"address"},{"indexed":false,"name":"quoteToken","type":"address"},{"indexed":false,"name":"price","type":"uint256"},{"indexed":false,"name":"expiry","type":"uint256"},{"indexed":false,"name":"amount","type":"uint256"}],"name":"OrderAdded","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"name":"key","type":"bytes32"},{"indexed":false,"name":"orderType","type":"uint256"},{"indexed":false,"name":"baseToken","type":"address"},{"indexed":false,"name":"quoteToken","type":"address"},{"indexed":false,"name":"price","type":"uint256"},{"indexed":false,"name":"expiry","type":"uint256"},{"indexed":false,"name":"amount","type":"uint256"}],"name":"OrderRemoved","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"name":"sender","type":"address"},{"indexed":false,"name":"ethers","type":"uint256"},{"indexed":false,"name":"balanceAfter","type":"uint256"}],"name":"EthersDeposited","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"name":"to","type":"address"},{"indexed":false,"name":"ethers","type":"uint256"},{"indexed":false,"name":"balanceAfter","type":"uint256"}],"name":"EthersWithdrawn","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"name":"sender","type":"address"},{"indexed":false,"name":"tokens","type":"uint256"},{"indexed":false,"name":"balanceAfter","type":"uint256"}],"name":"TokensDeposited","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"name":"to","type":"address"},{"indexed":false,"name":"tokens","type":"uint256"},{"indexed":false,"name":"balanceAfter","type":"uint256"}],"name":"TokensWithdrawn","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"name":"note","type":"string"},{"indexed":false,"name":"number","type":"uint256"}],"name":"LogUint","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"name":"_from","type":"address"},{"indexed":true,"name":"_to","type":"address"}],"name":"OwnershipTransferred","type":"event"}];
 undefined
 > 
 DATA: var user1Wallet=eth.contract(dexWalletAbi).at(user1WalletAddress);
@@ -333,24 +333,24 @@ undefined
 > 
 RESULT:  # Account                                             EtherBalanceChange                            GNT                           WETH Name
 RESULT: -- ------------------------------------------ --------------------------- ------------------------------ ------------------------------ ---------------------------
-RESULT:  0 0xa00af22d07c87d96eeeb0ed583f8f6ac7812827e        0.011096368000000000           0.000000000000000000           0.000000000000000000 Account #0 - Miner
-RESULT:  1 0xa11aae29840fbb5c86e6fd4cf809eba183aef433       -0.010000462000000000           0.000000000000000000           0.000000000000000000 Account #1 - Deployer
+RESULT:  0 0xa00af22d07c87d96eeeb0ed583f8f6ac7812827e        0.011587964000000000           0.000000000000000000           0.000000000000000000 Account #0 - Miner
+RESULT:  1 0xa11aae29840fbb5c86e6fd4cf809eba183aef433       -0.010491680000000000           0.000000000000000000           0.000000000000000000 Account #1 - Deployer
 RESULT:  2 0xa22ab8a9d641ce77e06d98b7d7065d324d3d6976        0.000000000000000000           0.000000000000000000           0.000000000000000000 Account #2 - DEX Operator
-RESULT:  3 0xa33a6c312d9ad0e0f2e95541beed0cc081621fd0       -0.000355302000000000           0.000000000000000000           0.000000000000000000 Account #3 - User 1
-RESULT:  4 0xa44a08d3f6933c69212114bb66e2df1813651844       -0.000355302000000000           0.000000000000000000           0.000000000000000000 Account #4 - User 2
-RESULT:  5 0xa55a151eb00fded1634d27d1127b4be4627079ea       -0.000385302000000000           0.000000000000000000           0.000000000000000000 Account #5 - User 3
+RESULT:  3 0xa33a6c312d9ad0e0f2e95541beed0cc081621fd0       -0.000385428000000000           0.000000000000000000           0.000000000000000000 Account #3 - User 1
+RESULT:  4 0xa44a08d3f6933c69212114bb66e2df1813651844       -0.000355428000000000           0.000000000000000000           0.000000000000000000 Account #4 - User 2
+RESULT:  5 0xa55a151eb00fded1634d27d1127b4be4627079ea       -0.000355428000000000           0.000000000000000000           0.000000000000000000 Account #5 - User 3
 RESULT:  6 0xa66a85ede0cbe03694aa9d9de0bb19c99ff55bd9        0.000000000000000000           0.000000000000000000           0.000000000000000000 Account #6
 RESULT:  7 0xa77a2b9d4b1c010a22a7c565dc418cef683dbcec        0.000000000000000000           0.000000000000000000           0.000000000000000000 Account #7
 RESULT:  8 0xa88a05d2b88283ce84c8325760b72a64591279a2        0.000000000000000000           0.000000000000000000           0.000000000000000000 Account #8
 RESULT:  9 0xa99a0ae3354c06b1459fd441a32a3f71005d7da0        0.000000000000000000           0.000000000000000000           0.000000000000000000 Account #9
 RESULT: 10 0xaaaa9de1e6c564446ebca0fd102d8bd92093c756        0.000000000000000000           0.000000000000000000           0.000000000000000000 Account #10
 RESULT: 11 0xabba43e7594e3b76afb157989e93c6621497fd4b        0.000000000000000000           0.000000000000000000           0.000000000000000000 Account #11
-RESULT: 12 0xdbf468de0962819bd951bf829d821a8ba436907a        0.000000000000000000           0.000000000000000000           0.000000000000000000 DEXWalletFactory
-RESULT: 13 0x6f6219a19a821e2ed20b1d5485c24915d6c96517        0.000000000000000000           0.000000000000000000           0.000000000000000000 Token 'GNT' 'Golem'
-RESULT: 14 0xa15ac97faf20d873309a67d762acc3968912e688        0.000000000000000000           0.000000000000000000           0.000000000000000000 Token 'WETH' 'Wrapped ETH'
-RESULT: 15 0x5264533545e0c97e49fc5d2578367c347faf64c9        0.000000000000000000           0.000000000000000000           0.000000000000000000 User1 DEXWallet
-RESULT: 16 0x33b6b3f6ef256ddb87039980106f9ffbebffdae8        0.000000000000000000           0.000000000000000000           0.000000000000000000 User2 DEXWallet
-RESULT: 17 0x5c093e6bd25768910e6f497f04bcce64c8b5661a        0.000000000000000000           0.000000000000000000           0.000000000000000000 User3 DEXWallet
+RESULT: 12 0x2971552ca0a289f03d1da55050d867def431415c        0.000000000000000000           0.000000000000000000           0.000000000000000000 DEXWalletFactory
+RESULT: 13 0xf96dc245626a6aea6013484121b551be048c4bb6        0.000000000000000000           0.000000000000000000           0.000000000000000000 Token 'GNT' 'Golem'
+RESULT: 14 0x9d786268484fc73f848bb6b907a5014d861964ae        0.000000000000000000           0.000000000000000000           0.000000000000000000 Token 'WETH' 'Wrapped ETH'
+RESULT: 15 0xa1754f2976581acbfb45469f16a88d2a7985b03b        0.000000000000000000           0.000000000000000000           0.000000000000000000 User1 DEXWallet
+RESULT: 16 0x1dc3221ecaaf4ff6f9f30acedc6c747c2c43dd18        0.000000000000000000           0.000000000000000000           0.000000000000000000 User2 DEXWallet
+RESULT: 17 0x9835dc998e4ff304b8c9e3242f72d10e4ded8d96        0.000000000000000000           0.000000000000000000           0.000000000000000000 User3 DEXWallet
 RESULT: -- ------------------------------------------ --------------------------- ------------------------------ ------------------------------ ---------------------------
 RESULT:                                                                                     0.000000000000000000           0.000000000000000000 Total Token Balances
 RESULT: -- ------------------------------------------ --------------------------- ------------------------------ ------------------------------ ---------------------------
@@ -366,36 +366,36 @@ RESULT: PASS Deploy Wallets #1 - user2 newDEXWallet
 RESULT: PASS Deploy Wallets #1 - user3 newDEXWallet
 1
 > 
-RESULT: deployWallets1_1Tx status=0x1 Success gas=2000000 gasUsed=177651 costETH=0.000355302 costUSD=0.1547873163 @ ETH/USD=435.65 gasPrice=2 gwei block=8716 txIx=2 txId=0xfbf7d0821ff4c9d985fad89638780105fdad7c3dacbac4dd200c20c9d8c17bd9 @ 1535219262 Sat, 25 Aug 2018 17:47:42 UTC
+RESULT: deployWallets1_1Tx status=0x1 Success gas=2000000 gasUsed=192714 costETH=0.000385428 costUSD=0.1679117082 @ ETH/USD=435.65 gasPrice=2 gwei block=12721 txIx=0 txId=0xbe4a2493be655cfb726e1430f20872b6563e727a079925d2c46e0850423869e7 @ 1535223267 Sat, 25 Aug 2018 18:54:27 UTC
 undefined
 > 
-RESULT: deployWallets1_2Tx status=0x1 Success gas=2000000 gasUsed=177651 costETH=0.000355302 costUSD=0.1547873163 @ ETH/USD=435.65 gasPrice=2 gwei block=8716 txIx=1 txId=0x9a8e4205e42cd072e7c0a9d7f819e67b4980363bb7a0f365ac8af22ed27c67c7 @ 1535219262 Sat, 25 Aug 2018 17:47:42 UTC
+RESULT: deployWallets1_2Tx status=0x1 Success gas=2000000 gasUsed=177714 costETH=0.000355428 costUSD=0.1548422082 @ ETH/USD=435.65 gasPrice=2 gwei block=12721 txIx=2 txId=0x1e662b18057a0d5c3082e1ae7383be93e6005095d1dfa19671345bc28212128e @ 1535223267 Sat, 25 Aug 2018 18:54:27 UTC
 undefined
 > 
-RESULT: deployWallets1_3Tx status=0x1 Success gas=2000000 gasUsed=192651 costETH=0.000385302 costUSD=0.1678568163 @ ETH/USD=435.65 gasPrice=2 gwei block=8716 txIx=0 txId=0x2886cf3747976ea733ff6ba3c4bf38871c52d54a74582c424aaa6d8207f8412e @ 1535219262 Sat, 25 Aug 2018 17:47:42 UTC
+RESULT: deployWallets1_3Tx status=0x1 Success gas=2000000 gasUsed=177714 costETH=0.000355428 costUSD=0.1548422082 @ ETH/USD=435.65 gasPrice=2 gwei block=12721 txIx=1 txId=0x04e186148c576717824935a0667db9eecf4a79258ad88c0df734c27784ee52ba @ 1535223267 Sat, 25 Aug 2018 18:54:27 UTC
 undefined
 > 
-RESULT: dexWalletFactory.address=DEXWalletFactory:0xdbf468de0962819bd951bf829d821a8ba436907a
+RESULT: dexWalletFactory.address=DEXWalletFactory:0x2971552ca0a289f03d1da55050d867def431415c
 RESULT: dexWalletFactory.owner/new=Account #1 - Deployer:0xa11aae29840fbb5c86e6fd4cf809eba183aef433 0x0000000000000000000000000000000000000000
-RESULT: dexWalletFactory.walletTemplate=0x8e3d0967bf2bc761c60936d142f01692d75f0069
+RESULT: dexWalletFactory.walletTemplate=0xd3dcfbbd0117cdd9dbb993a041856b12191a72b8
 RESULT: dexWalletFactory.numberOfWallets=3
-RESULT: dexWalletFactory.wallets[0]=0x5c093e6bd25768910e6f497f04bcce64c8b5661a
-RESULT: dexWalletFactory.wallets[1]=0x33b6b3f6ef256ddb87039980106f9ffbebffdae8
-RESULT: dexWalletFactory.wallets[2]=0x5264533545e0c97e49fc5d2578367c347faf64c9
-RESULT: WalletCreated 0 #8716 owner=0xa55a151eb00fded1634d27d1127b4be4627079ea dexWalletAddress=0x5c093e6bd25768910e6f497f04bcce64c8b5661a
-RESULT: WalletCreated 1 #8716 owner=0xa44a08d3f6933c69212114bb66e2df1813651844 dexWalletAddress=0x33b6b3f6ef256ddb87039980106f9ffbebffdae8
-RESULT: WalletCreated 2 #8716 owner=0xa33a6c312d9ad0e0f2e95541beed0cc081621fd0 dexWalletAddress=0x5264533545e0c97e49fc5d2578367c347faf64c9
+RESULT: dexWalletFactory.wallets[0]=0xa1754f2976581acbfb45469f16a88d2a7985b03b
+RESULT: dexWalletFactory.wallets[1]=0x9835dc998e4ff304b8c9e3242f72d10e4ded8d96
+RESULT: dexWalletFactory.wallets[2]=0x1dc3221ecaaf4ff6f9f30acedc6c747c2c43dd18
+RESULT: WalletCreated 0 #12721 owner=0xa33a6c312d9ad0e0f2e95541beed0cc081621fd0 dexWalletAddress=0xa1754f2976581acbfb45469f16a88d2a7985b03b
+RESULT: WalletCreated 1 #12721 owner=0xa55a151eb00fded1634d27d1127b4be4627079ea dexWalletAddress=0x9835dc998e4ff304b8c9e3242f72d10e4ded8d96
+RESULT: WalletCreated 2 #12721 owner=0xa44a08d3f6933c69212114bb66e2df1813651844 dexWalletAddress=0x1dc3221ecaaf4ff6f9f30acedc6c747c2c43dd18
 undefined
 > 
-RESULT: dexWallet.address=User1 DEXWallet:0x5264533545e0c97e49fc5d2578367c347faf64c9
+RESULT: dexWallet.address=User1 DEXWallet:0xa1754f2976581acbfb45469f16a88d2a7985b03b
 RESULT: dexWallet.owner/new=Account #3 - User 1:0xa33a6c312d9ad0e0f2e95541beed0cc081621fd0 0x0000000000000000000000000000000000000000
 undefined
 > 
-RESULT: dexWallet.address=User2 DEXWallet:0x33b6b3f6ef256ddb87039980106f9ffbebffdae8
+RESULT: dexWallet.address=User2 DEXWallet:0x1dc3221ecaaf4ff6f9f30acedc6c747c2c43dd18
 RESULT: dexWallet.owner/new=Account #4 - User 2:0xa44a08d3f6933c69212114bb66e2df1813651844 0x0000000000000000000000000000000000000000
 undefined
 > 
-RESULT: dexWallet.address=User3 DEXWallet:0x5c093e6bd25768910e6f497f04bcce64c8b5661a
+RESULT: dexWallet.address=User3 DEXWallet:0x9835dc998e4ff304b8c9e3242f72d10e4ded8d96
 RESULT: dexWallet.owner/new=Account #5 - User 3:0xa55a151eb00fded1634d27d1127b4be4627079ea 0x0000000000000000000000000000000000000000
 undefined
 > 
@@ -429,31 +429,35 @@ undefined
 > 
 undefined
 > 
+undefined
+> 
+undefined
+> 
 ... 
 undefined
 > 
 RESULT:  # Account                                             EtherBalanceChange                            GNT                           WETH Name
 RESULT: -- ------------------------------------------ --------------------------- ------------------------------ ------------------------------ ---------------------------
-RESULT:  0 0xa00af22d07c87d96eeeb0ed583f8f6ac7812827e        0.011776840000000000           0.000000000000000000           0.000000000000000000 Account #0 - Miner
-RESULT:  1 0xa11aae29840fbb5c86e6fd4cf809eba183aef433       -0.010680934000000000           0.000000000000000000           0.000000000000000000 Account #1 - Deployer
+RESULT:  0 0xa00af22d07c87d96eeeb0ed583f8f6ac7812827e        0.012475260000000000           0.000000000000000000           0.000000000000000000 Account #0 - Miner
+RESULT:  1 0xa11aae29840fbb5c86e6fd4cf809eba183aef433       -0.011378976000000000           0.000000000000000000           0.000000000000000000 Account #1 - Deployer
 RESULT:  2 0xa22ab8a9d641ce77e06d98b7d7065d324d3d6976        0.000000000000000000           0.000000000000000000           0.000000000000000000 Account #2 - DEX Operator
-RESULT:  3 0xa33a6c312d9ad0e0f2e95541beed0cc081621fd0       -0.000355302000000000           0.000000000000000000           0.000000000000000000 Account #3 - User 1
-RESULT:  4 0xa44a08d3f6933c69212114bb66e2df1813651844       -0.000355302000000000           0.000000000000000000           0.000000000000000000 Account #4 - User 2
-RESULT:  5 0xa55a151eb00fded1634d27d1127b4be4627079ea       -0.000385302000000000           0.000000000000000000           0.000000000000000000 Account #5 - User 3
-RESULT:  6 0xa66a85ede0cbe03694aa9d9de0bb19c99ff55bd9        0.000000000000000000           0.000000000000000000           0.000000000000000000 Account #6
+RESULT:  3 0xa33a6c312d9ad0e0f2e95541beed0cc081621fd0       -0.000385428000000000           0.000000000000000000           0.000000000000000000 Account #3 - User 1
+RESULT:  4 0xa44a08d3f6933c69212114bb66e2df1813651844       -0.000355428000000000           0.000000000000000000           0.000000000000000000 Account #4 - User 2
+RESULT:  5 0xa55a151eb00fded1634d27d1127b4be4627079ea       -0.000355428000000000           0.000000000000000000           0.000000000000000000 Account #5 - User 3
+RESULT:  6 0xa66a85ede0cbe03694aa9d9de0bb19c99ff55bd9        0.000000000000000000        1870.000000000000000000          10.000000000000000000 Account #6
 RESULT:  7 0xa77a2b9d4b1c010a22a7c565dc418cef683dbcec        0.000000000000000000           0.000000000000000000           0.000000000000000000 Account #7
 RESULT:  8 0xa88a05d2b88283ce84c8325760b72a64591279a2        0.000000000000000000           0.000000000000000000           0.000000000000000000 Account #8
 RESULT:  9 0xa99a0ae3354c06b1459fd441a32a3f71005d7da0        0.000000000000000000           0.000000000000000000           0.000000000000000000 Account #9
 RESULT: 10 0xaaaa9de1e6c564446ebca0fd102d8bd92093c756        0.000000000000000000           0.000000000000000000           0.000000000000000000 Account #10
 RESULT: 11 0xabba43e7594e3b76afb157989e93c6621497fd4b        0.000000000000000000           0.000000000000000000           0.000000000000000000 Account #11
-RESULT: 12 0xdbf468de0962819bd951bf829d821a8ba436907a        0.000000000000000000           0.000000000000000000           0.000000000000000000 DEXWalletFactory
-RESULT: 13 0x6f6219a19a821e2ed20b1d5485c24915d6c96517        0.000000000000000000           0.000000000000000000           0.000000000000000000 Token 'GNT' 'Golem'
-RESULT: 14 0xa15ac97faf20d873309a67d762acc3968912e688        0.000000000000000000           0.000000000000000000           0.000000000000000000 Token 'WETH' 'Wrapped ETH'
-RESULT: 15 0x5264533545e0c97e49fc5d2578367c347faf64c9        0.000000000000000000        1870.000000000000000000          10.000000000000000000 User1 DEXWallet
-RESULT: 16 0x33b6b3f6ef256ddb87039980106f9ffbebffdae8        0.000000000000000000        1870.000000000000000000          10.000000000000000000 User2 DEXWallet
-RESULT: 17 0x5c093e6bd25768910e6f497f04bcce64c8b5661a        0.000000000000000000        1870.000000000000000000          10.000000000000000000 User3 DEXWallet
+RESULT: 12 0x2971552ca0a289f03d1da55050d867def431415c        0.000000000000000000           0.000000000000000000           0.000000000000000000 DEXWalletFactory
+RESULT: 13 0xf96dc245626a6aea6013484121b551be048c4bb6        0.000000000000000000           0.000000000000000000           0.000000000000000000 Token 'GNT' 'Golem'
+RESULT: 14 0x9d786268484fc73f848bb6b907a5014d861964ae        0.000000000000000000           0.000000000000000000           0.000000000000000000 Token 'WETH' 'Wrapped ETH'
+RESULT: 15 0xa1754f2976581acbfb45469f16a88d2a7985b03b        0.000000000000000000        1870.000000000000000000          10.000000000000000000 User1 DEXWallet
+RESULT: 16 0x1dc3221ecaaf4ff6f9f30acedc6c747c2c43dd18        0.000000000000000000        1870.000000000000000000          10.000000000000000000 User2 DEXWallet
+RESULT: 17 0x9835dc998e4ff304b8c9e3242f72d10e4ded8d96        0.000000000000000000        1870.000000000000000000          10.000000000000000000 User3 DEXWallet
 RESULT: -- ------------------------------------------ --------------------------- ------------------------------ ------------------------------ ---------------------------
-RESULT:                                                                                  5610.000000000000000000          30.000000000000000000 Total Token Balances
+RESULT:                                                                                  7480.000000000000000000          40.000000000000000000 Total Token Balances
 RESULT: -- ------------------------------------------ --------------------------- ------------------------------ ------------------------------ ---------------------------
 RESULT: 
 undefined
@@ -467,6 +471,9 @@ RESULT: PASS Distribute Tokens #1 - tokenA.mint(user2Wallet, 1870)
 RESULT: PASS Distribute Tokens #1 - tokenA.mint(user3Wallet, 1870)
 1
 > 
+RESULT: PASS Distribute Tokens #1 - tokenA.mint(account6, 1870)
+1
+> 
 RESULT: PASS Distribute Tokens #1 - tokenB.mint(user1Wallet, 10)
 1
 > 
@@ -476,44 +483,55 @@ RESULT: PASS Distribute Tokens #1 - tokenB.mint(user2Wallet, 10)
 RESULT: PASS Distribute Tokens #1 - tokenB.mint(user3Wallet, 10)
 1
 > 
-RESULT: distributeTokens_1Tx status=0x1 Success gas=2000000 gasUsed=66738 costETH=0.000133476 costUSD=0.0581488194 @ ETH/USD=435.65 gasPrice=2 gwei block=8720 txIx=0 txId=0x31e680f653062b642dc23795c8f08d90b4e0ca1df3ba5f88e6c79d8a045ed3e0 @ 1535219266 Sat, 25 Aug 2018 17:47:46 UTC
+RESULT: PASS Distribute Tokens #1 - tokenB.mint(account6, 10)
+1
+> 
+RESULT: distributeTokens_1Tx status=0x1 Success gas=2000000 gasUsed=66738 costETH=0.000133476 costUSD=0.0581488194 @ ETH/USD=435.65 gasPrice=2 gwei block=12725 txIx=0 txId=0xa9eab6027cdaaec15535829f86f55bbcbafbe7890713a2040571ab11b173996a @ 1535223271 Sat, 25 Aug 2018 18:54:31 UTC
 undefined
 > 
-RESULT: distributeTokens_2Tx status=0x1 Success gas=2000000 gasUsed=51738 costETH=0.000103476 costUSD=0.0450793194 @ ETH/USD=435.65 gasPrice=2 gwei block=8720 txIx=1 txId=0x1e3fee18cdfa6591bae16c311eeb5d933998ac5601ce03d7056517bae60c15a6 @ 1535219266 Sat, 25 Aug 2018 17:47:46 UTC
+RESULT: distributeTokens_2Tx status=0x1 Success gas=2000000 gasUsed=51738 costETH=0.000103476 costUSD=0.0450793194 @ ETH/USD=435.65 gasPrice=2 gwei block=12725 txIx=1 txId=0x1fa7041e1dde3888fe3aa2a7d4f44b61508c07db9fd6e5063f75ad8c0bb951fa @ 1535223271 Sat, 25 Aug 2018 18:54:31 UTC
 undefined
 > 
-RESULT: distributeTokens_3Tx status=0x1 Success gas=2000000 gasUsed=51738 costETH=0.000103476 costUSD=0.0450793194 @ ETH/USD=435.65 gasPrice=2 gwei block=8720 txIx=2 txId=0x091f948373c0222362fc8146e79c89f93b15d3942d73d6c831cae8798ad959ab @ 1535219266 Sat, 25 Aug 2018 17:47:46 UTC
+RESULT: distributeTokens_3Tx status=0x1 Success gas=2000000 gasUsed=51738 costETH=0.000103476 costUSD=0.0450793194 @ ETH/USD=435.65 gasPrice=2 gwei block=12725 txIx=2 txId=0x640d0409a119e2425a72631e71ecf8675336f650140f8b46af03369d9edd58f8 @ 1535223271 Sat, 25 Aug 2018 18:54:31 UTC
 undefined
 > 
-RESULT: distributeTokens_4Tx status=0x1 Success gas=2000000 gasUsed=66674 costETH=0.000133348 costUSD=0.0580930562 @ ETH/USD=435.65 gasPrice=2 gwei block=8720 txIx=3 txId=0xc21fbcfacd71903d8be0169766dbc8dd22214e2a0c64f7a241419673e4134b85 @ 1535219266 Sat, 25 Aug 2018 17:47:46 UTC
+RESULT: distributeTokens_4Tx status=0x1 Success gas=2000000 gasUsed=51738 costETH=0.000103476 costUSD=0.0450793194 @ ETH/USD=435.65 gasPrice=2 gwei block=12725 txIx=3 txId=0x402481462be1eebad4890dbba12c0fe5dd3df895e92d4d307e50bd338fcd5194 @ 1535223271 Sat, 25 Aug 2018 18:54:31 UTC
 undefined
 > 
-RESULT: distributeTokens_5Tx status=0x1 Success gas=2000000 gasUsed=51674 costETH=0.000103348 costUSD=0.0450235562 @ ETH/USD=435.65 gasPrice=2 gwei block=8720 txIx=4 txId=0x0bc33d8724370255426cb6f2b0ea1f973ece13bd10baa8dc1c3d7ebb4e1385d1 @ 1535219266 Sat, 25 Aug 2018 17:47:46 UTC
+RESULT: distributeTokens_5Tx status=0x1 Success gas=2000000 gasUsed=66674 costETH=0.000133348 costUSD=0.0580930562 @ ETH/USD=435.65 gasPrice=2 gwei block=12725 txIx=4 txId=0xb9ed29c8932e9162e75cbcedc018af9179a80a1108687fb13266dc2b908ff5fb @ 1535223271 Sat, 25 Aug 2018 18:54:31 UTC
 undefined
 > 
-RESULT: distributeTokens_6Tx status=0x1 Success gas=2000000 gasUsed=51674 costETH=0.000103348 costUSD=0.0450235562 @ ETH/USD=435.65 gasPrice=2 gwei block=8720 txIx=5 txId=0xded00f66350e0ff6d379c54e545ba3903066299b9fa5be15798f4aa00d426bf1 @ 1535219266 Sat, 25 Aug 2018 17:47:46 UTC
+RESULT: distributeTokens_6Tx status=0x1 Success gas=2000000 gasUsed=51674 costETH=0.000103348 costUSD=0.0450235562 @ ETH/USD=435.65 gasPrice=2 gwei block=12725 txIx=5 txId=0x2bff00607f4a54796a75be9ab8a57f961f420dcdb27e7cc9ff5cb98d7d0fa253 @ 1535223271 Sat, 25 Aug 2018 18:54:31 UTC
 undefined
 > 
-RESULT: tokenAContractAddress=Token 'GNT' 'Golem':0x6f6219a19a821e2ed20b1d5485c24915d6c96517
+RESULT: distributeTokens_7Tx status=0x1 Success gas=2000000 gasUsed=51674 costETH=0.000103348 costUSD=0.0450235562 @ ETH/USD=435.65 gasPrice=2 gwei block=12725 txIx=6 txId=0xed7c63acff1eee8ae9432495656a984e461846e7b28afe69a83a688d5c8c3dcb @ 1535223271 Sat, 25 Aug 2018 18:54:31 UTC
+undefined
+> 
+RESULT: distributeTokens_8Tx status=0x1 Success gas=2000000 gasUsed=51674 costETH=0.000103348 costUSD=0.0450235562 @ ETH/USD=435.65 gasPrice=2 gwei block=12725 txIx=7 txId=0x02ea4cdc74b43e3136810166e286bbff0058c3b8fecbe1e39f1aeccba66a0bef @ 1535223271 Sat, 25 Aug 2018 18:54:31 UTC
+undefined
+> 
+RESULT: tokenAContractAddress=Token 'GNT' 'Golem':0xf96dc245626a6aea6013484121b551be048c4bb6
 RESULT: tokenA.owner/new=Account #1 - Deployer:0xa11aae29840fbb5c86e6fd4cf809eba183aef433 0x0000000000000000000000000000000000000000
 RESULT: tokenA.symbol=GNT
 RESULT: tokenA.name=Golem
 RESULT: tokenA.decimals=18
-RESULT: tokenA.totalSupply=5.61e+21 5610
-RESULT: tokenA.Transfer 0 #8720: from=0x0000000000000000000000000000000000000000 to=0x5264533545e0c97e49fc5d2578367c347faf64c9 tokens=1870
-RESULT: tokenA.Transfer 1 #8720: from=0x0000000000000000000000000000000000000000 to=0x33b6b3f6ef256ddb87039980106f9ffbebffdae8 tokens=1870
-RESULT: tokenA.Transfer 2 #8720: from=0x0000000000000000000000000000000000000000 to=0x5c093e6bd25768910e6f497f04bcce64c8b5661a tokens=1870
+RESULT: tokenA.totalSupply=7.48e+21 7480
+RESULT: tokenA.Transfer 0 #12725: from=0x0000000000000000000000000000000000000000 to=0xa1754f2976581acbfb45469f16a88d2a7985b03b tokens=1870
+RESULT: tokenA.Transfer 1 #12725: from=0x0000000000000000000000000000000000000000 to=0x1dc3221ecaaf4ff6f9f30acedc6c747c2c43dd18 tokens=1870
+RESULT: tokenA.Transfer 2 #12725: from=0x0000000000000000000000000000000000000000 to=0x9835dc998e4ff304b8c9e3242f72d10e4ded8d96 tokens=1870
+RESULT: tokenA.Transfer 3 #12725: from=0x0000000000000000000000000000000000000000 to=0xa66a85ede0cbe03694aa9d9de0bb19c99ff55bd9 tokens=1870
 undefined
 > 
-RESULT: tokenBContractAddress=Token 'WETH' 'Wrapped ETH':0xa15ac97faf20d873309a67d762acc3968912e688
+RESULT: tokenBContractAddress=Token 'WETH' 'Wrapped ETH':0x9d786268484fc73f848bb6b907a5014d861964ae
 RESULT: tokenB.owner/new=Account #1 - Deployer:0xa11aae29840fbb5c86e6fd4cf809eba183aef433 0x0000000000000000000000000000000000000000
 RESULT: tokenB.symbol=WETH
 RESULT: tokenB.name=Wrapped ETH
 RESULT: tokenB.decimals=18
-RESULT: tokenB.totalSupply=30000000000000000000 30
-RESULT: tokenB.Transfer 0 #8720: from=0x0000000000000000000000000000000000000000 to=0x5264533545e0c97e49fc5d2578367c347faf64c9 tokens=10
-RESULT: tokenB.Transfer 1 #8720: from=0x0000000000000000000000000000000000000000 to=0x33b6b3f6ef256ddb87039980106f9ffbebffdae8 tokens=10
-RESULT: tokenB.Transfer 2 #8720: from=0x0000000000000000000000000000000000000000 to=0x5c093e6bd25768910e6f497f04bcce64c8b5661a tokens=10
+RESULT: tokenB.totalSupply=40000000000000000000 40
+RESULT: tokenB.Transfer 0 #12725: from=0x0000000000000000000000000000000000000000 to=0xa1754f2976581acbfb45469f16a88d2a7985b03b tokens=10
+RESULT: tokenB.Transfer 1 #12725: from=0x0000000000000000000000000000000000000000 to=0x1dc3221ecaaf4ff6f9f30acedc6c747c2c43dd18 tokens=10
+RESULT: tokenB.Transfer 2 #12725: from=0x0000000000000000000000000000000000000000 to=0x9835dc998e4ff304b8c9e3242f72d10e4ded8d96 tokens=10
+RESULT: tokenB.Transfer 3 #12725: from=0x0000000000000000000000000000000000000000 to=0xa66a85ede0cbe03694aa9d9de0bb19c99ff55bd9 tokens=10
 undefined
 > 
 RESULT: 
@@ -524,7 +542,6 @@ undefined
 undefined
 > 
 undefined
-> 
 > 
 > 
 undefined
@@ -555,26 +572,26 @@ undefined
 > 
 RESULT:  # Account                                             EtherBalanceChange                            GNT                           WETH Name
 RESULT: -- ------------------------------------------ --------------------------- ------------------------------ ------------------------------ ---------------------------
-RESULT:  0 0xa00af22d07c87d96eeeb0ed583f8f6ac7812827e        0.012513360000000000           0.000000000000000000           0.000000000000000000 Account #0 - Miner
-RESULT:  1 0xa11aae29840fbb5c86e6fd4cf809eba183aef433       -0.010680934000000000           0.000000000000000000           0.000000000000000000 Account #1 - Deployer
+RESULT:  0 0xa00af22d07c87d96eeeb0ed583f8f6ac7812827e        0.013212120000000000           0.000000000000000000           0.000000000000000000 Account #0 - Miner
+RESULT:  1 0xa11aae29840fbb5c86e6fd4cf809eba183aef433       -0.011378976000000000           0.000000000000000000           0.000000000000000000 Account #1 - Deployer
 RESULT:  2 0xa22ab8a9d641ce77e06d98b7d7065d324d3d6976        0.000000000000000000           0.000000000000000000           0.000000000000000000 Account #2 - DEX Operator
-RESULT:  3 0xa33a6c312d9ad0e0f2e95541beed0cc081621fd0       -0.001091822000000000           0.000000000000000000           0.000000000000000000 Account #3 - User 1
-RESULT:  4 0xa44a08d3f6933c69212114bb66e2df1813651844       -0.000355302000000000           0.000000000000000000           0.000000000000000000 Account #4 - User 2
-RESULT:  5 0xa55a151eb00fded1634d27d1127b4be4627079ea       -0.000385302000000000           0.000000000000000000           0.000000000000000000 Account #5 - User 3
-RESULT:  6 0xa66a85ede0cbe03694aa9d9de0bb19c99ff55bd9        0.000000000000000000           0.000000000000000000           0.000000000000000000 Account #6
+RESULT:  3 0xa33a6c312d9ad0e0f2e95541beed0cc081621fd0       -0.001122288000000000           0.000000000000000000           0.000000000000000000 Account #3 - User 1
+RESULT:  4 0xa44a08d3f6933c69212114bb66e2df1813651844       -0.000355428000000000           0.000000000000000000           0.000000000000000000 Account #4 - User 2
+RESULT:  5 0xa55a151eb00fded1634d27d1127b4be4627079ea       -0.000355428000000000           0.000000000000000000           0.000000000000000000 Account #5 - User 3
+RESULT:  6 0xa66a85ede0cbe03694aa9d9de0bb19c99ff55bd9        0.000000000000000000        1870.000000000000000000          10.000000000000000000 Account #6
 RESULT:  7 0xa77a2b9d4b1c010a22a7c565dc418cef683dbcec        0.000000000000000000           0.000000000000000000           0.000000000000000000 Account #7
 RESULT:  8 0xa88a05d2b88283ce84c8325760b72a64591279a2        0.000000000000000000           0.000000000000000000           0.000000000000000000 Account #8
 RESULT:  9 0xa99a0ae3354c06b1459fd441a32a3f71005d7da0        0.000000000000000000           0.000000000000000000           0.000000000000000000 Account #9
 RESULT: 10 0xaaaa9de1e6c564446ebca0fd102d8bd92093c756        0.000000000000000000           0.000000000000000000           0.000000000000000000 Account #10
 RESULT: 11 0xabba43e7594e3b76afb157989e93c6621497fd4b        0.000000000000000000           0.000000000000000000           0.000000000000000000 Account #11
-RESULT: 12 0xdbf468de0962819bd951bf829d821a8ba436907a        0.000000000000000000           0.000000000000000000           0.000000000000000000 DEXWalletFactory
-RESULT: 13 0x6f6219a19a821e2ed20b1d5485c24915d6c96517        0.000000000000000000           0.000000000000000000           0.000000000000000000 Token 'GNT' 'Golem'
-RESULT: 14 0xa15ac97faf20d873309a67d762acc3968912e688        0.000000000000000000           0.000000000000000000           0.000000000000000000 Token 'WETH' 'Wrapped ETH'
-RESULT: 15 0x5264533545e0c97e49fc5d2578367c347faf64c9        0.000000000000000000        1870.000000000000000000          10.000000000000000000 User1 DEXWallet
-RESULT: 16 0x33b6b3f6ef256ddb87039980106f9ffbebffdae8        0.000000000000000000        1870.000000000000000000          10.000000000000000000 User2 DEXWallet
-RESULT: 17 0x5c093e6bd25768910e6f497f04bcce64c8b5661a        0.000000000000000000        1870.000000000000000000          10.000000000000000000 User3 DEXWallet
+RESULT: 12 0x2971552ca0a289f03d1da55050d867def431415c        0.000000000000000000           0.000000000000000000           0.000000000000000000 DEXWalletFactory
+RESULT: 13 0xf96dc245626a6aea6013484121b551be048c4bb6        0.000000000000000000           0.000000000000000000           0.000000000000000000 Token 'GNT' 'Golem'
+RESULT: 14 0x9d786268484fc73f848bb6b907a5014d861964ae        0.000000000000000000           0.000000000000000000           0.000000000000000000 Token 'WETH' 'Wrapped ETH'
+RESULT: 15 0xa1754f2976581acbfb45469f16a88d2a7985b03b        0.000000000000000000        1870.000000000000000000          10.000000000000000000 User1 DEXWallet
+RESULT: 16 0x1dc3221ecaaf4ff6f9f30acedc6c747c2c43dd18        0.000000000000000000        1870.000000000000000000          10.000000000000000000 User2 DEXWallet
+RESULT: 17 0x9835dc998e4ff304b8c9e3242f72d10e4ded8d96        0.000000000000000000        1870.000000000000000000          10.000000000000000000 User3 DEXWallet
 RESULT: -- ------------------------------------------ --------------------------- ------------------------------ ------------------------------ ---------------------------
-RESULT:                                                                                  5610.000000000000000000          30.000000000000000000 Total Token Balances
+RESULT:                                                                                  7480.000000000000000000          40.000000000000000000 Total Token Balances
 RESULT: -- ------------------------------------------ --------------------------- ------------------------------ ------------------------------ ---------------------------
 RESULT: 
 undefined
@@ -585,24 +602,120 @@ RESULT: PASS Add Orders #1 - user1Wallet.addOrder(BUY, GNT, WETH, 0.00054087, +1
 RESULT: PASS Add Orders #1 - user1Wallet.addOrder(SELL, GNT, WETH, 0.00055087, +1h, 123400)
 1
 > 
-RESULT: addOrders1_1Tx status=0x1 Success gas=2000000 gasUsed=184098 costETH=0.000368196 costUSD=0.1604045874 @ ETH/USD=435.65 gasPrice=2 gwei block=8724 txIx=0 txId=0x44b4888b892c9d6cffa137ea8b8007739b40ecae212bf43a343749dd91c2a6ab @ 1535219270 Sat, 25 Aug 2018 17:47:50 UTC
+RESULT: addOrders1_1Tx status=0x1 Success gas=2000000 gasUsed=184183 costETH=0.000368366 costUSD=0.1604786479 @ ETH/USD=435.65 gasPrice=2 gwei block=12729 txIx=0 txId=0x7f0bc553d0dfc98201fbb38616f65d79094e00c50c02a1aed29a2c37e480c4c8 @ 1535223275 Sat, 25 Aug 2018 18:54:35 UTC
 undefined
 > 
-RESULT: addOrders1_2Tx status=0x1 Success gas=2000000 gasUsed=184162 costETH=0.000368324 costUSD=0.1604603506 @ ETH/USD=435.65 gasPrice=2 gwei block=8724 txIx=1 txId=0x69d9174e0fbc3b06a8cd6066a186d8cd3cdbba4032a41fbe782e90e02ab26a93 @ 1535219270 Sat, 25 Aug 2018 17:47:50 UTC
+RESULT: addOrders1_2Tx status=0x1 Success gas=2000000 gasUsed=184247 costETH=0.000368494 costUSD=0.1605344111 @ ETH/USD=435.65 gasPrice=2 gwei block=12729 txIx=1 txId=0x82df470a6b7eaf69629a3c4970cf8aa89e97cec95cfbd496c1e9c96d28af0efd @ 1535223275 Sat, 25 Aug 2018 18:54:35 UTC
 undefined
 > 
-RESULT: dexWallet.address=User1 DEXWallet:0x5264533545e0c97e49fc5d2578367c347faf64c9
+RESULT: dexWallet.address=User1 DEXWallet:0xa1754f2976581acbfb45469f16a88d2a7985b03b
 RESULT: dexWallet.owner/new=Account #3 - User 1:0xa33a6c312d9ad0e0f2e95541beed0cc081621fd0 0x0000000000000000000000000000000000000000
-RESULT: dexWallet.orders.index[0]=0x02800b1c6226cb82523aa4ca6a607d679f26ead4a8d6f801db33d05e063fbf03 BUY 123400 GNT[b] @ 0.00054087 GNT[b] per unit WETH[q] until Sun, 26 Aug 2018 04:47:48 AEST
-RESULT:   effectiveOrder=BUY baseAmount=18488.731118383345351008 quoteAmount=10 GNT[b] @ 0.00054087 GNT/WETH until Sun, 26 Aug 2018 04:47:48 AEST
-RESULT: dexWallet.orders.index[1]=0x9bad58a13dfb8d37edf0b59372326d823760932c038649f1fb62ba8fd3be24f0 SELL 123400 GNT[b] @ 0.00055087 GNT[b] per unit WETH[q] until Sun, 26 Aug 2018 04:47:48 AEST
-RESULT:   effectiveOrder=SELL baseAmount=1870 quoteAmount=1.0301269 GNT[b] @ 0.00055087 GNT/WETH until Sun, 26 Aug 2018 04:47:48 AEST
-RESULT: dexWallet.OrderAdded 0 #8724 0x02800b1c6226cb82523aa4ca6a607d679f26ead4a8d6f801db33d05e063fbf03 BUY 123400 GNT[b] @ 0.00054087 GNT[b] per unit WETH[q] until Sun, 26 Aug 2018 04:47:48 AEST
-RESULT: dexWallet.OrderAdded 1 #8724 0x9bad58a13dfb8d37edf0b59372326d823760932c038649f1fb62ba8fd3be24f0 SELL 123400 GNT[b] @ 0.00055087 GNT[b] per unit WETH[q] until Sun, 26 Aug 2018 04:47:48 AEST
+RESULT: dexWallet.orders.index[0]=0xe14abf61d75ee5a73dd6a51a276d7442383228f5a8a29554bf4e83da7e841580 BUY 123400 GNT[b] @ 0.00054087 GNT[b] per unit WETH[q] until Sun, 26 Aug 2018 05:54:33 AEST
+RESULT:   effectiveOrder=BUY baseAmount=18488.731118383345351008 quoteAmount=10 GNT[b] @ 0.00054087 GNT/WETH until Sun, 26 Aug 2018 05:54:33 AEST
+RESULT: dexWallet.orders.index[1]=0x430a1ff51c7af6c2c9fd11e2570b684455ef03d1c60afd393c41490e4605f3ec SELL 123400 GNT[b] @ 0.00055087 GNT[b] per unit WETH[q] until Sun, 26 Aug 2018 05:54:33 AEST
+RESULT:   effectiveOrder=SELL baseAmount=1870 quoteAmount=1.0301269 GNT[b] @ 0.00055087 GNT/WETH until Sun, 26 Aug 2018 05:54:33 AEST
+RESULT: dexWallet.OrderAdded 0 #12729 0xe14abf61d75ee5a73dd6a51a276d7442383228f5a8a29554bf4e83da7e841580 BUY 123400 GNT[b] @ 0.00054087 GNT[b] per unit WETH[q] until Sun, 26 Aug 2018 05:54:33 AEST
+RESULT: dexWallet.OrderAdded 1 #12729 0x430a1ff51c7af6c2c9fd11e2570b684455ef03d1c60afd393c41490e4605f3ec SELL 123400 GNT[b] @ 0.00055087 GNT[b] per unit WETH[q] until Sun, 26 Aug 2018 05:54:33 AEST
 undefined
 > 
 RESULT: 
 undefined
+> 
+> 
+> 
+undefined
+> 
+undefined
+> 
+undefined
+> 
+undefined
+> 
+RESULT: ---------- Taker Sell #1 ----------
+undefined
+> 
+undefined
+> 
+... 
+undefined
+> 
+undefined
+> 
+undefined
+> 
+... 
+undefined
+> 
+RESULT:  # Account                                             EtherBalanceChange                            GNT                           WETH Name
+RESULT: -- ------------------------------------------ --------------------------- ------------------------------ ------------------------------ ---------------------------
+RESULT:  0 0xa00af22d07c87d96eeeb0ed583f8f6ac7812827e        0.013412810000000000           0.000000000000000000           0.000000000000000000 Account #0 - Miner
+RESULT:  1 0xa11aae29840fbb5c86e6fd4cf809eba183aef433       -0.011378976000000000           0.000000000000000000           0.000000000000000000 Account #1 - Deployer
+RESULT:  2 0xa22ab8a9d641ce77e06d98b7d7065d324d3d6976        0.000000000000000000           0.000000000000000000           0.000000000000000000 Account #2 - DEX Operator
+RESULT:  3 0xa33a6c312d9ad0e0f2e95541beed0cc081621fd0       -0.001122288000000000           0.000000000000000000           0.000000000000000000 Account #3 - User 1
+RESULT:  4 0xa44a08d3f6933c69212114bb66e2df1813651844       -0.000355428000000000           0.000000000000000000           0.000000000000000000 Account #4 - User 2
+RESULT:  5 0xa55a151eb00fded1634d27d1127b4be4627079ea       -0.000355428000000000           0.000000000000000000           0.000000000000000000 Account #5 - User 3
+RESULT:  6 0xa66a85ede0cbe03694aa9d9de0bb19c99ff55bd9       -0.000200690000000000         870.000000000000000000          10.540870000000000000 Account #6
+RESULT:  7 0xa77a2b9d4b1c010a22a7c565dc418cef683dbcec        0.000000000000000000           0.000000000000000000           0.000000000000000000 Account #7
+RESULT:  8 0xa88a05d2b88283ce84c8325760b72a64591279a2        0.000000000000000000           0.000000000000000000           0.000000000000000000 Account #8
+RESULT:  9 0xa99a0ae3354c06b1459fd441a32a3f71005d7da0        0.000000000000000000           0.000000000000000000           0.000000000000000000 Account #9
+RESULT: 10 0xaaaa9de1e6c564446ebca0fd102d8bd92093c756        0.000000000000000000           0.000000000000000000           0.000000000000000000 Account #10
+RESULT: 11 0xabba43e7594e3b76afb157989e93c6621497fd4b        0.000000000000000000           0.000000000000000000           0.000000000000000000 Account #11
+RESULT: 12 0x2971552ca0a289f03d1da55050d867def431415c        0.000000000000000000           0.000000000000000000           0.000000000000000000 DEXWalletFactory
+RESULT: 13 0xf96dc245626a6aea6013484121b551be048c4bb6        0.000000000000000000           0.000000000000000000           0.000000000000000000 Token 'GNT' 'Golem'
+RESULT: 14 0x9d786268484fc73f848bb6b907a5014d861964ae        0.000000000000000000           0.000000000000000000           0.000000000000000000 Token 'WETH' 'Wrapped ETH'
+RESULT: 15 0xa1754f2976581acbfb45469f16a88d2a7985b03b        0.000000000000000000        2870.000000000000000000           9.459130000000000000 User1 DEXWallet
+RESULT: 16 0x1dc3221ecaaf4ff6f9f30acedc6c747c2c43dd18        0.000000000000000000        1870.000000000000000000          10.000000000000000000 User2 DEXWallet
+RESULT: 17 0x9835dc998e4ff304b8c9e3242f72d10e4ded8d96        0.000000000000000000        1870.000000000000000000          10.000000000000000000 User3 DEXWallet
+RESULT: -- ------------------------------------------ --------------------------- ------------------------------ ------------------------------ ---------------------------
+RESULT:                                                                                  7480.000000000000000000          40.000000000000000000 Total Token Balances
+RESULT: -- ------------------------------------------ --------------------------- ------------------------------ ------------------------------ ---------------------------
+RESULT: 
+undefined
+> 
+RESULT: PASS Taker Sell #1 - tokenA.approve(user1WalletAddress, 1000)
+1
+> 
+RESULT: PASS Taker Sell #1 - user1Wallet.takerSell(0xe14abf61d75ee5a73dd6a51a276d7442383228f5a8a29554bf4e83da7e841580, 1000)
+1
+> 
+RESULT: takerSell1_1Tx status=0x1 Success gas=2000000 gasUsed=45611 costETH=0.000091222 costUSD=0.0397408643 @ ETH/USD=435.65 gasPrice=2 gwei block=12733 txIx=0 txId=0x5cac469c1e42d57e85e17adfcab898566dd1a53995f7a9890e8197d9de57ce3c @ 1535223279 Sat, 25 Aug 2018 18:54:39 UTC
+undefined
+> 
+RESULT: takerSell1_2Tx status=0x1 Success gas=2000000 gasUsed=54734 costETH=0.000109468 costUSD=0.0476897342 @ ETH/USD=435.65 gasPrice=2 gwei block=12735 txIx=0 txId=0x3dfb57073b7607a75527f6a54c903c5ed3bd7a0521c03ac37875d0068a796a01 @ 1535223281 Sat, 25 Aug 2018 18:54:41 UTC
+undefined
+> 
+RESULT: dexWallet.address=User1 DEXWallet:0xa1754f2976581acbfb45469f16a88d2a7985b03b
+RESULT: dexWallet.owner/new=Account #3 - User 1:0xa33a6c312d9ad0e0f2e95541beed0cc081621fd0 0x0000000000000000000000000000000000000000
+RESULT: dexWallet.orders.index[0]=0xe14abf61d75ee5a73dd6a51a276d7442383228f5a8a29554bf4e83da7e841580 BUY 123400 GNT[b] @ 0.00054087 GNT[b] per unit WETH[q] until Sun, 26 Aug 2018 05:54:33 AEST
+RESULT:   effectiveOrder=BUY baseAmount=17488.731118383345351008 quoteAmount=9.45913 GNT[b] @ 0.00054087 GNT/WETH until Sun, 26 Aug 2018 05:54:33 AEST
+RESULT: dexWallet.orders.index[1]=0x430a1ff51c7af6c2c9fd11e2570b684455ef03d1c60afd393c41490e4605f3ec SELL 123400 GNT[b] @ 0.00055087 GNT[b] per unit WETH[q] until Sun, 26 Aug 2018 05:54:33 AEST
+RESULT:   effectiveOrder=SELL baseAmount=2870 quoteAmount=1.5809969 GNT[b] @ 0.00055087 GNT/WETH until Sun, 26 Aug 2018 05:54:33 AEST
+undefined
+> 
+RESULT: tokenAContractAddress=Token 'GNT' 'Golem':0xf96dc245626a6aea6013484121b551be048c4bb6
+RESULT: tokenA.owner/new=Account #1 - Deployer:0xa11aae29840fbb5c86e6fd4cf809eba183aef433 0x0000000000000000000000000000000000000000
+RESULT: tokenA.symbol=GNT
+RESULT: tokenA.name=Golem
+RESULT: tokenA.decimals=18
+RESULT: tokenA.totalSupply=7.48e+21 7480
+RESULT: tokenA.Approval 0 #12733 tokenOwner=0xa66a85ede0cbe03694aa9d9de0bb19c99ff55bd9 spender=0xa1754f2976581acbfb45469f16a88d2a7985b03b tokens=1000
+RESULT: tokenA.Transfer 0 #12735: from=0xa66a85ede0cbe03694aa9d9de0bb19c99ff55bd9 to=0xa1754f2976581acbfb45469f16a88d2a7985b03b tokens=1000
+undefined
+> 
+RESULT: tokenBContractAddress=Token 'WETH' 'Wrapped ETH':0x9d786268484fc73f848bb6b907a5014d861964ae
+RESULT: tokenB.owner/new=Account #1 - Deployer:0xa11aae29840fbb5c86e6fd4cf809eba183aef433 0x0000000000000000000000000000000000000000
+RESULT: tokenB.symbol=WETH
+RESULT: tokenB.name=Wrapped ETH
+RESULT: tokenB.decimals=18
+RESULT: tokenB.totalSupply=40000000000000000000 40
+RESULT: tokenB.Transfer 0 #12735: from=0xa1754f2976581acbfb45469f16a88d2a7985b03b to=0xa66a85ede0cbe03694aa9d9de0bb19c99ff55bd9 tokens=0.54087
+undefined
+> 
+RESULT: 
+undefined
+> 
+> 
+> 
 > 
 > 
 > 

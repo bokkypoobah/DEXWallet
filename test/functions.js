@@ -511,6 +511,13 @@ function printDEXWalletContractDetails(address, abi) {
 
     var latestBlock = eth.blockNumber;
 
+    var logUintEvents = contract.LogUint({}, { fromBlock: fromBlock[address], toBlock: latestBlock });
+    i = 0;
+    logUintEvents.watch(function (error, result) {
+      console.log("RESULT: LogUint " + i++ + " #" + result.blockNumber + " " + JSON.stringify(result.args));
+    });
+    logUintEvents.stopWatching();
+
     var ownershipTransferredEvents = contract.OwnershipTransferred({}, { fromBlock: fromBlock[address], toBlock: latestBlock });
     i = 0;
     ownershipTransferredEvents.watch(function (error, result) {
