@@ -80,7 +80,7 @@ console.log("RESULT: ---------- " + deployGroup1Message + " ----------");
 var dexWalletFactoryContract = web3.eth.contract(dexWalletFactoryAbi);
 var dexWalletFactoryTx = null;
 var dexWalletFactoryAddress = null;
-var dexWalletFactory = dexWalletFactoryContract.new({from: deployer, data: dexWalletFactoryBin, gas: 4000000, gasPrice: defaultGasPrice},
+var dexWalletFactory = dexWalletFactoryContract.new({from: deployer, data: dexWalletFactoryBin, gas: 5000000, gasPrice: defaultGasPrice},
   function(e, contract) {
     if (!e) {
       if (!contract.address) {
@@ -275,8 +275,8 @@ var takerSell1_2Tx = user1Wallet.takerSell(orderKey, sellAmount, {from: account6
 while (txpool.status.pending > 0) {
 }
 printBalances();
-failIfTxStatusError(takerSell1_1Tx, takerSell1Message + " - tokenA.approve(user1WalletAddress, " + sellAmount.shift(-18) + ")");
-failIfTxStatusError(takerSell1_2Tx, takerSell1Message + " - user1Wallet.takerSell(" + orderKey + ", " + sellAmount.shift(-18) + ")");
+failIfTxStatusError(takerSell1_1Tx, takerSell1Message + " - ac6 tokenA.approve(user1WalletAddress, " + sellAmount.shift(-18) + ")");
+failIfTxStatusError(takerSell1_2Tx, takerSell1Message + " - ac6 user1Wallet.takerSell(" + orderKey + ", " + sellAmount.shift(-18) + ")");
 printTxData("takerSell1_1Tx", takerSell1_1Tx);
 printTxData("takerSell1_2Tx", takerSell1_2Tx);
 printDEXWalletContractDetails(user1WalletAddress, dexWalletAbi);
@@ -285,23 +285,22 @@ printTokenBContractDetails();
 console.log("RESULT: ");
 }
 
-exit;
 
 // -----------------------------------------------------------------------------
 var takerBuy1Message = "Taker Buy #1";
 var buyAmount = new BigNumber(1000).shift(18);
 // -----------------------------------------------------------------------------
 console.log("RESULT: ---------- " + takerBuy1Message + " ----------");
-var takerBuy1_1Tx = tokenA.approve(user1WalletAddress, buyAmount, {from: account6, gas: 2000000, gasPrice: defaultGasPrice});
+var takerBuy1_1Tx = tokenB.approve(user1WalletAddress, buyAmount, {from: account7, gas: 2000000, gasPrice: defaultGasPrice});
 while (txpool.status.pending > 0) {
 }
-var orderKey = user1Wallet.getOrderKeyByIndex(user1Wallet.getNumberOfOrders() - 2);
-var takerBuy1_2Tx = user1Wallet.takerSell(orderKey, buyAmount, {from: account6, gas: 2000000, gasPrice: defaultGasPrice});
+var orderKey = user1Wallet.getOrderKeyByIndex(user1Wallet.getNumberOfOrders() - 1);
+var takerBuy1_2Tx = user1Wallet.takerBuy(orderKey, buyAmount, {from: account7, gas: 2000000, gasPrice: defaultGasPrice});
 while (txpool.status.pending > 0) {
 }
 printBalances();
-failIfTxStatusError(takerBuy1_1Tx, takerBuy1Message + " - tokenA.approve(user1WalletAddress, " + buyAmount.shift(-18) + ")");
-failIfTxStatusError(takerBuy1_2Tx, takerBuy1Message + " - user1Wallet.takerSell(" + orderKey + ", " + buyAmount.shift(-18) + ")");
+failIfTxStatusError(takerBuy1_1Tx, takerBuy1Message + " - ac7 tokenB.approve(user1WalletAddress, " + buyAmount.shift(-18) + ")");
+failIfTxStatusError(takerBuy1_2Tx, takerBuy1Message + " - ac7 user1Wallet.takerBuy(" + orderKey + ", " + buyAmount.shift(-18) + ")");
 printTxData("takerBuy1_1Tx", takerBuy1_1Tx);
 printTxData("takerBuy1_2Tx", takerBuy1_2Tx);
 printDEXWalletContractDetails(user1WalletAddress, dexWalletAbi);
@@ -309,6 +308,8 @@ printTokenAContractDetails();
 printTokenBContractDetails();
 console.log("RESULT: ");
 
+
+exit;
 
 
 if (false) {

@@ -507,24 +507,6 @@ function printDEXWalletContractDetails(address, abi) {
 
     var latestBlock = eth.blockNumber;
 
-    var logUintEvents = contract.LogUint({}, { fromBlock: fromBlock[address], toBlock: latestBlock });
-    i = 0;
-    logUintEvents.watch(function (error, result) {
-      console.log("RESULT: LogUint " + i++ + " #" + result.blockNumber + " " + result.args.note + " = " + result.args.number.shift(-18));
-    });
-    logUintEvents.stopWatching();
-
-    // event TakerSold(bytes32 key, uint amount, address taker, address maker, address baseToken, address quoteToken, uint baseTokens, uint quoteTokens);
-    var takerSoldEvents = contract.TakerSold({}, { fromBlock: fromBlock[address], toBlock: latestBlock });
-    i = 0;
-    takerSoldEvents.watch(function (error, result) {
-      console.log("RESULT: TakerSold " + i++ + " #" + result.blockNumber + " key=" + result.args.key + " amount=" + result.args.amount.shift(-18) +
-        " taker=" + getShortAddressName(result.args.taker) + " maker=" + getShortAddressName(result.args.maker) +
-        " baseToken=" + getAddressSymbol(result.args.baseToken) + " quoteToken=" + getAddressSymbol(result.args.quoteToken) +
-        " baseTokens=" + result.args.baseTokens.shift(-18) + " quoteTokens=" + result.args.quoteTokens.shift(-18));
-    });
-    takerSoldEvents.stopWatching();
-
     var ownershipTransferredEvents = contract.OwnershipTransferred({}, { fromBlock: fromBlock[address], toBlock: latestBlock });
     i = 0;
     ownershipTransferredEvents.watch(function (error, result) {
@@ -532,10 +514,6 @@ function printDEXWalletContractDetails(address, abi) {
     });
     ownershipTransferredEvents.stopWatching();
 
-    // event OrderAdded(bytes32 indexed key, uint orderType, address baseToken, address quoteToken, uint price, uint expiry, uint amount);
-    // dexWallet.OrderAdded 0 #1286 {"amount":"10000000000000000000","baseToken":"0xf235febef748bc1586d8aea01f093012eea7b3c8","expiry":"1534984941",
-    // "key":"0xaadfa703929c85641f7259876c10a6cca276b93549568190c51af59a5b42e9ba","orderType":"0","price":"1000000000000000000",
-    // "quoteToken":"0x27daa9fe81944d721dc95e09f54c8bd3a90a5603"}
     var orderAddedEvents = contract.OrderAdded({}, { fromBlock: fromBlock[address], toBlock: latestBlock });
     i = 0;
     orderAddedEvents.watch(function (error, result) {
@@ -551,6 +529,33 @@ function printDEXWalletContractDetails(address, abi) {
         formatOrder(result.args.key, result.args.orderType, result.args.baseToken, result.args.quoteToken, result.args.price, result.args.expiry, result.args.amount));
     });
     orderRemovedEvents.stopWatching();
+
+    var takerSoldEvents = contract.TakerSold({}, { fromBlock: fromBlock[address], toBlock: latestBlock });
+    i = 0;
+    takerSoldEvents.watch(function (error, result) {
+      console.log("RESULT: TakerSold " + i++ + " #" + result.blockNumber + " key=" + result.args.key + " amount=" + result.args.amount.shift(-18) +
+        " taker=" + getShortAddressName(result.args.taker) + " maker=" + getShortAddressName(result.args.maker) +
+        " baseToken=" + getAddressSymbol(result.args.baseToken) + " quoteToken=" + getAddressSymbol(result.args.quoteToken) +
+        " baseTokens=" + result.args.baseTokens.shift(-18) + " quoteTokens=" + result.args.quoteTokens.shift(-18));
+    });
+    takerSoldEvents.stopWatching();
+
+    var takerBoughtEvents = contract.TakerBought({}, { fromBlock: fromBlock[address], toBlock: latestBlock });
+    i = 0;
+    takerBoughtEvents.watch(function (error, result) {
+      console.log("RESULT: TakerBought " + i++ + " #" + result.blockNumber + " key=" + result.args.key + " amount=" + result.args.amount.shift(-18) +
+        " taker=" + getShortAddressName(result.args.taker) + " maker=" + getShortAddressName(result.args.maker) +
+        " baseToken=" + getAddressSymbol(result.args.baseToken) + " quoteToken=" + getAddressSymbol(result.args.quoteToken) +
+        " baseTokens=" + result.args.baseTokens.shift(-18) + " quoteTokens=" + result.args.quoteTokens.shift(-18));
+    });
+    takerBoughtEvents.stopWatching();
+
+    var logUintEvents = contract.LogUint({}, { fromBlock: fromBlock[address], toBlock: latestBlock });
+    i = 0;
+    logUintEvents.watch(function (error, result) {
+      console.log("RESULT: LogUint " + i++ + " #" + result.blockNumber + " " + result.args.note + " = " + result.args.number.shift(-18));
+    });
+    logUintEvents.stopWatching();
 
     fromBlock[address] = latestBlock + 1;
   }
