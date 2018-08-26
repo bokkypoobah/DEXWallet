@@ -227,8 +227,16 @@ contract DEXWallet is Owned {
         _baseAmount = approvedBaseAmount.min(order.amount.min(amount));
         _quoteAmount = _baseAmount.mul(order.price).div(TENPOW18).min(ERC20Interface(order.quoteToken).balanceOf(address(this)));
         _baseAmount = _quoteAmount.mul(TENPOW18).div(order.price);
+
+        uint balanceBefore = ERC20Interface(order.baseToken).balanceOf(address(this));
         require(ERC20Interface(order.baseToken).transferFrom(msg.sender, address(this), _baseAmount));
+        uint balanceAfter = ERC20Interface(order.baseToken).balanceOf(address(this));
+        require(balanceBefore.add(_baseAmount) == balanceAfter);
+
+        balanceBefore = ERC20Interface(order.quoteToken).balanceOf(address(this));
         require(ERC20Interface(order.quoteToken).transfer(msg.sender, _quoteAmount));
+        balanceAfter = ERC20Interface(order.quoteToken).balanceOf(address(this));
+        require(balanceBefore == balanceAfter.add(_quoteAmount));
     }
     // function takerBuy(bytes32 key, uint amount) public returns (uint _baseAmount, uint _quoteAmount) {
     //     Orders.Order memory order = orders.orders[key];
