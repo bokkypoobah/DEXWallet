@@ -1,13 +1,13 @@
 pragma solidity ^0.4.24;
 
-import "ERC20Interface.sol";
+import "ERC20.sol";
 
 
 // ----------------------------------------------------------------------------
 // MintableToken Interface = ERC20 + symbol + name + decimals + mint + burn
 // + approveAndCall
 // ----------------------------------------------------------------------------
-contract MintableTokenInterface is ERC20Interface {
+contract MintableTokenInterface is ERC20 {
     function symbol() public view returns (string);
     function name() public view returns (string);
     function decimals() public view returns (uint8);

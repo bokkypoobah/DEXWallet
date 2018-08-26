@@ -194,7 +194,7 @@ console.log("RESULT: ");
 
 // -----------------------------------------------------------------------------
 var distributeTokensMessage = "Distribute Tokens #1";
-var tokenAAmount = new BigNumber("1870").shift(tokenADecimals);
+var tokenAAmount = new BigNumber("1000").shift(tokenADecimals);
 var tokenBAmount = new BigNumber("10").shift(tokenBDecimals);
 // -----------------------------------------------------------------------------
 console.log("RESULT: ---------- " + distributeTokensMessage + " ----------");
@@ -202,10 +202,12 @@ var distributeTokens_1Tx = tokenA.mint(user1WalletAddress, tokenAAmount, {from: 
 var distributeTokens_2Tx = tokenA.mint(user2WalletAddress, tokenAAmount, {from: deployer, gas: 2000000, gasPrice: defaultGasPrice});
 var distributeTokens_3Tx = tokenA.mint(user3WalletAddress, tokenAAmount, {from: deployer, gas: 2000000, gasPrice: defaultGasPrice});
 var distributeTokens_4Tx = tokenA.mint(account6, tokenAAmount, {from: deployer, gas: 2000000, gasPrice: defaultGasPrice});
-var distributeTokens_5Tx = tokenB.mint(user1WalletAddress, tokenBAmount, {from: deployer, gas: 2000000, gasPrice: defaultGasPrice});
-var distributeTokens_6Tx = tokenB.mint(user2WalletAddress, tokenBAmount, {from: deployer, gas: 2000000, gasPrice: defaultGasPrice});
-var distributeTokens_7Tx = tokenB.mint(user3WalletAddress, tokenBAmount, {from: deployer, gas: 2000000, gasPrice: defaultGasPrice});
-var distributeTokens_8Tx = tokenB.mint(account6, tokenBAmount, {from: deployer, gas: 2000000, gasPrice: defaultGasPrice});
+var distributeTokens_5Tx = tokenA.mint(account7, tokenAAmount, {from: deployer, gas: 2000000, gasPrice: defaultGasPrice});
+var distributeTokens_6Tx = tokenB.mint(user1WalletAddress, tokenBAmount, {from: deployer, gas: 2000000, gasPrice: defaultGasPrice});
+var distributeTokens_7Tx = tokenB.mint(user2WalletAddress, tokenBAmount, {from: deployer, gas: 2000000, gasPrice: defaultGasPrice});
+var distributeTokens_8Tx = tokenB.mint(user3WalletAddress, tokenBAmount, {from: deployer, gas: 2000000, gasPrice: defaultGasPrice});
+var distributeTokens_9Tx = tokenB.mint(account6, tokenBAmount, {from: deployer, gas: 2000000, gasPrice: defaultGasPrice});
+var distributeTokens_10Tx = tokenB.mint(account7, tokenBAmount, {from: deployer, gas: 2000000, gasPrice: defaultGasPrice});
 while (txpool.status.pending > 0) {
 }
 printBalances();
@@ -213,10 +215,12 @@ failIfTxStatusError(distributeTokens_1Tx, distributeTokensMessage + " - tokenA.m
 failIfTxStatusError(distributeTokens_2Tx, distributeTokensMessage + " - tokenA.mint(user2Wallet, " + tokenAAmount.shift(-tokenADecimals) + ")");
 failIfTxStatusError(distributeTokens_3Tx, distributeTokensMessage + " - tokenA.mint(user3Wallet, " + tokenAAmount.shift(-tokenADecimals) + ")");
 failIfTxStatusError(distributeTokens_4Tx, distributeTokensMessage + " - tokenA.mint(account6, " + tokenAAmount.shift(-tokenADecimals) + ")");
-failIfTxStatusError(distributeTokens_5Tx, distributeTokensMessage + " - tokenB.mint(user1Wallet, " + tokenBAmount.shift(-tokenBDecimals) + ")");
-failIfTxStatusError(distributeTokens_6Tx, distributeTokensMessage + " - tokenB.mint(user2Wallet, " + tokenBAmount.shift(-tokenBDecimals) + ")");
-failIfTxStatusError(distributeTokens_7Tx, distributeTokensMessage + " - tokenB.mint(user3Wallet, " + tokenBAmount.shift(-tokenBDecimals) + ")");
-failIfTxStatusError(distributeTokens_8Tx, distributeTokensMessage + " - tokenB.mint(account6, " + tokenBAmount.shift(-tokenBDecimals) + ")");
+failIfTxStatusError(distributeTokens_5Tx, distributeTokensMessage + " - tokenA.mint(account7, " + tokenAAmount.shift(-tokenADecimals) + ")");
+failIfTxStatusError(distributeTokens_6Tx, distributeTokensMessage + " - tokenB.mint(user1Wallet, " + tokenBAmount.shift(-tokenBDecimals) + ")");
+failIfTxStatusError(distributeTokens_7Tx, distributeTokensMessage + " - tokenB.mint(user2Wallet, " + tokenBAmount.shift(-tokenBDecimals) + ")");
+failIfTxStatusError(distributeTokens_8Tx, distributeTokensMessage + " - tokenB.mint(user3Wallet, " + tokenBAmount.shift(-tokenBDecimals) + ")");
+failIfTxStatusError(distributeTokens_9Tx, distributeTokensMessage + " - tokenB.mint(account6, " + tokenBAmount.shift(-tokenBDecimals) + ")");
+failIfTxStatusError(distributeTokens_10Tx, distributeTokensMessage + " - tokenB.mint(account7, " + tokenBAmount.shift(-tokenBDecimals) + ")");
 printTxData("distributeTokens_1Tx", distributeTokens_1Tx);
 printTxData("distributeTokens_2Tx", distributeTokens_2Tx);
 printTxData("distributeTokens_3Tx", distributeTokens_3Tx);
@@ -225,6 +229,8 @@ printTxData("distributeTokens_5Tx", distributeTokens_5Tx);
 printTxData("distributeTokens_6Tx", distributeTokens_6Tx);
 printTxData("distributeTokens_7Tx", distributeTokens_7Tx);
 printTxData("distributeTokens_8Tx", distributeTokens_8Tx);
+printTxData("distributeTokens_9Tx", distributeTokens_9Tx);
+printTxData("distributeTokens_10Tx", distributeTokens_10Tx);
 printTokenAContractDetails();
 printTokenBContractDetails();
 console.log("RESULT: ");
@@ -235,10 +241,10 @@ var SELL = 1;
 
 // -----------------------------------------------------------------------------
 var addOrders1Message = "Add Orders #1";
-var buyPrice = new BigNumber(54087).shift(10); // 0.00054087 = new BigNumber(54087).shift(10);
-var sellPrice = new BigNumber(55087).shift(10); // 0.00054087 = new BigNumber(54087).shift(10);
-var buyAmount = new BigNumber("123400").shift(18);
-var sellAmount = new BigNumber("123400").shift(18);
+var buyPrice = new BigNumber(0.00054087).shift(18); // 0.00054087 = new BigNumber(54087).shift(10);
+var sellPrice = new BigNumber(0.00054087).shift(18); // 0.00054087 = new BigNumber(54087).shift(10);
+var buyAmount = new BigNumber("1234.00").shift(18);
+var sellAmount = new BigNumber("1234.00").shift(18);
 var expiry = parseInt(new Date()/1000) + 60*60;
 // -----------------------------------------------------------------------------
 console.log("RESULT: ---------- " + addOrders1Message + " ----------");
@@ -255,7 +261,7 @@ printDEXWalletContractDetails(user1WalletAddress, dexWalletAbi);
 console.log("RESULT: ");
 
 
-if (false) {
+if (true) {
 // -----------------------------------------------------------------------------
 var takerSell1Message = "Taker Sell #1";
 var sellAmount = new BigNumber(1000).shift(18);
@@ -279,6 +285,7 @@ printTokenBContractDetails();
 console.log("RESULT: ");
 }
 
+exit;
 
 // -----------------------------------------------------------------------------
 var takerBuy1Message = "Taker Buy #1";

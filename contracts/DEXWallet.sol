@@ -2,7 +2,7 @@ pragma solidity ^0.4.24;
 
 import "SafeMath.sol";
 import "Owned.sol";
-import "ERC20Interface.sol";
+import "ERC20.sol";
 import "CloneFactory.sol";
 
 
@@ -78,7 +78,7 @@ contract DEXWallet is Owned {
     using SafeMath for uint;
     using Orders for Orders.Data;
 
-    uint constant public TENPOW18 = uint(10)**18;
+    uint constant public ONEE18 = uint(10)**18;
     Orders.Data orders;
     bool initialised;
 
@@ -210,49 +210,88 @@ contract DEXWallet is Owned {
         if (now <= order.expiry) {
             if (order.orderType == Orders.OrderType.BUY) {
                 _baseAmount = order.amount;
-                _quoteAmount = _baseAmount.mul(_price).div(TENPOW18).min(ERC20Interface(_quoteToken).balanceOf(address(this)));
-                _baseAmount = _quoteAmount.mul(TENPOW18).div(_price);
+                _quoteAmount = _baseAmount.mul(_price).div(ONEE18).min(ERC20(_quoteToken).balanceOf(address(this)));
+                _baseAmount = _quoteAmount.mul(ONEE18).div(_price);
             } else {
-                _baseAmount = order.amount.min(ERC20Interface(_baseToken).balanceOf(address(this)));
-                _quoteAmount = _baseAmount.mul(_price).div(TENPOW18);
+                _baseAmount = order.amount.min(ERC20(_baseToken).balanceOf(address(this)));
+                _quoteAmount = _baseAmount.mul(_price).div(ONEE18);
             }
         }
     }
     event LogUint(string note, uint number);
-    function takerSell(bytes32 key, uint amount) public returns (uint _baseAmount, uint _quoteAmount) {
+    event TakerSold(bytes32 key, uint amount, address taker, address maker, address baseToken, address quoteToken, uint baseTokens, uint quoteTokens);
+    event TakerBought(bytes32 key, uint amount, address taker, address maker, address baseToken, address quoteToken, uint baseTokens, uint quoteTokens);
+    function takerSell(bytes32 key, uint amountBaseToken) public returns (uint _baseTokens, uint _quoteTokens) {
+        // BK TODO: Iterate of more than one order
+        // BK TODO: Handle shrapnel
+
         Orders.Order memory order = orders.orders[key];
         require(now <= order.expiry);
         require(order.orderType == Orders.OrderType.BUY);
-        uint approvedBaseAmount = ERC20Interface(order.baseToken).allowance(msg.sender, address(this));
-        _baseAmount = approvedBaseAmount.min(order.amount.min(amount));
-        _quoteAmount = _baseAmount.mul(order.price).div(TENPOW18).min(ERC20Interface(order.quoteToken).balanceOf(address(this)));
-        _baseAmount = _quoteAmount.mul(TENPOW18).div(order.price);
 
-        uint balanceBefore = ERC20Interface(order.baseToken).balanceOf(address(this));
-        require(ERC20Interface(order.baseToken).transferFrom(msg.sender, address(this), _baseAmount));
-        uint balanceAfter = ERC20Interface(order.baseToken).balanceOf(address(this));
-        require(balanceBefore.add(_baseAmount) == balanceAfter);
+        emit LogUint("order.amount", order.amount);
+        emit LogUint("amountBaseToken", amountBaseToken);
+        emit LogUint("baseToken.allowance(msg.sender, this)", ERC20(order.baseToken).allowance(msg.sender, address(this)));
+        emit LogUint("baseToken.balanceOf(msg.sender)", ERC20(order.baseToken).balanceOf(msg.sender));
+        _baseTokens = order.amount.min(amountBaseToken);
+        _baseTokens = _baseTokens.min(ERC20(order.baseToken).allowance(msg.sender, address(this)));
+        _baseTokens = _baseTokens.min(ERC20(order.baseToken).balanceOf(msg.sender));
+        emit LogUint("_baseTokens=min", _baseTokens);
 
-        balanceBefore = ERC20Interface(order.quoteToken).balanceOf(address(this));
-        require(ERC20Interface(order.quoteToken).transfer(msg.sender, _quoteAmount));
-        balanceAfter = ERC20Interface(order.quoteToken).balanceOf(address(this));
-        require(balanceBefore == balanceAfter.add(_quoteAmount));
+        emit LogUint("order.amount x price / 1e18", order.amount.mul(order.price).div(ONEE18));
+        emit LogUint("amountBaseToken x price / 1e18", amountBaseToken.mul(order.price).div(ONEE18));
+        emit LogUint("quoteToken.balanceOf(msg.sender, this)", ERC20(order.quoteToken).balanceOf(address(this)));
+        _quoteTokens = order.amount.mul(order.price).div(ONEE18);
+        _quoteTokens = _quoteTokens.min(amountBaseToken.mul(order.price).div(ONEE18));
+        _quoteTokens = _quoteTokens.min(ERC20(order.quoteToken).balanceOf(address(this)));
+        emit LogUint("_quoteTokens=min", _quoteTokens);
+
+        _baseTokens = _baseTokens.min(_quoteTokens.mul(ONEE18).div(order.price));
+        emit LogUint("_baseTokens = min(_baseTokens, _quoteTokens x 1e18 / price)", _baseTokens);
+        _quoteTokens = _baseTokens.mul(order.price).div(ONEE18);
+        emit LogUint("_quoteTokens = _baseTokens x price / 1e18", _quoteTokens);
+        require(_baseTokens > 0 && _quoteTokens > 0);
+        emit TakerSold(key, amountBaseToken, msg.sender, address(this), order.baseToken, order.quoteToken, _baseTokens, _quoteTokens);
+
+        if (_baseTokens == order.amount) {
+            orders.remove(key);
+        } else {
+            orders.orders[key].amount = orders.orders[key].amount.sub(_baseTokens);
+        }
+
+        uint balanceBefore = ERC20(order.baseToken).balanceOf(address(this));
+        require(ERC20(order.baseToken).transferFrom(msg.sender, address(this), _baseTokens));
+        uint balanceAfter = ERC20(order.baseToken).balanceOf(address(this));
+        require(balanceBefore.add(_baseTokens) == balanceAfter);
+
+        balanceBefore = ERC20(order.quoteToken).balanceOf(address(this));
+        require(ERC20(order.quoteToken).transfer(msg.sender, _quoteTokens));
+        balanceAfter = ERC20(order.quoteToken).balanceOf(address(this));
+        require(balanceBefore == balanceAfter.add(_quoteTokens));
     }
     // function takerBuy(bytes32 key, uint amount) public returns (uint _baseAmount, uint _quoteAmount) {
     //     Orders.Order memory order = orders.orders[key];
     //     require(now <= order.expiry);
     //     require(order.orderType == Orders.OrderType.SELL);
-    //     uint approvedQuoteAmount = ERC20Interface(order.quoteToken).allowance(msg.sender, address(this));
-    //     // ?
+    //     emit TakerBought(key, amount, msg.sender, address(this), order.baseToken, order.quoteToken, _baseAmount, _quoteAmount);
     // }
+
 /*
 
-OT   Pair         Price  Inv Price
----- ------- ---------- ----------
-BUY  GNT/ETH 0.00054087
-SELL GNT/ETH 0.00055087
-SELL ETH/GNT            0.00054087
-BUY  ETH/GNT            0.00055087
+takerBuys(key, baseTokens)
+  Taker sells (baseTokens x price / 1e18) quoteToken and Maker buys baseTokens baseToken
+  -  Taker must approval and balance of (baseTokens x price / 1e18)
+  -  Maker must have balance of baseTokens
+
+takerSells(key, baseTokens)
+  Taker buys quoteTokens quoteToken and Maker sells
+
+Taker Maker   Pair        Price  Inv Price
+----- ----- -------- ---------- ----------
+Sell  Buy   GNT/ETH  0.00054087
+Buy   Sell  GNT/ETH  0.00055087
+Buy   Sell  ETH/GNT             0.00054087
+Sell  Buy   ETH/GNT             0.00055087
 
 if BUY, DEXWallet must have amount x price in quoteToken
 if SELL, DEXWallet must have amount in baseToken
@@ -281,7 +320,7 @@ if SELL, DEXWallet must have amount in baseToken
         if (now <= order.expiry) {
             uint maxAmount;
             if (order.orderType == Orders.OrderType.BUY && buyToken == order.baseToken && sellToken == order.quoteToken) {
-                maxAmount = ERC20Interface(order.baseToken).balanceOf(address(this));
+                maxAmount = ERC20(order.baseToken).balanceOf(address(this));
                 if (maxAmount > order.amount) {
                     maxAmount = order.amount;
                 }
@@ -290,17 +329,17 @@ if SELL, DEXWallet must have amount in baseToken
                 } else {
                     _buyTokens = buyTokens;
                 }
-                _sellTokens = _buyTokens.mul(order.price).div(TENPOW18);
+                _sellTokens = _buyTokens.mul(order.price).div(ONEE18);
                 _price = order.price;
                 _inverse = false;
 
             } else if (order.orderType == Orders.OrderType.SELL && buyToken == order.quoteToken && sellToken == order.baseToken) {
-                maxAmount = ERC20Interface(order.baseToken).balanceOf(address(this)).mul(order.price).div(TENPOW18);
-                if (maxAmount > ERC20Interface(order.quoteToken).balanceOf(address(this))) {
-                    maxAmount = ERC20Interface(order.quoteToken).balanceOf(address(this));
+                maxAmount = ERC20(order.baseToken).balanceOf(address(this)).mul(order.price).div(ONEE18);
+                if (maxAmount > ERC20(order.quoteToken).balanceOf(address(this))) {
+                    maxAmount = ERC20(order.quoteToken).balanceOf(address(this));
                 }
-                if (maxAmount > order.amount.mul(order.price).div(TENPOW18)) {
-                    maxAmount = order.amount.mul(order.price).div(TENPOW18);
+                if (maxAmount > order.amount.mul(order.price).div(ONEE18)) {
+                    maxAmount = order.amount.mul(order.price).div(ONEE18);
                 }
                 if (buyTokens == 0 || buyTokens > maxAmount) {
                     _buyTokens = maxAmount;
@@ -308,7 +347,7 @@ if SELL, DEXWallet must have amount in baseToken
                     _buyTokens = buyTokens;
                 }
                 _sellTokens = _buyTokens.mul(1 ether).div(order.price);
-                _price = (TENPOW18).mul(TENPOW18).div(order.price);
+                _price = (ONEE18).mul(ONEE18).div(order.price);
                 _inverse = true;
             }
         }
@@ -340,7 +379,7 @@ if SELL, DEXWallet must have amount in baseToken
     	emit EthersWithdrawn(to, ethers, address(this).balance);
     }
     function depositTokens(address tokenAddress, uint tokens) public {
-    	ERC20Interface token = ERC20Interface(tokenAddress);
+    	ERC20 token = ERC20(tokenAddress);
     	uint balanceBefore = token.balanceOf(address(this));
     	require(token.transferFrom(msg.sender, address(this), tokens));
     	uint balanceAfter = token.balanceOf(address(this));
@@ -348,7 +387,7 @@ if SELL, DEXWallet must have amount in baseToken
     	emit TokensDeposited(msg.sender, tokens, balanceAfter);
     }
     function withdrawTokens(address tokenAddress, address to, uint tokens) public onlyOwner {
-    	ERC20Interface token = ERC20Interface(tokenAddress);
+    	ERC20 token = ERC20(tokenAddress);
     	uint balanceBefore = token.balanceOf(address(this));
     	require(token.transfer(to, tokens));
     	uint balanceAfter = token.balanceOf(address(this));

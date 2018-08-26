@@ -310,9 +310,7 @@ function printTokenAContractDetails() {
     var contract = eth.contract(tokenAContractAbi).at(tokenAContractAddress);
     var decimals = contract.decimals();
     console.log("RESULT: tokenA.owner/new=" + getAddressName(contract.owner()) + " " + getAddressName(contract.newOwner()));
-    console.log("RESULT: tokenA.symbol=" + contract.symbol());
-    console.log("RESULT: tokenA.name=" + contract.name());
-    console.log("RESULT: tokenA.decimals=" + decimals);
+    console.log("RESULT: tokenA.details=``" + contract.symbol() + "' '" + contract.name() + "' " + decimals);
     console.log("RESULT: tokenA.totalSupply=" + contract.totalSupply() + " " + contract.totalSupply().shift(-decimals));
 
     var latestBlock = eth.blockNumber;
@@ -328,16 +326,16 @@ function printTokenAContractDetails() {
     var approvalEvents = contract.Approval({}, { fromBlock: tokenAFromBlock, toBlock: latestBlock });
     i = 0;
     approvalEvents.watch(function (error, result) {
-      console.log("RESULT: tokenA.Approval " + i++ + " #" + result.blockNumber + " tokenOwner=" + result.args.tokenOwner +
-        " spender=" + result.args.spender + " tokens=" + result.args.tokens.shift(-decimals));
+      console.log("RESULT: tokenA.Approval " + i++ + " #" + result.blockNumber + " tokenOwner=" + getShortAddressName(result.args.tokenOwner) +
+        " spender=" + getShortAddressName(result.args.spender) + " tokens=" + result.args.tokens.shift(-decimals));
     });
     approvalEvents.stopWatching();
 
     var transferEvents = contract.Transfer({}, { fromBlock: tokenAFromBlock, toBlock: latestBlock });
     i = 0;
     transferEvents.watch(function (error, result) {
-      console.log("RESULT: tokenA.Transfer " + i++ + " #" + result.blockNumber + ": from=" + result.args.from + " to=" + result.args.to +
-        " tokens=" + result.args.tokens.shift(-decimals));
+      console.log("RESULT: tokenA.Transfer " + i++ + " #" + result.blockNumber + ": from=" + getShortAddressName(result.args.from) +
+        " to=" + getShortAddressName(result.args.to) + " tokens=" + result.args.tokens.shift(-decimals));
     });
     transferEvents.stopWatching();
 
@@ -356,9 +354,7 @@ function printTokenBContractDetails() {
     var contract = eth.contract(tokenBContractAbi).at(tokenBContractAddress);
     var decimals = contract.decimals();
     console.log("RESULT: tokenB.owner/new=" + getAddressName(contract.owner()) + " " + getAddressName(contract.newOwner()));
-    console.log("RESULT: tokenB.symbol=" + contract.symbol());
-    console.log("RESULT: tokenB.name=" + contract.name());
-    console.log("RESULT: tokenB.decimals=" + decimals);
+    console.log("RESULT: tokenB.details=``" + contract.symbol() + "' '" + contract.name() + "' " + decimals);
     console.log("RESULT: tokenB.totalSupply=" + contract.totalSupply() + " " + contract.totalSupply().shift(-decimals));
 
     var latestBlock = eth.blockNumber;
@@ -374,16 +370,16 @@ function printTokenBContractDetails() {
     var approvalEvents = contract.Approval({}, { fromBlock: tokenBFromBlock, toBlock: latestBlock });
     i = 0;
     approvalEvents.watch(function (error, result) {
-      console.log("RESULT: tokenB.Approval " + i++ + " #" + result.blockNumber + " tokenOwner=" + result.args.tokenOwner +
-        " spender=" + result.args.spender + " tokens=" + result.args.tokens.shift(-decimals));
+      console.log("RESULT: tokenB.Approval " + i++ + " #" + result.blockNumber + " tokenOwner=" + getShortAddressName(result.args.tokenOwner) +
+        " spender=" + getShortAddressName(result.args.spender) + " tokens=" + result.args.tokens.shift(-decimals));
     });
     approvalEvents.stopWatching();
 
     var transferEvents = contract.Transfer({}, { fromBlock: tokenBFromBlock, toBlock: latestBlock });
     i = 0;
     transferEvents.watch(function (error, result) {
-      console.log("RESULT: tokenB.Transfer " + i++ + " #" + result.blockNumber + ": from=" + result.args.from + " to=" + result.args.to +
-        " tokens=" + result.args.tokens.shift(-decimals));
+      console.log("RESULT: tokenB.Transfer " + i++ + " #" + result.blockNumber + ": from=" + getShortAddressName(result.args.from) +
+        " to=" + getShortAddressName(result.args.to) + " tokens=" + result.args.tokens.shift(-decimals));
     });
     transferEvents.stopWatching();
 
@@ -514,9 +510,20 @@ function printDEXWalletContractDetails(address, abi) {
     var logUintEvents = contract.LogUint({}, { fromBlock: fromBlock[address], toBlock: latestBlock });
     i = 0;
     logUintEvents.watch(function (error, result) {
-      console.log("RESULT: LogUint " + i++ + " #" + result.blockNumber + " " + JSON.stringify(result.args));
+      console.log("RESULT: LogUint " + i++ + " #" + result.blockNumber + " " + result.args.note + " = " + result.args.number.shift(-18));
     });
     logUintEvents.stopWatching();
+
+    // event TakerSold(bytes32 key, uint amount, address taker, address maker, address baseToken, address quoteToken, uint baseTokens, uint quoteTokens);
+    var takerSoldEvents = contract.TakerSold({}, { fromBlock: fromBlock[address], toBlock: latestBlock });
+    i = 0;
+    takerSoldEvents.watch(function (error, result) {
+      console.log("RESULT: TakerSold " + i++ + " #" + result.blockNumber + " key=" + result.args.key + " amount=" + result.args.amount.shift(-18) +
+        " taker=" + getShortAddressName(result.args.taker) + " maker=" + getShortAddressName(result.args.maker) +
+        " baseToken=" + getAddressSymbol(result.args.baseToken) + " quoteToken=" + getAddressSymbol(result.args.quoteToken) +
+        " baseTokens=" + result.args.baseTokens.shift(-18) + " quoteTokens=" + result.args.quoteTokens.shift(-18));
+    });
+    takerSoldEvents.stopWatching();
 
     var ownershipTransferredEvents = contract.OwnershipTransferred({}, { fromBlock: fromBlock[address], toBlock: latestBlock });
     i = 0;
