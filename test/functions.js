@@ -16,10 +16,10 @@ addAccount(eth.accounts[4], "Account #4 - User 2");
 addAccount(eth.accounts[5], "Account #5 - User 3");
 addAccount(eth.accounts[6], "Account #6");
 addAccount(eth.accounts[7], "Account #7");
-addAccount(eth.accounts[8], "Account #8");
-addAccount(eth.accounts[9], "Account #9");
-addAccount(eth.accounts[10], "Account #10");
-addAccount(eth.accounts[11], "Account #11");
+// addAccount(eth.accounts[8], "Account #8");
+// addAccount(eth.accounts[9], "Account #9");
+// addAccount(eth.accounts[10], "Account #10");
+// addAccount(eth.accounts[11], "Account #11");
 
 var minerAccount = eth.accounts[0];
 var deployer = eth.accounts[1];
@@ -29,10 +29,10 @@ var user2 = eth.accounts[4];
 var user3 = eth.accounts[5];
 var account6 = eth.accounts[6];
 var account7 = eth.accounts[7];
-var account8 = eth.accounts[8];
-var account9 = eth.accounts[9];
-var account10 = eth.accounts[10];
-var account11 = eth.accounts[11];
+// var account8 = eth.accounts[8];
+// var account9 = eth.accounts[9];
+// var account10 = eth.accounts[10];
+// var account11 = eth.accounts[11];
 
 console.log("DATA: var minerAccount=\"" + eth.accounts[0] + "\";");
 console.log("DATA: var deployer=\"" + eth.accounts[1] + "\";");
@@ -40,7 +40,6 @@ console.log("DATA: var dexOperator=\"" + eth.accounts[2] + "\";");
 console.log("DATA: var user1=\"" + eth.accounts[3] + "\";");
 console.log("DATA: var user2=\"" + eth.accounts[4] + "\";");
 console.log("DATA: var user3=\"" + eth.accounts[5] + "\";");
-
 
 var baseBlock = eth.blockNumber;
 
@@ -310,7 +309,7 @@ function printTokenAContractDetails() {
     var contract = eth.contract(tokenAContractAbi).at(tokenAContractAddress);
     var decimals = contract.decimals();
     console.log("RESULT: tokenA.owner/new=" + getAddressName(contract.owner()) + " " + getAddressName(contract.newOwner()));
-    console.log("RESULT: tokenA.details=``" + contract.symbol() + "' '" + contract.name() + "' " + decimals);
+    console.log("RESULT: tokenA.details='" + contract.symbol() + "' '" + contract.name() + "' " + decimals);
     console.log("RESULT: tokenA.totalSupply=" + contract.totalSupply() + " " + contract.totalSupply().shift(-decimals));
 
     var latestBlock = eth.blockNumber;
@@ -354,7 +353,7 @@ function printTokenBContractDetails() {
     var contract = eth.contract(tokenBContractAbi).at(tokenBContractAddress);
     var decimals = contract.decimals();
     console.log("RESULT: tokenB.owner/new=" + getAddressName(contract.owner()) + " " + getAddressName(contract.newOwner()));
-    console.log("RESULT: tokenB.details=``" + contract.symbol() + "' '" + contract.name() + "' " + decimals);
+    console.log("RESULT: tokenB.details='" + contract.symbol() + "' '" + contract.name() + "' " + decimals);
     console.log("RESULT: tokenB.totalSupply=" + contract.totalSupply() + " " + contract.totalSupply().shift(-decimals));
 
     var latestBlock = eth.blockNumber;

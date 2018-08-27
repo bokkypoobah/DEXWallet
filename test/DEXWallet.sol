@@ -78,6 +78,8 @@ contract DEXWallet is Owned {
     using SafeMath for uint;
     using Orders for Orders.Data;
 
+    DEXWalletFactory public dexWalletFactory;
+    mapping(address => bool) public dexWalletExchangers;
     uint constant public ONEE18 = uint(10)**18;
     Orders.Data orders;
     bool initialised;
@@ -85,15 +87,58 @@ contract DEXWallet is Owned {
     // Copied from Orders library so it is presented in the ABI
     event OrderAdded(bytes32 indexed key, uint orderType, address baseToken, address quoteToken, uint price, uint expiry, uint amount);
     event OrderRemoved(bytes32 indexed key, uint orderType, address baseToken, address quoteToken, uint price, uint expiry, uint amount);
+
     event EthersDeposited(address indexed sender, uint ethers, uint balanceAfter);
     event EthersWithdrawn(address indexed to, uint ethers, uint balanceAfter);
     event TokensDeposited(address indexed sender, uint tokens, uint balanceAfter);
     event TokensWithdrawn(address indexed to, uint tokens, uint balanceAfter);
+    event LogUint(string note, uint number);
+    event TakerSold(bytes32 key, uint amount, address taker, address maker, address baseToken, address quoteToken, uint baseTokens, uint quoteTokens);
+    event TakerBought(bytes32 key, uint amount, address taker, address maker, address baseToken, address quoteToken, uint baseTokens, uint quoteTokens);
 
-    function init(address _owner) public {
+    modifier onlyDEXWalletExchanger {
+        require(dexWalletExchangers[msg.sender] == true && dexWalletFactory.dexWalletExchangers(msg.sender) == true);
+        _;
+    }
+
+    function init(address _dexWalletFactory, address _owner, address dexWalletExchanger) public {
         require(!initialised);
+        dexWalletFactory = DEXWalletFactory(_dexWalletFactory);
         initOwned(_owner);
+        dexWalletExchangers[dexWalletExchanger] = true;
         initialised = true;
+    }
+
+    function setDEXWalletExchanger(address dexWalletExchanger, bool status) public onlyOwner {
+        dexWalletExchangers[dexWalletExchanger] = status;
+    }
+    function permissionCurrentDEXWalletExchanger() public onlyOwner {
+        require(dexWalletExchangers[dexWalletFactory.currentDEXWalletExchanger()] == false);
+        dexWalletExchangers[dexWalletFactory.currentDEXWalletExchanger()] = true;
+    }
+
+    function () public payable {
+    	emit EthersDeposited(msg.sender, msg.value, address(this).balance);
+    }
+    function withdrawEthers(address to, uint ethers) public onlyOwner {
+    	to.transfer(ethers);
+    	emit EthersWithdrawn(to, ethers, address(this).balance);
+    }
+    function depositTokens(address tokenAddress, uint tokens) public {
+    	ERC20 token = ERC20(tokenAddress);
+    	uint balanceBefore = token.balanceOf(address(this));
+    	require(token.transferFrom(msg.sender, address(this), tokens));
+    	uint balanceAfter = token.balanceOf(address(this));
+    	require(balanceBefore.add(tokens) == balanceAfter);
+    	emit TokensDeposited(msg.sender, tokens, balanceAfter);
+    }
+    function withdrawTokens(address tokenAddress, address to, uint tokens) public onlyOwner {
+    	ERC20 token = ERC20(tokenAddress);
+    	uint balanceBefore = token.balanceOf(address(this));
+    	require(token.transfer(to, tokens));
+    	uint balanceAfter = token.balanceOf(address(this));
+    	require(balanceBefore.sub(tokens) == balanceAfter);
+    	emit TokensWithdrawn(to, tokens, balanceAfter);
     }
 
     function orderKey(Orders.OrderType orderType, address baseToken, address quoteToken, uint price, uint expiry) public pure returns (bytes32) {
@@ -204,6 +249,7 @@ contract DEXWallet is Owned {
     function getOrderKeyByIndex(uint index) public view returns (bytes32) {
         return orders.index[index];
     }
+
     function getEffectiveOrder(bytes32 key) public view returns (uint _orderType, address _baseToken, address _quoteToken, uint _price, uint _expiry, uint _baseAmount, uint _quoteAmount) {
         Orders.Order memory order = orders.orders[key];
         (_orderType, _baseToken, _quoteToken, _price, _expiry) = (uint(order.orderType), order.baseToken, order.quoteToken, order.price, order.expiry);
@@ -218,9 +264,6 @@ contract DEXWallet is Owned {
             }
         }
     }
-    event LogUint(string note, uint number);
-    event TakerSold(bytes32 key, uint amount, address taker, address maker, address baseToken, address quoteToken, uint baseTokens, uint quoteTokens);
-    event TakerBought(bytes32 key, uint amount, address taker, address maker, address baseToken, address quoteToken, uint baseTokens, uint quoteTokens);
     function takerSell(bytes32 key, uint amountBaseToken) public returns (uint _baseTokens, uint _quoteTokens) {
         // BK TODO: Iterate of more than one order
         // BK TODO: Handle shrapnel
@@ -318,6 +361,16 @@ contract DEXWallet is Owned {
         require(balanceBefore == balanceAfter.add(_baseTokens));
     }
 
+
+    function dexWalletExchangerTransfer(address token, address to, uint tokens) public onlyDEXWalletExchanger {
+        uint balanceFromBefore = ERC20(token).balanceOf(address(this));
+        uint balanceToBefore = ERC20(token).balanceOf(to);
+        require(ERC20(token).transfer(to, tokens));
+        uint balanceFromAfter = ERC20(token).balanceOf(address(this));
+        uint balanceToAfter = ERC20(token).balanceOf(to);
+        require(balanceFromBefore == balanceFromAfter.add(tokens));
+        require(balanceToBefore.add(tokens) == balanceToAfter);
+    }
 /*
 
 takerBuys(key, baseTokens)
@@ -394,47 +447,15 @@ if SELL, DEXWallet must have amount in baseToken
             }
         }
     }
+}
 
-    /*
-    function buyFromWallet(bytes32 key, address buyToken, address sellToken, uint buyTokens) public {
-        require(buyTokens > 0);
-        uint _buyTokens;
-        uint _sellTokens;
-        uint _price;
-        bool _inverse;
-        (_buyTokens, _sellTokens, _price, _inverse) = getWalletBuyingDetails(key, buyToken, sellToken, buyTokens);
-        if (_buyTokens > 0 && _sellTokens > 0) {
-            Orders.Order storage order = orders.orders[key];
-        }
-        // bytes32[] memory keys;
-        // keys.push(key);
-        // buyMultipleFromWallet(keys, buyToken, sellToken, buyTokens);
-    }
-    */
-    // function buyMultipleFromWallet(bytes32[] /* keys */, address /* buyToken */, address /* sellToken */, uint /* buyTokens */) public pure {
-    // }
-    function () public payable {
-    	emit EthersDeposited(msg.sender, msg.value, address(this).balance);
-    }
-    function withdrawEthers(address to, uint ethers) public onlyOwner {
-    	to.transfer(ethers);
-    	emit EthersWithdrawn(to, ethers, address(this).balance);
-    }
-    function depositTokens(address tokenAddress, uint tokens) public {
-    	ERC20 token = ERC20(tokenAddress);
-    	uint balanceBefore = token.balanceOf(address(this));
-    	require(token.transferFrom(msg.sender, address(this), tokens));
-    	uint balanceAfter = token.balanceOf(address(this));
-    	require(balanceBefore.add(tokens) == balanceAfter);
-    	emit TokensDeposited(msg.sender, tokens, balanceAfter);
-    }
-    function withdrawTokens(address tokenAddress, address to, uint tokens) public onlyOwner {
-    	ERC20 token = ERC20(tokenAddress);
-    	uint balanceBefore = token.balanceOf(address(this));
-    	require(token.transfer(to, tokens));
-    	uint balanceAfter = token.balanceOf(address(this));
-    	require(balanceBefore.sub(tokens) == balanceAfter);
-    	emit TokensWithdrawn(to, tokens, balanceAfter);
+
+// ----------------------------------------------------------------------------
+// DEXWalletFactory contract
+// ----------------------------------------------------------------------------
+contract DEXWalletExchanger is Owned {
+    function exchange(address[] dexWallets, bytes32[] keys, uint[] baseTokens) public returns (uint _baseTokens, uint _quoteTokens) {
+        require(dexWallets.length > 0 && dexWallets.length == keys.length && dexWallets.length == baseTokens.length);
     }
 }
 
@@ -447,20 +468,30 @@ contract DEXWalletFactory is CloneFactory, Owned {
 
     DEXWallet[] public wallets;
     mapping(address => address[]) public ownedWallets;
+    mapping(address => bool) public dexWalletExchangers;
+    address public currentDEXWalletExchanger;
 
     event WalletCreated(address indexed owner, address indexed dexWalletAddress);
 
     constructor() public {
         walletTemplate = new DEXWallet();
+        currentDEXWalletExchanger = new DEXWalletExchanger();
+        dexWalletExchangers[currentDEXWalletExchanger] = true;
         initOwned(msg.sender);
     }
-
     function newDEXWallet() public {
         newDEXWalletFor(msg.sender);
     }
+    function setDEXWalletExchanger(address dexWalletExchanger, bool status) public onlyOwner {
+        dexWalletExchangers[dexWalletExchanger] = status;
+    }
+    function setCurrentDEXWalletExchanger(address dexWalletExchanger) public onlyOwner {
+        require(dexWalletExchangers[dexWalletExchanger] == true);
+        currentDEXWalletExchanger = dexWalletExchanger;
+    }
     function newDEXWalletFor(address _owner) public {
         DEXWallet newWallet = DEXWallet(createClone(address(walletTemplate)));
-        newWallet.init(_owner);
+        newWallet.init(this, _owner, currentDEXWalletExchanger);
         wallets.push(newWallet);
         ownedWallets[msg.sender].push(newWallet);
         emit WalletCreated(_owner, address(newWallet));
