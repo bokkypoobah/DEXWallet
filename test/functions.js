@@ -94,11 +94,13 @@ function printBalances() {
   var tokenB = tokenBContractAddress == null || tokenBContractAbi == null ? null : web3.eth.contract(tokenBContractAbi).at(tokenBContractAddress);
   var decimalsA = tokenA == null ? 18 : tokenA.decimals();
   var decimalsB = tokenB == null ? 18 : tokenB.decimals();
+  var symbolA = tokenA == null ? "symbolA" : tokenA.symbol();
+  var symbolB = tokenB == null ? "symbolB" : tokenB.symbol();
   var i = 0;
   var totalTokenABalance = new BigNumber(0);
   var totalTokenBBalance = new BigNumber(0);
   // console.log("RESULT:  # Account                                             EtherBalanceChange                        Token A                        Token B Name");
-  console.log("RESULT:  # Account                                             EtherBalanceChange               " + padLeft(tokenA.symbol(), 16) + "               " + padLeft(tokenB.symbol(), 16) + " Name");
+  console.log("RESULT:  # Account                                             EtherBalanceChange               " + padLeft(symbolA, 16) + "               " + padLeft(symbolB, 16) + " Name");
   console.log("RESULT: -- ------------------------------------------ --------------------------- ------------------------------ ------------------------------ ---------------------------");
   accounts.forEach(function(e) {
     var etherBalanceBaseBlock = eth.getBalance(e, baseBlock);
