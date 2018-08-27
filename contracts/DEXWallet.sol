@@ -302,15 +302,17 @@ contract DEXWallet is Owned {
             orders.orders[key].amount = orders.orders[key].amount.sub(_baseTokens);
         }
 
-        uint balanceBefore = ERC20(order.baseToken).balanceOf(address(this));
-        require(ERC20(order.baseToken).transferFrom(msg.sender, address(this), _baseTokens));
-        uint balanceAfter = ERC20(order.baseToken).balanceOf(address(this));
-        require(balanceBefore.add(_baseTokens) == balanceAfter);
+        safeTransferFrom(order.baseToken, msg.sender, address(this), _baseTokens);
+        // uint balanceBefore = ERC20(order.baseToken).balanceOf(address(this));
+        // require(ERC20(order.baseToken).transferFrom(msg.sender, address(this), _baseTokens));
+        // uint balanceAfter = ERC20(order.baseToken).balanceOf(address(this));
+        // require(balanceBefore.add(_baseTokens) == balanceAfter);
 
-        balanceBefore = ERC20(order.quoteToken).balanceOf(address(this));
-        require(ERC20(order.quoteToken).transfer(msg.sender, _quoteTokens));
-        balanceAfter = ERC20(order.quoteToken).balanceOf(address(this));
-        require(balanceBefore == balanceAfter.add(_quoteTokens));
+        safeTransfer(order.quoteToken, msg.sender, _quoteTokens);
+        // balanceBefore = ERC20(order.quoteToken).balanceOf(address(this));
+        // require(ERC20(order.quoteToken).transfer(msg.sender, _quoteTokens));
+        // balanceAfter = ERC20(order.quoteToken).balanceOf(address(this));
+        // require(balanceBefore == balanceAfter.add(_quoteTokens));
     }
     function takerBuy(bytes32 key, uint amountBaseToken) public returns (uint _baseTokens, uint _quoteTokens) {
         // BK TODO: Iterate of more than one order
@@ -350,26 +352,41 @@ contract DEXWallet is Owned {
             orders.orders[key].amount = orders.orders[key].amount.sub(_baseTokens);
         }
 
-        uint balanceBefore = ERC20(order.quoteToken).balanceOf(address(this));
-        require(ERC20(order.quoteToken).transferFrom(msg.sender, address(this), _quoteTokens));
-        uint balanceAfter = ERC20(order.quoteToken).balanceOf(address(this));
-        require(balanceBefore.add(_quoteTokens) == balanceAfter);
+        safeTransferFrom(order.quoteToken, msg.sender, address(this), _quoteTokens);
+        // uint balanceBefore = ERC20(order.quoteToken).balanceOf(address(this));
+        // require(ERC20(order.quoteToken).transferFrom(msg.sender, address(this), _quoteTokens));
+        // uint balanceAfter = ERC20(order.quoteToken).balanceOf(address(this));
+        // require(balanceBefore.add(_quoteTokens) == balanceAfter);
 
-        balanceBefore = ERC20(order.baseToken).balanceOf(address(this));
-        require(ERC20(order.baseToken).transfer(msg.sender, _baseTokens));
-        balanceAfter = ERC20(order.baseToken).balanceOf(address(this));
-        require(balanceBefore == balanceAfter.add(_baseTokens));
+        safeTransfer(order.baseToken, msg.sender, _baseTokens);
+        // balanceBefore = ERC20(order.baseToken).balanceOf(address(this));
+        // require(ERC20(order.baseToken).transfer(msg.sender, _baseTokens));
+        // balanceAfter = ERC20(order.baseToken).balanceOf(address(this));
+        // require(balanceBefore == balanceAfter.add(_baseTokens));
     }
 
+    function safeTransfer(address token, address to, uint tokens) internal {
+        uint balanceBefore = ERC20(token).balanceOf(to);
+        require(ERC20(token).transfer(to, tokens));
+        uint balanceAfter = ERC20(token).balanceOf(to);
+        require(balanceBefore.add(tokens) == balanceAfter);
+    }
+    function safeTransferFrom(address token, address from, address to, uint tokens) internal {
+        uint balanceBefore = ERC20(token).balanceOf(to);
+        require(ERC20(token).transferFrom(from, to, tokens));
+        uint balanceAfter = ERC20(token).balanceOf(to);
+        require(balanceBefore.add(tokens) == balanceAfter);
+    }
 
     function dexWalletExchangerTransfer(address token, address to, uint tokens) public onlyDEXWalletExchanger {
-        uint balanceFromBefore = ERC20(token).balanceOf(address(this));
-        uint balanceToBefore = ERC20(token).balanceOf(to);
-        require(ERC20(token).transfer(to, tokens));
-        uint balanceFromAfter = ERC20(token).balanceOf(address(this));
-        uint balanceToAfter = ERC20(token).balanceOf(to);
-        require(balanceFromBefore == balanceFromAfter.add(tokens));
-        require(balanceToBefore.add(tokens) == balanceToAfter);
+        safeTransfer(token, to, tokens);
+        // uint balanceFromBefore = ERC20(token).balanceOf(address(this));
+        // uint balanceToBefore = ERC20(token).balanceOf(to);
+        // require(ERC20(token).transfer(to, tokens));
+        // uint balanceFromAfter = ERC20(token).balanceOf(address(this));
+        // uint balanceToAfter = ERC20(token).balanceOf(to);
+        // require(balanceFromBefore == balanceFromAfter.add(tokens));
+        // require(balanceToBefore.add(tokens) == balanceToAfter);
     }
 /*
 
@@ -451,11 +468,16 @@ if SELL, DEXWallet must have amount in baseToken
 
 
 // ----------------------------------------------------------------------------
-// DEXWalletFactory contract
+// DEXWalletExchanger contract
 // ----------------------------------------------------------------------------
 contract DEXWalletExchanger is Owned {
-    function exchange(address[] dexWallets, bytes32[] keys, uint[] baseTokens) public returns (uint _baseTokens, uint _quoteTokens) {
+    mapping(uint => mapping(address => int)) tokenCounter;
+    uint public number;
+    function exchange(address[] dexWallets, bytes32[] keys, uint[] baseTokens, address[] tokens) public returns (uint _baseTokens, uint _quoteTokens) {
         require(dexWallets.length > 0 && dexWallets.length == keys.length && dexWallets.length == baseTokens.length);
+        require(tokens.length > 0);
+
+        number++;
     }
 }
 

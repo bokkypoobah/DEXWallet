@@ -17,9 +17,9 @@ START_DATE_S=`perl -le "print scalar localtime $START_DATE"`
 END_DATE=`echo "$CURRENTTIME+60*2" | bc`
 END_DATE_S=`perl -le "print scalar localtime $END_DATE"`
 
-printf "CURRENTTIME               = '$CURRENTTIME' '$CURRENTTIMES'\n" | tee -a $TEST1OUTPUT
-printf "START_DATE                = '$START_DATE' '$START_DATE_S'\n" | tee -a $TEST1OUTPUT
-printf "END_DATE                  = '$END_DATE' '$END_DATE_S'\n" | tee -a $TEST1OUTPUT
+printf "CURRENTTIME = '$CURRENTTIME' '$CURRENTTIMES'\n" | tee -a $TEST1OUTPUT
+printf "START_DATE  = '$START_DATE' '$START_DATE_S'\n" | tee -a $TEST1OUTPUT
+printf "END_DATE    = '$END_DATE' '$END_DATE_S'\n" | tee -a $TEST1OUTPUT
 
 # Make copy of SOL file ---
 # rsync -rp $SOURCEDIR/* . --exclude=Multisig.sol --exclude=test/
