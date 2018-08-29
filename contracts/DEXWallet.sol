@@ -473,11 +473,17 @@ if SELL, DEXWallet must have amount in baseToken
 // DEXWalletExchanger contract
 // ----------------------------------------------------------------------------
 contract DEXWalletExchanger is Owned {
+    // number => token => diff
     mapping(uint => mapping(address => int)) tokenCounter;
     uint public number;
-    function exchange(address[] dexWallets, bytes32[] keys, uint[] baseTokens, address[] tokens) public returns (uint _baseTokens, uint _quoteTokens) {
-        require(dexWallets.length > 0 && dexWallets.length == keys.length && dexWallets.length == baseTokens.length);
-        require(tokens.length > 0);
+
+    constructor(address _owner) public {
+        initOwned(_owner);
+    }
+    function exchange(address[] dexWallets, bytes32[] keys, uint[] baseTokens, uint[] quoteTokens, address[] cpty, address[] tokenAddresses) public onlyOwner returns (uint _baseTokens, uint _quoteTokens) {
+        require(dexWallets.length > 0 && dexWallets.length == keys.length);
+        require(dexWallets.length == baseTokens.length && dexWallets.length == quoteTokens.length);
+        require(tokenAddresses.length > 0);
 
         number++;
     }
@@ -499,7 +505,7 @@ contract DEXWalletFactory is CloneFactory, Owned {
 
     constructor() public {
         walletTemplate = new DEXWallet();
-        currentDEXWalletExchanger = new DEXWalletExchanger();
+        currentDEXWalletExchanger = new DEXWalletExchanger(msg.sender);
         dexWalletExchangers[currentDEXWalletExchanger] = true;
         initOwned(msg.sender);
     }

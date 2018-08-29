@@ -48,6 +48,7 @@ loadScript("lookups.js");
 loadScript("functions.js");
 
 var dexWalletAbi = JSON.parse(dexWalletOutput.contracts["$DEXWALLETSOL:DEXWallet"].abi);
+var dexWalletExchangerAbi = JSON.parse(dexWalletOutput.contracts["$DEXWALLETSOL:DEXWalletExchanger"].abi);
 var dexWalletFactoryAbi = JSON.parse(dexWalletOutput.contracts["$DEXWALLETSOL:DEXWalletFactory"].abi);
 var dexWalletFactoryBin = "0x" + dexWalletOutput.contracts["$DEXWALLETSOL:DEXWalletFactory"].bin;
 var mintableTokenAbi = JSON.parse(mintableTokenOutput.contracts["$MINTABLETOKENSOL:MintableToken"].abi);
@@ -145,9 +146,13 @@ failIfTxStatusError(tokenBTx, deployGroup1Message + " - Token ''" + tokenB.symbo
 printTxData("dexWalletFactoryTx", dexWalletFactoryTx);
 printTxData("tokenATx", tokenATx);
 printTxData("tokenBTx", tokenBTx);
+console.log("RESULT: ");
 printDEXWalletFactoryContractDetails();
+console.log("RESULT: ");
 printTokenAContractDetails();
+console.log("RESULT: ");
 printTokenBContractDetails();
+console.log("RESULT: ");
 console.log("RESULT: ");
 
 
@@ -185,10 +190,15 @@ failIfTxStatusError(deployWallets1_3Tx, deployWallets1Message + " - user3 newDEX
 printTxData("deployWallets1_1Tx", deployWallets1_1Tx);
 printTxData("deployWallets1_2Tx", deployWallets1_2Tx);
 printTxData("deployWallets1_3Tx", deployWallets1_3Tx);
+console.log("RESULT: ");
 printDEXWalletFactoryContractDetails();
+console.log("RESULT: ");
 printDEXWalletContractDetails(user1WalletAddress, dexWalletAbi);
+console.log("RESULT: ");
 printDEXWalletContractDetails(user2WalletAddress, dexWalletAbi);
+console.log("RESULT: ");
 printDEXWalletContractDetails(user3WalletAddress, dexWalletAbi);
+console.log("RESULT: ");
 console.log("RESULT: ");
 
 
@@ -231,13 +241,19 @@ printTxData("distributeTokens_7Tx", distributeTokens_7Tx);
 printTxData("distributeTokens_8Tx", distributeTokens_8Tx);
 printTxData("distributeTokens_9Tx", distributeTokens_9Tx);
 printTxData("distributeTokens_10Tx", distributeTokens_10Tx);
+console.log("RESULT: ");
 printTokenAContractDetails();
+console.log("RESULT: ");
 printTokenBContractDetails();
+console.log("RESULT: ");
 console.log("RESULT: ");
 
 
 var BUY = 0;
 var SELL = 1;
+var TAKERSELL = false;
+var TAKERBUY = false;
+
 
 // -----------------------------------------------------------------------------
 var addOrders1Message = "Add Orders #1";
@@ -257,11 +273,15 @@ failIfTxStatusError(addOrders1_1Tx, addOrders1Message + " - user1Wallet.addOrder
 failIfTxStatusError(addOrders1_2Tx, addOrders1Message + " - user2Wallet.addOrder(SELL, " + tokenA.symbol() + ", " + tokenB.symbol() + ", " + sellPrice.shift(-18) + ", +1h, " + sellAmount.shift(-18) + ")");
 printTxData("addOrders1_1Tx", addOrders1_1Tx);
 printTxData("addOrders1_2Tx", addOrders1_2Tx);
+console.log("RESULT: ");
 printDEXWalletContractDetails(user1WalletAddress, dexWalletAbi);
+console.log("RESULT: ");
+printDEXWalletContractDetails(user2WalletAddress, dexWalletAbi);
+console.log("RESULT: ");
 console.log("RESULT: ");
 
 
-if (true) {
+if (TAKERSELL) {
 // -----------------------------------------------------------------------------
 var takerSell1Message = "Taker Sell #1";
 var sellAmount = new BigNumber(1000).shift(18);
@@ -279,13 +299,18 @@ failIfTxStatusError(takerSell1_1Tx, takerSell1Message + " - ac6 tokenA.approve(u
 failIfTxStatusError(takerSell1_2Tx, takerSell1Message + " - ac6 user1Wallet.takerSell(" + orderKey + ", " + sellAmount.shift(-18) + ")");
 printTxData("takerSell1_1Tx", takerSell1_1Tx);
 printTxData("takerSell1_2Tx", takerSell1_2Tx);
+console.log("RESULT: ");
 printDEXWalletContractDetails(user1WalletAddress, dexWalletAbi);
+console.log("RESULT: ");
 printTokenAContractDetails();
+console.log("RESULT: ");
 printTokenBContractDetails();
+console.log("RESULT: ");
 console.log("RESULT: ");
 }
 
 
+if (TAKERBUY) {
 // -----------------------------------------------------------------------------
 var takerBuy1Message = "Taker Buy #1";
 var buyAmount = new BigNumber(1000).shift(18);
@@ -303,9 +328,55 @@ failIfTxStatusError(takerBuy1_1Tx, takerBuy1Message + " - ac7 tokenB.approve(use
 failIfTxStatusError(takerBuy1_2Tx, takerBuy1Message + " - ac7 user2Wallet.takerBuy(" + orderKey + ", " + buyAmount.shift(-18) + ")");
 printTxData("takerBuy1_1Tx", takerBuy1_1Tx);
 printTxData("takerBuy1_2Tx", takerBuy1_2Tx);
+console.log("RESULT: ");
 printDEXWalletContractDetails(user2WalletAddress, dexWalletAbi);
+console.log("RESULT: ");
 printTokenAContractDetails();
+console.log("RESULT: ");
 printTokenBContractDetails();
+console.log("RESULT: ");
+console.log("RESULT: ");
+}
+
+
+// -----------------------------------------------------------------------------
+var exchange1Message = "Taker Buy #1";
+var dexWalletExchanger = eth.contract(dexWalletExchangerAbi).at(dexWalletFactory.currentDEXWalletExchanger());
+console.log("DATA: var dexWalletExchangerAddress=\"" + dexWalletFactory.currentDEXWalletExchanger() + "\";");
+console.log("DATA: var dexWalletExchangerAbi=" + JSON.stringify(dexWalletExchangerAbi) + ";");
+console.log("DATA: var dexWalletExchanger=eth.contract(dexWalletExchangerAbi).at(dexWalletExchangerAddress);");
+var buyAmount = new BigNumber(1000).shift(18);
+var dexWallets = [user1WalletAddress, user2WalletAddress];
+console.log("RESULT: dexWallets=" + JSON.stringify(dexWallets));
+var user1WalletOrderKey1 = user1Wallet.getOrderKeyByIndex(user1Wallet.getNumberOfOrders() - 1);
+var user2WalletOrderKey1 = user2Wallet.getOrderKeyByIndex(user2Wallet.getNumberOfOrders() - 1);
+var keys = [user1WalletOrderKey1, user2WalletOrderKey1];
+console.log("RESULT: keys=" + JSON.stringify(keys));
+var baseTokens = [new BigNumber(1000).shift(18), new BigNumber(1000).shift(18)];
+console.log("RESULT: baseTokens=" + JSON.stringify(baseTokens));
+var quoteTokens = [new BigNumber(0.54087).shift(18), new BigNumber(0.53087).shift(18)];
+console.log("RESULT: quoteTokens=" + JSON.stringify(quoteTokens));
+var cpty = [user2WalletAddress, user1WalletAddress];
+console.log("RESULT: cpty=" + JSON.stringify(cpty));
+var tokenAddresses = [tokenAContractAddress, tokenBContractAddress];
+console.log("RESULT: tokenAddresses=" + JSON.stringify(tokenAddresses));
+// -----------------------------------------------------------------------------
+console.log("RESULT: ---------- " + exchange1Message + " ----------");
+var exchange1_1Tx = dexWalletExchanger.exchange(dexWallets, keys, baseTokens, quoteTokens, cpty, tokenAddresses, {from: deployer, gas: 2000000, gasPrice: defaultGasPrice});
+while (txpool.status.pending > 0) {
+}
+printBalances();
+failIfTxStatusError(exchange1_1Tx, exchange1Message + " - deployer dexWalletExchanger.exchange(...)");
+printTxData("exchange1_1Tx", exchange1_1Tx);
+console.log("RESULT: ");
+printDEXWalletContractDetails(user1WalletAddress, dexWalletAbi);
+console.log("RESULT: ");
+printDEXWalletContractDetails(user2WalletAddress, dexWalletAbi);
+console.log("RESULT: ");
+printTokenAContractDetails();
+console.log("RESULT: ");
+printTokenBContractDetails();
+console.log("RESULT: ");
 console.log("RESULT: ");
 
 
